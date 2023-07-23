@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using QLKS_CNPM_LT.Models
+@model List<LOAIPHONG>
+
+<link rel="stylesheet" href="~/Content/MyStyle/Item.css" />
+<h1>Danh mục sản phẩm</h1>
+@using (Html.BeginForm("Home", "Product"))
+
+
+{
+    <div id="myinput">
+        <input type="number" name="min" placeholder="Nhâp số tiền thấp nhất" />
+        <input type="number" name="max" placeholder="Nhập số tiền lớn nhất" />
+        <input type="text" name="search" placeholder="Bạn cần tìm gì" />
+        <input type="submit" value="Tìm" id="btn" />
+    </div>
+}
+
+
+
+
+<ul id="list-product">
+
+    @foreach (LOAIPHONG lp in Model)
+    {
+        <div class="card">
+            
+            <div class="card_img">
+                @if (lp.DuongDanAnh == null)
+                {
+                    <a href="/Phong/CTlOAIPhong/@lp.MaLoai"><img src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/home-improvement/wp-content/uploads/2022/07/download-23.jpg" alt="" /></a>
+                }
+                else
+                {
+                    <a href="/Phong/CTlOAIPhong/@lp.MaLoai"><img src="@lp.DuongDanAnh" alt="" /></a>
+                }
+
+
+
+            </div>
+            <div class="card_tille">
+                @lp.TenLoai
+            </div>
+
+        </div>
+    }
+
+</ul>
+
+<!--<div class="list-page">-->
+@*@Html.PagedListPager(Model, page => Url.Action("Home", new
+    { page, category = Request.QueryString["category"] }),
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })*@
+
+<!--</div>-->

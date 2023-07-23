@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bfc4ad284de340a2bacba1da00a41d62" Name="Diagram1">
+        <EntityTypeShape EntityType="qlks_CNPMModel.BCDT" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlks_CNPMModel.GIAMGIA" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlks_CNPMModel.HOADON" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlks_CNPMModel.HOANTIEN" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlks_CNPMModel.LOAIPHONG" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlks_CNPMModel.LOAITAIKHOAN" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlks_CNPMModel.PHONG" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlks_CNPMModel.TAIKHOAN" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <AssociationConnector Association="qlks_CNPMModel.FK__BCDT__MAHD__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="qlks_CNPMModel.FK__HOADON__MAGIAM__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="qlks_CNPMModel.FK__HOADON__MA_PHONG__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="qlks_CNPMModel.FK__HOADON__MAKH__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="qlks_CNPMModel.FK__HOANTIEN__MAHD__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="qlks_CNPMModel.FK__HOANTIEN__ID_TK__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="qlks_CNPMModel.FK__PHONG__MaLoai__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="qlks_CNPMModel.FK__TAIKHOAN__LOAITK__398D8EEE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

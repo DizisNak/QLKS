@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="qlks_CNPMModelStoreContainer" CdmEntityContainer="qlks_CNPMEntities">
+    <EntitySetMapping Name="BCDTs">
+      <EntityTypeMapping TypeName="qlks_CNPMModel.BCDT">
+        <MappingFragment StoreEntitySet="BCDT">
+          <ScalarProperty Name="MABC" ColumnName="MABC" />
+          <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+          <ScalarProperty Name="NGAY" ColumnName="NGAY" />
+          <ScalarProperty Name="TONGTHU" ColumnName="TONGTHU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GIAMGIAs">
+      <EntityTypeMapping TypeName="qlks_CNPMModel.GIAMGIA">
+        <MappingFragment StoreEntitySet="GIAMGIA">
+          <ScalarProperty Name="MAGIAM" ColumnName="MAGIAM" />
+          <ScalarProperty Name="TENMAGIAM" ColumnName="TENMAGIAM" />
+          <ScalarProperty Name="SOTIEN" ColumnName="SOTIEN" />
+          <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOADONs">
+      <EntityTypeMapping TypeName="qlks_CNPMModel.HOADON">
+        <MappingFragment StoreEntitySet="HOADON">
+          <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+          <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+          <ScalarProperty Name="MA_PHONG" ColumnName="MA_PHONG" />
+          <ScalarProperty Name="MAGIAM" ColumnName="MAGIAM" />
+          <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+          <ScalarProperty Name="NgayDen" ColumnName="NgayDen" />
+          <ScalarProperty Name="NgayTra" ColumnName="NgayTra" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOANTIENs">
+      <EntityTypeMapping TypeName="qlks_CNPMModel.HOANTIEN">
+        <MappingFragment StoreEntitySet="HOANTIEN">
+          <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+          <ScalarProperty Name="ID_TK" ColumnName="ID_TK" />
+          <ScalarProperty Name="NGAYHOAN" ColumnName="NGAYHOAN" />
+          <ScalarProperty Name="SOTIENHOAN" ColumnName="SOTIENHOAN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAIPHONGs">
+      <EntityTypeMapping TypeName="qlks_CNPMModel.LOAIPHONG">
+        <MappingFragment StoreEntitySet="LOAIPHONG">
+          <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+          <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="DuongDanAnh" ColumnName="DuongDanAnh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAITAIKHOANs">
+      <EntityTypeMapping TypeName="qlks_CNPMModel.LOAITAIKHOAN">
+        <MappingFragment StoreEntitySet="LOAITAIKHOAN">
+          <ScalarProperty Name="ID_LOAITK" ColumnName="ID_LOAITK" />
+          <ScalarProperty Name="TENLOAITK" ColumnName="TENLOAITK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PHONGs">
+      <EntityTypeMapping TypeName="qlks_CNPMModel.PHONG">
+        <MappingFragment StoreEntitySet="PHONG">
+          <ScalarProperty Name="MA_PHONG" ColumnName="MA_PHONG" />
+          <ScalarProperty Name="TENPhong" ColumnName="TENPhong" />
+          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+          <ScalarProperty Name="GIA" ColumnName="GIA" />
+          <ScalarProperty Name="ANH" ColumnName="ANH" />
+          <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+          <ScalarProperty Name="DADUYET" ColumnName="DADUYET" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TAIKHOANs">
+      <EntityTypeMapping TypeName="qlks_CNPMModel.TAIKHOAN">
+        <MappingFragment StoreEntitySet="TAIKHOAN">
+          <ScalarProperty Name="ID_TK" ColumnName="ID_TK" />
+          <ScalarProperty Name="TenTK" ColumnName="TenTK" />
+          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+          <ScalarProperty Name="PASS" ColumnName="PASS" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="LOAITK" ColumnName="LOAITK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

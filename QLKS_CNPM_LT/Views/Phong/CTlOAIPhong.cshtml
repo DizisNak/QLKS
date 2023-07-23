@@ -1,0 +1,79 @@
+﻿
+
+@{
+    ViewBag.Title = "Detailproduct";
+    Layout = "~/Views/Shared/HouseLayout.cshtml";
+}
+<link href="~/Content/MyStyle/Item.css" rel="stylesheet" />
+<link href="~/Content/MyStyle/Detail2.css" rel="stylesheet" />
+
+@using QLKS_CNPM_LT.Models
+@using QLKS_CNPM_LT.Models.ViewModel
+@model List<PHONG>
+
+
+
+@*@if (ViewBag.Success == 1)
+{
+    <h3>@ViewBag.TenLoai</h3>
+    <div class="container">
+        <br />
+        @foreach (PHONG p in Model)
+        {
+            <div class="phong">
+                <img class="img-rounded img-phong" src=@ViewBag.DuongDanAnh alt="Image" width="250" height="149" />
+                <label>Tên Phòng: @p.TENPhong</label><br />
+                <label>Diện Tích: @p.TRANGTHAI m&sup2;</label><br />
+                <span class="gia-thue">@p.GIA.000 đ/ngày</span><br />
+                <input type="button" class="btn-dat-phong" onclick="location.href = '/DatPhong/DatPhong/@p.MA_PHONG'" value="ĐẶT PHÒNG" />
+            </div>
+        }
+    </div>
+}*@
+
+
+
+<ul id="list-product">
+    @if (ViewBag.Success == 1)
+    {
+        foreach (PHONG lp in Model)
+        {
+            decimal money = (decimal)lp.GIA;
+            <div class="card">
+
+                <div class="card_img">
+                    @*<img src="@Url.Content(pro.ImagePro)" alt="">*@
+                    <img src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/home-improvement/wp-content/uploads/2022/07/download-23.jpg" />
+                </div>
+                <div class="card_tille">
+                    @lp.TENPhong
+                </div>
+                <div class="card_price">
+                    @money.ToString("#,###").Replace(",", ".") <span style="color:green">VNĐ</span>
+                </div>
+
+                <div class="card_action">
+                    @if (lp.TRANGTHAI != "Trống")
+                    {
+                        <button onclick="location.href='/Phong/DatPhong/@lp.MA_PHONG';">Đặt phòng</button>
+                        <button onclick="location.href='/Phong/CTPhong/@lp.MA_PHONG';">Chi tiết</button>
+                    }
+                    else
+                    {
+                        <button onclick="location.href='/Phong/DatPhong/@lp.MA_PHONG';">Đặt phòng</button>
+                        <button onclick="location.href='/Phong/CTPhong/@lp.MA_PHONG';">Chi tiết</button>
+                    }
+
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Loại Phòng Ko Tồn Tại!</h3>
+    }
+
+
+
+</ul>
+

@@ -1,0 +1,186 @@
+﻿
+#box{
+  background:white;
+  width: 90%;
+  margin: 0px auto;
+}
+
+#box .head{
+  width: 100%;
+  height: 100px;
+
+}
+
+#box #item
+{
+  display: flex;
+  justify-content: space-between;
+}
+
+#box .left .img_frame{
+  width: 600px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit:cover;
+}
+
+#box .left .img_frame img
+{
+  width: 100%;
+  height: 100%;
+}
+
+#box .right .name
+{
+  font-size: 36px;
+  margin-bottom: 40px;
+  
+}
+
+#box .right{
+  width: 100%;
+  height: auto;
+  padding: 30px 30px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+#box .right .price
+{
+  font-size: 24px;
+  padding-bottom: 100px;
+}
+
+#box .right .des p{
+  margin-top: 60px;
+  font-size: 30px;
+}
+
+
+
+
+.btn {
+    width: 100%;
+    border: none;
+    font-size: inherit;
+    color: white;
+    background: #f71d2a;
+    cursor: pointer;
+    padding: 25px 0px;
+    display: inline-block;
+    margin: 15px 0px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.btn:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+/* Pseudo elements for icons */
+.btn:before {
+  font-family: 'FontAwesome';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* Icon separator */
+.btn-sep {
+  padding: 25px 60px 25px 120px;
+}
+
+.btn-sep:before {
+  background: rgba(0,0,0,0.5);
+}
+
+
+
+/* Button 2 */
+.btn-2 {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.btn-2:hover {
+  background: #27ae60;
+}
+
+.btn-2:active {
+  background: #27ae60;
+  top: 2px;
+}
+
+.btn-2:before {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  line-height: 3;
+  font-size: 140%;
+  width: 60px;
+}
+
+/* Button 3 */
+/* Icons */
+
+.icon-cart:before {
+  content: "\f07a";
+}
+
+.icon-heart:before {
+  content: "\f55a";
+}
+
+.icon-info:before {
+  content: "\f05a";
+}
+
+.icon-send:before {
+  content: "\f1d8";
+}
+
+.btn-3 {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-3:hover {
+  background: #c0392b;
+}
+
+.btn-3:active {
+  background: #c0392b;
+  top: 2px;
+}
+
+.btn-3:before {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  line-height: 3;
+  font-size: 140%;
+  width: 60px;
+}
