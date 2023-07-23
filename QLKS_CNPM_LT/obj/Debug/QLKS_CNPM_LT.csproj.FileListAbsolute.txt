@@ -81,3 +81,7 @@ C:\Users\Administrator\Desktop\QLKS_CNPM_LT\QLKS_CNPM_LT\QLKS_CNPM_LT\bin\Entity
 C:\Users\Administrator\Desktop\QLKS_CNPM_LT\QLKS_CNPM_LT\QLKS_CNPM_LT\bin\EntityFramework.SqlServer.dll
 C:\Users\Administrator\Desktop\QLKS_CNPM_LT\QLKS_CNPM_LT\QLKS_CNPM_LT\bin\EntityFramework.xml
 C:\Users\Administrator\Desktop\QLKS_CNPM_LT\QLKS_CNPM_LT\QLKS_CNPM_LT\bin\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Source\Repos\DizisNak\QLKS\QLKS_CNPM_LT\obj\Debug\QLKS_CNPM_LT.csproj.AssemblyReference.cache
+C:\Users\Administrator\Source\Repos\DizisNak\QLKS\QLKS_CNPM_LT\obj\Debug\QLKS_CNPM_LT.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Source\Repos\DizisNak\QLKS\QLKS_CNPM_LT\obj\Debug\QLKS_CNPM_LT.dll
+C:\Users\Administrator\Source\Repos\DizisNak\QLKS\QLKS_CNPM_LT\obj\Debug\QLKS_CNPM_LT.pdb
