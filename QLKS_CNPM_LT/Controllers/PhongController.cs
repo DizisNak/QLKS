@@ -116,16 +116,17 @@ namespace QLKS_CNPM_LT.Controllers
 
             double ThanhTien = 0;
             string DichVuSuDung = "";
-            foreach (DichVu dv in listDV)
-            {
-                if (Request.Form[dv.MaDichVu] == "on")
-                {
-                    if (ThanhTien > 0) DichVuSuDung += ", ";
-                    DichVuSuDung += dv.TenDichVu;
-                    ThanhTien += (int)dv.GiaDichVu;
-                }
-            }
-            if (ThanhTien == 0) DichVuSuDung = "Không Sử Dụng";
+            //foreach (DichVu dv in listDV)
+            //{
+            //    if (Request.Form[dv.MaDichVu] == "on")
+            //    {
+            //        if (ThanhTien > 0) DichVuSuDung += ", ";
+            //        DichVuSuDung += dv.TenDichVu;
+            //        ThanhTien += (int)dv.GiaDichVu;
+            //    }
+            //}
+            //if (ThanhTien == 0) DichVuSuDung = "Không Sử Dụng";
+
             ThanhTien += phong.GIA.Value;
             ThanhTien *= SoNgayThue;
             string ID_TK = ((TAIKHOAN)Session["TaiKhoan"]).ID_TK;

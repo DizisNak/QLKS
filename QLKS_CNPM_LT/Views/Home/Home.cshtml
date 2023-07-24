@@ -22,14 +22,14 @@
 
 @*Testing comment*@
 
-
-
 <ul id="list-product">
 
     @foreach (LOAIPHONG lp in Model)
     {
         <div class="card">
-            
+            <div class="card_tille">
+                @lp.TenLoai
+            </div>
             <div class="card_img">
                 @if (lp.DuongDanAnh == null)
                 {
@@ -39,13 +39,8 @@
                 {
                     <a href="/Phong/CTlOAIPhong/@lp.MaLoai"><img src="@lp.DuongDanAnh" alt="" /></a>
                 }
-
-
-
             </div>
-            <div class="card_tille">
-                @lp.TenLoai
-            </div>
+            
 
         </div>
     }
