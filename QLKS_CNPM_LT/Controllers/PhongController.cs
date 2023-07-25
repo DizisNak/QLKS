@@ -14,6 +14,8 @@ namespace QLKS_CNPM_LT.Controllers
     {
         // GET: Phong
         private qlks_CNPMEntities db = new qlks_CNPMEntities();
+
+        [Authorize(Roles = "Admin")]
         public ActionResult DSPhong()
         {
             var func_phong = new Phong_Func();
@@ -39,13 +41,18 @@ namespace QLKS_CNPM_LT.Controllers
             return View(listPhong);
         }
 
+        public ActionResult DatPhongThanhCong()
+        {
+            return View();
+        }
+
         public ActionResult DatPhong()
         {
-            //if (Session["TaiKhoan"] == null)
-            //{
-            //    Session["TrangTruoc"] = Request.RawUrl;
-            //    return RedirectToAction("DangNhap", "CaNhan");
-            //}
+            if (Session["TaiKhoan"] == null)
+            {
+                Session["TrangTruoc"] = Request.RawUrl;
+                return RedirectToAction("DangNhap", "TaiKhoan");
+            }
 
             string MA_PHONG = (string)RouteData.Values["id"];
             var phong = db.PHONGs.Where(m => m.MA_PHONG == MA_PHONG).First();
@@ -116,6 +123,7 @@ namespace QLKS_CNPM_LT.Controllers
 
             double ThanhTien = 0;
             string DichVuSuDung = "";
+
             //foreach (DichVu dv in listDV)
             //{
             //    if (Request.Form[dv.MaDichVu] == "on")
@@ -135,6 +143,7 @@ namespace QLKS_CNPM_LT.Controllers
             {
                 MAHD = MAHD,
                 MAKH = ID_TK,
+                MA_PHONG = MA_PHONG,
                 NgayDat = dateNgayDat,
                 NgayDen = dateNgayDen,
                 NgayTra = dateNgayTra,
@@ -143,7 +152,8 @@ namespace QLKS_CNPM_LT.Controllers
             HoaDon_Func HamDP = new HoaDon_Func();
             HamDP.Insert(hoadon);
             ViewBag.TenPhong = phong.TENPhong;
-            ViewBag.DienTich = phong.GIA;
+            ViewBag.GIA = phong.GIA;
+            ViewBag.LOAIPHONG = phong.LOAIPHONG.TenLoai;
             ViewBag.GiaThue = phong.ANH;
             ViewBag.NgayDat = dateNgayDat.ToString("dd/MM/yyyy");
             ViewBag.NgayDen = dateNgayDen.ToString("dd/MM/yyyy");

@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhongController.cs" />
+    <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -139,6 +140,7 @@
     </Compile>
     <Compile Include="Models\Function\HoaDon_Func.cs" />
     <Compile Include="Models\Function\Phong_Func.cs" />
+    <Compile Include="Models\Function\TaiKhoan_Func.cs" />
     <Compile Include="Models\GIAMGIA.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -175,7 +177,10 @@
     <Compile Include="Models\TAIKHOAN.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CapQuyenDangNhapView.cs" />
     <Compile Include="Models\ViewModel\PhongView.cs" />
+    <Compile Include="Models\ViewModel\TaiKhoanDangKyView.cs" />
+    <Compile Include="Models\ViewModel\TaiKhoanDangNhapView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +204,7 @@
     <Content Include="Content\MyStyle\Detail2.css" />
     <Content Include="Content\MyStyle\Item.css" />
     <Content Include="Content\MyStyle\Main.css" />
+    <Content Include="Content\MyStyle\Register.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -254,6 +260,10 @@
     <Content Include="Views\Phong\DSPhong.cshtml" />
     <Content Include="Views\Phong\CTlOAIPhong.cshtml" />
     <Content Include="Views\Phong\DatPhong.cshtml" />
+    <Content Include="Views\TaiKhoan\DangNhap.cshtml" />
+    <Content Include="Views\Phong\DatPhongThanhCong.cshtml" />
+    <Content Include="Views\TaiKhoan\DangKy.cshtml" />
+    <Content Include="Views\TaiKhoan\DangKyThanhCong.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

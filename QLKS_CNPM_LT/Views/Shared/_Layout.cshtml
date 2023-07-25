@@ -7,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abel Feel like home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="~/Content/Mystyle/Main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    @using QLKS_CNPM_LT.Models
 </head>
 <body>
 
@@ -51,30 +53,14 @@
 
 
             <div id="Action">
-                @if (Session["FullName"] == null && Session["Admin"] == null)
+                @if (Session["TaiKhoan"] == null)
                 {
                     <div class="item">
                         <div class="dropdown">
                             <span class="dropbtn"><i class="fa fa-user"></i></span>
                             <div class="dropdown-content_user" style="left:0;">
-                                <a href="/Admin/Admin"><ion-icon name="log-in-outline"></ion-icon> Đăng nhập Admin</a>
-                                <a href="/LoginUser/Index"><ion-icon name="log-in-outline"></ion-icon> Đăng nhập</a>
-                                <a href="/LoginUser/RegisterUser"><ion-icon name="person-add-outline"></ion-icon> Đăng ký</a>
-                            </div>
-                        </div>
-                    </div>
-                }
-                else if (Session["Admin"] != null)
-                {
-                    <div class="item">
-                        <div class="dropdown">
-                            <button class="dropbtn">Hello @Session["Admin"]</button>
-                            <div class="dropdown-content_user" style="left:0;">
-                                <a href="@Url.Action("Index","Product")">Tạo sản phẩm</a>
-                                <a href="@Url.Action("Index","Categories")">Tạo loại sản phẩm</a>
-                                <a href="@Url.Action("Index","OrderProes")">Thông tin các khách hàng</a>
-                                <a href="@Url.Action("Index","OrderDetails2")">Danh sách sản phẩm khách hàng đặt</a>
-                                <a href="@Url.Action("LogOutUser","Admin")"><ion-icon name="log-out-outline"></ion-icon>Đăng suất</a>
+                                <a href="/TaiKhoan/DangNhap"><ion-icon name="log-in-outline"></ion-icon> Đăng nhập</a>
+                                <a href="/TaiKhoan/DangKy"><ion-icon name="person-add-outline"></ion-icon> Đăng ký</a>
                             </div>
                         </div>
                     </div>
@@ -84,9 +70,9 @@
                 {
                     <div class="item">
                         <div class="dropdown">
-                            <button class="dropbtn">Hello @Session["FullName"]</button>
+                            <button class="dropbtn">Hello @(((TAIKHOAN)Session["TaiKhoan"]).TenTK)</button>
                             <div class="dropdown-content_user" style="left:0;">
-                                <a href="@Url.Action("LogOutUser","LoginUser")"><ion-icon name="log-out-outline"></ion-icon>Đăng suất</a>
+                                <a href="@Url.Action("DangXuat","TaiKhoan")"><ion-icon name="log-out-outline"></ion-icon>Đăng suất</a>
                             </div>
                         </div>
                     </div>

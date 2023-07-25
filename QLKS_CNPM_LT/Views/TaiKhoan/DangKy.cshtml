@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/HouseLayout.cshtml";
+}
+
+@using QLKS_CNPM_LT.Models.ViewModel
+@model TaiKhoanDangKyView
+
+<link href="~/Content/Mystyle/Register.css" rel="stylesheet" />
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+
+<h1 style="text-align:center;margin-bottom:20px">Đăng ký</h1>
+<div class="center">
+
+    <form action="" method="post">
+
+        <div class="group">
+            <input data-val-length="Ít nhất 3 kí tự trở lên" id="TenTK" name="TenTK" type="text" value="@Model.TenTK">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.TenTK, "")</span>
+            <label class="lab">Tên tài khoản</label>
+        </div>
+
+
+        <div class="group">
+            <input id="Email" name="Email" type="text" value="@Model.Email" >
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            @Html.ValidationMessageFor(m => m.Email, "")
+            <label class="lab">Nhập địa chỉ email</label>
+        </div>
+
+        <div class="group">
+            <input id="SoDienThoai" name="SoDienThoai" type="number" value="@Model.SoDienThoai" >
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            @Html.ValidationMessageFor(m => m.SoDienThoai, "")
+            <label class="lab">Nhập số điện thoại</label>
+        </div>
+
+        <div class="group">
+            <input id="PASS" name="PASS" type="password" value="" >
+
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            @Html.ValidationMessageFor(m => m.PASS, "")
+            <label class="lab">Nhập mật khẩu</label>
+        </div>
+
+        <div class="group">
+            <input id="XacNhanMatKhau" name="XacNhanMatKhau" type="password" value="" >
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            @Html.ValidationMessageFor(m => m.XacNhanMatKhau, "")
+            <label class="lab">xác nhận lại mật khẩu</label>
+        </div>
+        <input type="submit" name="submit" class="btn btn-danger" value="Đăng ký" />
+
+    </form>
+
+
+
+
+</div>
+
+
