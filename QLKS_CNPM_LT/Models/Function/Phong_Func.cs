@@ -9,12 +9,12 @@ namespace QLKS_CNPM_LT.Models.Function
 {
     public class Phong_Func
     {
-        private qlks_CNPMEntities db;
+        private QLKS_CNPMEntities db;
 
 
         public Phong_Func()
         {
-            db = new qlks_CNPMEntities();
+            db = new QLKS_CNPMEntities();
         }
 
         public IQueryable<PHONG> PHONGs

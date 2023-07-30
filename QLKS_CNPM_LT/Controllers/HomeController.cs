@@ -9,7 +9,7 @@ namespace QLKS_CNPM_LT.Controllers
 {
     public class HomeController : Controller
     {
-        private qlks_CNPMEntities db = new qlks_CNPMEntities();
+        private QLKS_CNPMEntities db = new QLKS_CNPMEntities();
         public ActionResult Home()
         {
             List<LOAIPHONG> list = db.LOAIPHONGs.ToList();

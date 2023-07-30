@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -14,9 +15,13 @@ namespace QLKS_CNPM_LT.Models.ViewModel
             // You can use Entity Framework, ADO.NET, or any other data access method to query your database.
             // Return the roles as an array of strings.
             // Example:
-            using (var db = new qlks_CNPMEntities())
+            using (var dbContext = new QLKS_CNPMEntities())
             {
-                var userRoles = db.TAIKHOANs.Where(r => r.TenTK == username).Select(r => r.LOAITK).ToArray();
+                var userRoles = dbContext.TAIKHOANs
+                    .Where(u => u.Gmail == username)
+                    .Select(u => u.LOAITK.Trim())
+                    .ToArray();
+                Debug.WriteLine($"User roles: {string.Join(",", userRoles)}");
                 return userRoles;
             }
         }

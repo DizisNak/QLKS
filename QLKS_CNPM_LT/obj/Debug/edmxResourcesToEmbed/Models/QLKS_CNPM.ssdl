@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="qlks_CNPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="QLKS_CNPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="BCDT">
     <Key>
       <PropertyRef Name="MABC" />
@@ -225,7 +225,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="qlks_CNPMModelStoreContainer">
+  <EntityContainer Name="QLKS_CNPMModelStoreContainer">
     <EntitySet Name="BCDT" EntityType="Self.BCDT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GIAMGIA" EntityType="Self.GIAMGIA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HOADON" EntityType="Self.HOADON" Schema="dbo" store:Type="Tables" />

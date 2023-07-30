@@ -17,10 +17,10 @@
 
     <form action="" method="post">
         <div class="group">
-            <input name="TenTK" type="text" value="@Model.TenTK">
+            <input name="Gmail" type="text" value="@Model.Gmail">
             <span class="highlight"></span>
             <span class="bar"></span>
-            <span class="">@Html.ValidationMessageFor(m => m.TenTK)</span>
+            <span class="">@Html.ValidationMessageFor(m => m.Gmail)</span>
             <label class="lab">Địa chỉ email</label>
         </div>
 
@@ -51,7 +51,6 @@
                 </div>
                 <label for="checkbox" name="TuDongDangNhap" id="TuDongDangNhap" class="checkbox-label">Check</label>
             </label>
-            <!-- <span class="canh-bao">@Html.ValidationMessageFor(m => m.PASS)</span> -->
         </div>
 
         <input type="submit" name="submit" class="btn btn-primary" value="Đăng nhập" />

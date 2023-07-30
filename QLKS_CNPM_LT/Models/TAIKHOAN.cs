@@ -19,11 +19,14 @@ namespace QLKS_CNPM_LT.Models
         {
             this.HOADONs = new HashSet<HOADON>();
             this.HOANTIENs = new HashSet<HOANTIEN>();
+            this.PHONGs = new HashSet<PHONG>();
+            this.YEUTHICHes = new HashSet<YEUTHICH>();
         }
     
         public string ID_TK { get; set; }
         public string TenTK { get; set; }
         public string Gmail { get; set; }
+        public string ANH { get; set; }
         public string PASS { get; set; }
         public string SDT { get; set; }
         public string LOAITK { get; set; }
@@ -33,5 +36,9 @@ namespace QLKS_CNPM_LT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOANTIEN> HOANTIENs { get; set; }
         public virtual LOAITAIKHOAN LOAITAIKHOAN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHONG> PHONGs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YEUTHICH> YEUTHICHes { get; set; }
     }
 }

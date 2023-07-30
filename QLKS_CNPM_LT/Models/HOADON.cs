@@ -25,10 +25,11 @@ namespace QLKS_CNPM_LT.Models
         public string MAKH { get; set; }
         public string MA_PHONG { get; set; }
         public string MAGIAM { get; set; }
-        public Nullable<int> TONGTIEN { get; set; }
+        public Nullable<double> TONGTIEN { get; set; }
         public Nullable<System.DateTime> NgayDat { get; set; }
         public Nullable<System.DateTime> NgayDen { get; set; }
         public Nullable<System.DateTime> NgayTra { get; set; }
+        public string TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BCDT> BCDTs { get; set; }

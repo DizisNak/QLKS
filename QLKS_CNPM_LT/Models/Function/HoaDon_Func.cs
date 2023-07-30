@@ -7,10 +7,10 @@ namespace QLKS_CNPM_LT.Models.Function
 {
     public class HoaDon_Func
     {
-        private qlks_CNPMEntities db;
+        private QLKS_CNPMEntities db;
         public HoaDon_Func()
         {
-            db = new qlks_CNPMEntities();
+            db = new QLKS_CNPMEntities();
         }
 
         public string Insert(HOADON model)

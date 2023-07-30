@@ -13,10 +13,10 @@ namespace QLKS_CNPM_LT.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class qlks_CNPMEntities : DbContext
+    public partial class QLKS_CNPMEntities : DbContext
     {
-        public qlks_CNPMEntities()
-            : base("name=qlks_CNPMEntities")
+        public QLKS_CNPMEntities()
+            : base("name=QLKS_CNPMEntities")
         {
         }
     
@@ -33,5 +33,6 @@ namespace QLKS_CNPM_LT.Models
         public virtual DbSet<LOAITAIKHOAN> LOAITAIKHOANs { get; set; }
         public virtual DbSet<PHONG> PHONGs { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
+        public virtual DbSet<YEUTHICH> YEUTHICHes { get; set; }
     }
 }

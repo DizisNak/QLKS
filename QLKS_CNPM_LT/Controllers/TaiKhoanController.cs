@@ -12,7 +12,7 @@ namespace QLKS_CNPM_LT.Controllers
 {
     public class TaiKhoanController : Controller
     {
-        private qlks_CNPMEntities db = new qlks_CNPMEntities();
+        private QLKS_CNPMEntities db = new QLKS_CNPMEntities();
         // GET: TaiKhoan
 
         public ActionResult DangNhap()
@@ -31,34 +31,38 @@ namespace QLKS_CNPM_LT.Controllers
         [HttpPost]
         public ActionResult DangNhap(TaiKhoanDangNhapView tk)
         {
+
             if (ModelState.IsValid)
             {
-                var list = db.TAIKHOANs.Where(m => m.TenTK == tk.TenTK && m.PASS == tk.PASS).ToList();
+                var list = db.TAIKHOANs.Where(m => m.Gmail == tk.Gmail && m.PASS == tk.PASS).ToList();
                 if (list.Count == 0)
                 {
-                    ModelState.AddModelError("TenTK", "Tài Khoản hoặc Mật Khẩu không chính xác");
+                    ModelState.AddModelError("Gmail", "Tài Khoản hoặc Mật Khẩu không chính xác");
                     return View(tk);
                 }
-                TAIKHOAN taiKhoan = list.FirstOrDefault();
-                //if (taiKhoan.LOAITK == "AD")
-                //{
-                //    FormsAuthentication.SetAuthCookie(taiKhoan.TenTK, tk.TuDongDangNhap);
-                //    return RedirectToAction("DSTaiKhoan", "Admin");
-                //}
+                TAIKHOAN taiKhoan = list.First();
+                if (taiKhoan.LOAITK.Trim().Equals("AD"))
+                {
+                    Session["TaiKhoan"] = taiKhoan;
+                    FormsAuthentication.SetAuthCookie(taiKhoan.Gmail, tk.TuDongDangNhap);
+                    return RedirectToAction("Home", "Home");
+                }
 
-
-                FormsAuthentication.SetAuthCookie(taiKhoan.TenTK, tk.TuDongDangNhap);
-                Session["TaiKhoan"] = taiKhoan;
+                if(taiKhoan.LOAITK.Trim().Equals("KH"))
+                {
+                    FormsAuthentication.SetAuthCookie(taiKhoan.Gmail, tk.TuDongDangNhap);
+                    Session["TaiKhoan"] = taiKhoan;
+                }
+               
                 if (tk.TuDongDangNhap)
                 {
-                    HttpCookie ckTaiKhoan = new HttpCookie("TenTK"), ckMatKhau = new HttpCookie("PASS");
+                    HttpCookie ckTaiKhoan = new HttpCookie("Gmail"), ckMatKhau = new HttpCookie("PASS");
                     ckTaiKhoan.Value = taiKhoan.TenTK; ckMatKhau.Value = taiKhoan.PASS;
                     ckTaiKhoan.Expires = DateTime.Now.AddDays(15);
                     ckMatKhau.Expires = DateTime.Now.AddDays(15);
                     Response.Cookies.Add(ckTaiKhoan);
                     Response.Cookies.Add(ckMatKhau);
                 }
-
                 if (Session["TrangTruoc"] != null)
                 {
                     return Redirect(Session["TrangTruoc"].ToString());
@@ -74,39 +78,49 @@ namespace QLKS_CNPM_LT.Controllers
         {
             if (ModelState.IsValid)
             {
-                var taiKhoan = db.TAIKHOANs.Find(tk.TenTK);
-                if (taiKhoan != null)
+                var checkSDT = db.TAIKHOANs.Where(m => m.SDT == tk.SDT).FirstOrDefault();
+                var checkGmail = db.TAIKHOANs.Where(m => m.Gmail == tk.Gmail).FirstOrDefault();
+
+                if (checkGmail != null)
                 {
-                    ModelState.AddModelError("Ten tai khoan", "Tài Khoản đã tồn tại");
+                    ModelState.AddModelError("Gmail", "Mail này đã được đăng ký");
                     return View(tk);
                 }
 
+                else if (checkSDT != null)
+                {
+                    ModelState.AddModelError("SDT", "Số điện thoại này đã được đăng ký");
+                    return View(tk);
+                }
+
+
+
                 var ID_TK = db.TAIKHOANs.ToList();
-                string MAKH = ""; // The final formatted string to be generated
+                string MATK = ""; // The final formatted string to be generated
 
                 if (ID_TK.Count == 0)
                 {
-                    MAKH = "KH01";
+                    MATK = "KH01";
                 }
                 else
                 {
                     int lastMaDatPhongNumber = int.Parse(ID_TK.Last().ID_TK.Substring(2));
                     int nextMaDatPhongNumber = lastMaDatPhongNumber + 1;
-                    MAKH = "KH" + nextMaDatPhongNumber.ToString("D2");
+                    MATK = "KH" + nextMaDatPhongNumber.ToString("D2");
                 }
 
-                taiKhoan = new TAIKHOAN()
+                var taoTK = new TAIKHOAN()
                 {
-                    ID_TK = MAKH,
+                    ID_TK = MATK,
                     TenTK = tk.TenTK,
                     PASS = tk.PASS,
-                    SDT = tk.SoDienThoai,
-                    Gmail = tk.Email,
+                    SDT = tk.SDT,
+                    Gmail = tk.Gmail,
                     LOAITK = "KH"
                 };
                 var TK = new TaiKhoan_Func();
-                TK.Insert(taiKhoan);
-                return View("DangKyThanhCong", taiKhoan);
+                TK.Insert(taoTK);
+                return View("DangKyThanhCong", taoTK);
             }
             return View(tk);
         }
@@ -119,7 +133,7 @@ namespace QLKS_CNPM_LT.Controllers
         public ActionResult DangXuat()
         {
             Session["TaiKhoan"] = null;
-            HttpCookie ckTaiKhoan = new HttpCookie("TenTK"), ckMatKhau = new HttpCookie("PASS");
+            HttpCookie ckTaiKhoan = new HttpCookie("Gmail"), ckMatKhau = new HttpCookie("PASS");
             ckTaiKhoan.Expires = DateTime.Now.AddDays(-1);
             ckMatKhau.Expires = DateTime.Now.AddDays(-1);
             Response.Cookies.Add(ckTaiKhoan);

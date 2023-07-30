@@ -9,7 +9,7 @@ namespace QLKS_CNPM_LT.Models.ViewModel
     public class TaiKhoanDangNhapView
     {
         [Required(ErrorMessage = "Không được để trống Tài Khoản")]
-        public string TenTK { get; set; }
+        public string Gmail { get; set; }
 
         [Required(ErrorMessage = "Không được để trống Mật Khẩu")]
         public string PASS { get; set; }

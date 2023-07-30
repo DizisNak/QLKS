@@ -13,9 +13,9 @@ namespace QLKS_CNPM_LT.Controllers
     public class PhongController : Controller
     {
         // GET: Phong
-        private qlks_CNPMEntities db = new qlks_CNPMEntities();
+        private QLKS_CNPMEntities db = new QLKS_CNPMEntities();
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "AD")]
         public ActionResult DSPhong()
         {
             var func_phong = new Phong_Func();

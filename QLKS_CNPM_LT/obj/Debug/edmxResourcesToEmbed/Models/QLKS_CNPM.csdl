@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="qlks_CNPMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="QLKS_CNPMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="BCDT">
     <Key>
       <PropertyRef Name="MABC" />
@@ -247,7 +247,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="qlks_CNPMEntities2" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="QLKS_CNPMEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BCDTs" EntityType="Self.BCDT" />
     <EntitySet Name="GIAMGIAs" EntityType="Self.GIAMGIA" />
     <EntitySet Name="HOADONs" EntityType="Self.HOADON" />

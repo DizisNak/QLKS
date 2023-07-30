@@ -18,18 +18,26 @@ namespace QLKS_CNPM_LT.Models
         public PHONG()
         {
             this.HOADONs = new HashSet<HOADON>();
+            this.YEUTHICHes = new HashSet<YEUTHICH>();
         }
     
         public string MA_PHONG { get; set; }
+        public string ID_TK { get; set; }
         public string TENPhong { get; set; }
         public string TRANGTHAI { get; set; }
         public Nullable<double> GIA { get; set; }
+        public string NoiDung { get; set; }
         public string ANH { get; set; }
         public string MaLoai { get; set; }
         public Nullable<bool> DADUYET { get; set; }
+        public Nullable<double> DanhGia { get; set; }
+        public string BinhLuat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADON> HOADONs { get; set; }
         public virtual LOAIPHONG LOAIPHONG { get; set; }
+        public virtual TAIKHOAN TAIKHOAN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YEUTHICH> YEUTHICHes { get; set; }
     }
 }

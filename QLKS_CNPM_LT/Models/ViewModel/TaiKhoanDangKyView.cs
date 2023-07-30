@@ -18,10 +18,10 @@ namespace QLKS_CNPM_LT.Models.ViewModel
         public string XacNhanMatKhau { get; set; }
 
         [Required(ErrorMessage = "Không được để trống Số Điện Thoại")]
-        public string SoDienThoai { get; set; }
+        public string SDT { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống Email")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Không được để trống mail")]
+        public string Gmail { get; set; }
 
     }
 }

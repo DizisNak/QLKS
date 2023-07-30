@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="qlks_CNPMModelStoreContainer" CdmEntityContainer="qlks_CNPMEntities2">
+  <EntityContainerMapping StorageEntityContainer="QLKS_CNPMModelStoreContainer" CdmEntityContainer="QLKS_CNPMEntities">
     <EntitySetMapping Name="BCDTs">
-      <EntityTypeMapping TypeName="qlks_CNPMModel.BCDT">
+      <EntityTypeMapping TypeName="QLKS_CNPMModel.BCDT">
         <MappingFragment StoreEntitySet="BCDT">
           <ScalarProperty Name="MABC" ColumnName="MABC" />
           <ScalarProperty Name="MAHD" ColumnName="MAHD" />
@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="GIAMGIAs">
-      <EntityTypeMapping TypeName="qlks_CNPMModel.GIAMGIA">
+      <EntityTypeMapping TypeName="QLKS_CNPMModel.GIAMGIA">
         <MappingFragment StoreEntitySet="GIAMGIA">
           <ScalarProperty Name="MAGIAM" ColumnName="MAGIAM" />
           <ScalarProperty Name="TENMAGIAM" ColumnName="TENMAGIAM" />
@@ -22,7 +22,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="HOADONs">
-      <EntityTypeMapping TypeName="qlks_CNPMModel.HOADON">
+      <EntityTypeMapping TypeName="QLKS_CNPMModel.HOADON">
         <MappingFragment StoreEntitySet="HOADON">
           <ScalarProperty Name="MAHD" ColumnName="MAHD" />
           <ScalarProperty Name="MAKH" ColumnName="MAKH" />
@@ -37,7 +37,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="HOANTIENs">
-      <EntityTypeMapping TypeName="qlks_CNPMModel.HOANTIEN">
+      <EntityTypeMapping TypeName="QLKS_CNPMModel.HOANTIEN">
         <MappingFragment StoreEntitySet="HOANTIEN">
           <ScalarProperty Name="MAHD" ColumnName="MAHD" />
           <ScalarProperty Name="ID_TK" ColumnName="ID_TK" />
@@ -47,7 +47,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LOAIPHONGs">
-      <EntityTypeMapping TypeName="qlks_CNPMModel.LOAIPHONG">
+      <EntityTypeMapping TypeName="QLKS_CNPMModel.LOAIPHONG">
         <MappingFragment StoreEntitySet="LOAIPHONG">
           <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
           <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
@@ -57,7 +57,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LOAITAIKHOANs">
-      <EntityTypeMapping TypeName="qlks_CNPMModel.LOAITAIKHOAN">
+      <EntityTypeMapping TypeName="QLKS_CNPMModel.LOAITAIKHOAN">
         <MappingFragment StoreEntitySet="LOAITAIKHOAN">
           <ScalarProperty Name="ID_LOAITK" ColumnName="ID_LOAITK" />
           <ScalarProperty Name="TENLOAITK" ColumnName="TENLOAITK" />
@@ -65,7 +65,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PHONGs">
-      <EntityTypeMapping TypeName="qlks_CNPMModel.PHONG">
+      <EntityTypeMapping TypeName="QLKS_CNPMModel.PHONG">
         <MappingFragment StoreEntitySet="PHONG">
           <ScalarProperty Name="MA_PHONG" ColumnName="MA_PHONG" />
           <ScalarProperty Name="ID_TK" ColumnName="ID_TK" />
@@ -82,7 +82,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TAIKHOANs">
-      <EntityTypeMapping TypeName="qlks_CNPMModel.TAIKHOAN">
+      <EntityTypeMapping TypeName="QLKS_CNPMModel.TAIKHOAN">
         <MappingFragment StoreEntitySet="TAIKHOAN">
           <ScalarProperty Name="ID_TK" ColumnName="ID_TK" />
           <ScalarProperty Name="TenTK" ColumnName="TenTK" />
@@ -95,7 +95,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="YEUTHICHes">
-      <EntityTypeMapping TypeName="qlks_CNPMModel.YEUTHICH">
+      <EntityTypeMapping TypeName="QLKS_CNPMModel.YEUTHICH">
         <MappingFragment StoreEntitySet="YEUTHICH">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ID_TK" ColumnName="ID_TK" />

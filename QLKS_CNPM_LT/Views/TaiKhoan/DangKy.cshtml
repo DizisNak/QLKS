@@ -23,24 +23,24 @@
             <input data-val-length="Ít nhất 3 kí tự trở lên" id="TenTK" name="TenTK" type="text" value="@Model.TenTK">
             <span class="highlight"></span>
             <span class="bar"></span>
-            <span class="canh-bao">@Html.ValidationMessageFor(m => m.TenTK, "")</span>
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.TenTK)</span>
             <label class="lab">Tên tài khoản</label>
         </div>
 
 
         <div class="group">
-            <input id="Email" name="Email" type="text" value="@Model.Email" >
+            <input id="Gmail" name="Gmail" type="text" value="@Model.Gmail" >
             <span class="highlight"></span>
             <span class="bar"></span>
-            @Html.ValidationMessageFor(m => m.Email, "")
+            @Html.ValidationMessageFor(m => m.Gmail)
             <label class="lab">Nhập địa chỉ email</label>
         </div>
 
         <div class="group">
-            <input id="SoDienThoai" name="SoDienThoai" type="number" value="@Model.SoDienThoai" >
+            <input id="SDT" name="SDT" type="number" value="@Model.SDT" >
             <span class="highlight"></span>
             <span class="bar"></span>
-            @Html.ValidationMessageFor(m => m.SoDienThoai, "")
+            @Html.ValidationMessageFor(m => m.SDT)
             <label class="lab">Nhập số điện thoại</label>
         </div>
 
@@ -49,7 +49,7 @@
 
             <span class="highlight"></span>
             <span class="bar"></span>
-            @Html.ValidationMessageFor(m => m.PASS, "")
+            @Html.ValidationMessageFor(m => m.PASS)
             <label class="lab">Nhập mật khẩu</label>
         </div>
 
@@ -57,7 +57,7 @@
             <input id="XacNhanMatKhau" name="XacNhanMatKhau" type="password" value="" >
             <span class="highlight"></span>
             <span class="bar"></span>
-            @Html.ValidationMessageFor(m => m.XacNhanMatKhau, "")
+            @Html.ValidationMessageFor(m => m.XacNhanMatKhau)
             <label class="lab">xác nhận lại mật khẩu</label>
         </div>
         <input type="submit" name="submit" class="btn btn-danger" value="Đăng ký" />

@@ -8,11 +8,11 @@ namespace QLKS_CNPM_LT.Models.Function
     public class TaiKhoan_Func
     {
 
-        private qlks_CNPMEntities db;
+        private QLKS_CNPMEntities db;
 
         public TaiKhoan_Func()
         {
-            db = new qlks_CNPMEntities();
+            db = new QLKS_CNPMEntities();
         }
 
 
