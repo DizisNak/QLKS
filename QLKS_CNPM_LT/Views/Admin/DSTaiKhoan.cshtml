@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "DSTaiKhoan";
+    Layout = "~/Views/SharedAdmin/_Layout.cshtml";
+}
+@using QLKS_CNPM_LT.Models
+@model List<TAIKHOAN>
+@{
+    var stt = 1;
+}
+
+<script>
+    var element = document.getElementById("collapse1");
+    element.classList.add("in");
+</script>
+
+
+<h2 style="text-align:center">Danh Sách Tài Khoản</h2>
+<div class="">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>ID TK</th>
+                <th>Ten Tài Khoản</th>
+                <th>Mật Khẩu</th>
+                <th>Số Điện Thoại</th>
+                <th>Email</th>
+                <th>Loai TK</th>
+                <th>ANH</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (TAIKHOAN tk in Model)
+                {
+
+                    //string laAdmin = tk.LaAdmin ? "Có" : "Không";
+                    <tr>
+                        <td>@stt</td>
+                        <td>@tk.ID_TK</td>
+                        <td>@tk.TenTK</td>
+                        <td>@tk.PASS</td>
+                        <td>@tk.SDT</td>
+                        <td>@tk.Gmail</td>
+                        <td>@tk.LOAITK</td>
+                        <td>
+                            @if (tk.ANH != null)
+                            {
+                                <img src="@Url.Content(tk.ANH)" id="previewImg" width="50px" height="50px" />
+                            }
+
+                        </td>
+                        <td>
+                            <a href="/Admin/SuaTaiKhoan/@tk.ID_TK">Sửa</a>&nbsp;|&nbsp;
+                            <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaTaiKhoan/@tk.ID_TK')">Xóa</a>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.Partial("~/Views/SharedAdmin/_XacNhanModal.cshtml")

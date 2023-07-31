@@ -26,9 +26,39 @@ namespace QLKS_CNPM_LT.Models.Function
         {
             db.TAIKHOANs.Add(model);
             db.SaveChanges();
-            return model.TenTK;
+            return model.ID_TK;
         }
 
+        public string Update(TAIKHOAN model)
+        {
+            TAIKHOAN dbEntry = db.TAIKHOANs.Find(model.ID_TK);
+            if (dbEntry == null)
+            {
+                return null;
+            }
+            dbEntry.ID_TK = model.ID_TK;
+            dbEntry.TenTK = model.TenTK;
+            dbEntry.PASS = model.PASS;
+            dbEntry.ANH = model.ANH;
+            dbEntry.SDT = model.SDT;
+            dbEntry.Gmail = model.Gmail;
+            dbEntry.LOAITK = model.LOAITK;
+            db.SaveChanges();
+            return model.ID_TK;
+        }
+
+
+        public string Delete(string ID_TK)
+        {
+            TAIKHOAN dbEntry = db.TAIKHOANs.Find(ID_TK);
+            if (dbEntry == null)
+            {
+                return null;
+            }
+            db.TAIKHOANs.Remove(dbEntry);
+            db.SaveChanges();
+            return ID_TK;
+        }
 
     }
 }

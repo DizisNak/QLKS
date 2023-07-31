@@ -164,3 +164,7 @@ C:\Users\Administrator\source\repos\DizisNak\QLKS\QLKS_CNPM_LT\bin\Newtonsoft.Js
 C:\Users\Administrator\source\repos\DizisNak\QLKS\QLKS_CNPM_LT\bin\Antlr3.Runtime.pdb
 C:\Users\Administrator\source\repos\DizisNak\QLKS\QLKS_CNPM_LT\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Administrator\source\repos\DizisNak\QLKS\QLKS_CNPM_LT\obj\Debug\QLKS_CNPM_LT.csproj.CopyComplete
+C:\Users\Administrator\source\repos\DizisNak\QLKS\QLKS_CNPM_LT\bin\System.Net.Http.Formatting.dll
+C:\Users\Administrator\source\repos\DizisNak\QLKS\QLKS_CNPM_LT\bin\System.Web.Http.dll
+C:\Users\Administrator\source\repos\DizisNak\QLKS\QLKS_CNPM_LT\bin\System.Net.Http.Formatting.xml
+C:\Users\Administrator\source\repos\DizisNak\QLKS\QLKS_CNPM_LT\bin\System.Web.Http.xml

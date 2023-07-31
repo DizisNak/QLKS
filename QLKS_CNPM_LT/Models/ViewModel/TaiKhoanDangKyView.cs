@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,6 +9,7 @@ namespace QLKS_CNPM_LT.Models.ViewModel
 {
     public class TaiKhoanDangKyView
     {
+        public string ID_TK { get; set; }
         [Required(ErrorMessage = "Không được để trống Tài Khoản")]
         public string TenTK { get; set; }
 
@@ -22,6 +24,6 @@ namespace QLKS_CNPM_LT.Models.ViewModel
 
         [Required(ErrorMessage = "Không được để trống mail")]
         public string Gmail { get; set; }
-
+        public string ANH { get; set; }
     }
 }

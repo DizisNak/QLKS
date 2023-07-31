@@ -56,6 +56,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -64,6 +67,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -129,6 +135,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhongController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
@@ -208,6 +216,7 @@
     <Content Include="Content\MyStyle\Item.css" />
     <Content Include="Content\MyStyle\Main.css" />
     <Content Include="Content\MyStyle\Register.css" />
+    <Content Include="Content\profileImg\profileImg.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\QLKS_CNPM.Context.tt">
@@ -234,11 +243,13 @@
       <DependentUpon>QLKS_CNPM.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -265,9 +276,19 @@
     <Content Include="Views\Phong\DatPhongThanhCong.cshtml" />
     <Content Include="Views\TaiKhoan\DangKy.cshtml" />
     <Content Include="Views\TaiKhoan\DangKyThanhCong.cshtml" />
+    <Content Include="Views\TaiKhoan\CaNhan.cshtml" />
+    <Content Include="Views\Admin\DSTaiKhoan.cshtml" />
+    <Content Include="Views\Admin\ThemTaiKhoan.cshtml" />
+    <Content Include="Views\SharedAdmin\_XacNhanModal.cshtml" />
+    <Content Include="Views\SharedAdmin\_Layout.cshtml" />
+    <Content Include="Views\Admin\SuaTaiKhoan.cshtml" />
+    <Content Include="Views\SharedAdmin\_SideMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\MyImg\" />
+    <Folder Include="Data\profileImg\" />
+    <Folder Include="Data\roomImg\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

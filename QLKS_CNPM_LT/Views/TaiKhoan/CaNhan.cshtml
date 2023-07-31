@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "CaNhan";
+    Layout = "~/Views/Shared/HouseLayout.cshtml";
+}
+
+@using QLKS_CNPM_LT.Models.ViewModel
+@model TaiKhoanDangKyView
+
+<div class="form-group">
+    <h2>CaNhan</h2>
+</div>
+
+
+<!--<div class="container dang-nhap-form">
+    <form action="" method="post" enctype="multipart/form-data">
+        <input class="form-control dang-nhap-text" type="hidden" name="ID_TK" value="@Model.ID_TK" readonly />
+
+        <div class="form-group">
+            <label>Tài Khoản:</label>
+            <input class="form-control dang-nhap-text" type="text" name="TenTK" value="@Model.TenTK" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.TenTK)</span>
+        </div>
+        <div class="form-group">
+            <label>Mật Khẩu Mới:</label>
+            <input class="form-control dang-nhap-text" type="password" name="PASS" value="@Model.PASS" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.PASS)</span>
+        </div>
+        <div class="form-group">
+            <label>Xác Nhận Mật Khẩu:</label>
+            <input class="form-control dang-nhap-text" type="password" name="XacNhanMatKhau" value="@Model.XacNhanMatKhau" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.XacNhanMatKhau)</span>
+        </div>
+        <div class="form-group">
+            <label>Địa chỉ email:</label>
+            <input class="form-control dang-nhap-text" type="text" name="Gmail" value="@Model.Gmail" readonly />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.Gmail)</span>
+        </div>
+        <div class="form-group">
+            <label>SĐT:</label>
+            <input class="form-control dang-nhap-text" type="tel" name="SDT" value="@Model.SDT" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.SDT)</span>
+        </div>-->
+
+        @*<div class="form-group">
+                <label>Profile pic:</label>
+                <input class="form-control dang-nhap-text" type="text" id="ANH" name="ANH" value="@Model.ANH" readonly />
+                <input class="form-control dang-nhap-text" type="file" name="file" id="file" onchange="funcChonAnh()" />
+                <span style="color:red">@Html.ValidationMessageFor(m => m.ANH)</span>
+            </div>*@
+
+        @*<div class="form-group">
+                <label>Đường Dẫn Ảnh:</label>
+                <input class="form-control dang-nhap-text" type="text" id="ANH" name="ANH" value="@Model.ANH" readonly />
+                <input class="center" id="file" type="file" name="file" onchange="funcChonAnh()" />
+            </div>*@
+
+        <!--<div class="form-group">
+            <div class="col-md-offset-2 col-md-8">-->
+                @*<input class="form-control dang-nhap-text" type="text" id="ANH" name="ANH" value="@Model.ANH" readonly />*@
+                <!--@if (Model.ANH != null)
+                {
+                    <img src="@Url.Content(Model.ANH)" id="previewImg" width="100px" height="100px" />
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>ANH:</label>
+            <input class="form-control dang-nhap-text" type="text" name="ANH" id="ANH" value="@Model.ANH" />
+            <input class="form-control" id="file" type="file" name="file" onchange="funcChonAnh()" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.ANH)</span>
+        </div>
+
+
+        <div class="form-group">
+            <input class="btn btn-ok" type="submit" value="Cập Nhật" />
+        </div>
+    </form>
+    @if (ViewBag.Success == 1)
+    {
+        <p class="thanh-cong">Lưu Thông Tin Thành Công!</p>
+    }
+</div>-->
+
+
+
+
+<div class="container admin-sua-thong-tin">
+    <form action="" method="post" enctype="multipart/form-data">
+        <input class="form-control dang-nhap-text" type="hidden" name="ID_TK" value="@Model.ID_TK" />
+
+        <div class="form-group">
+            <label>Tài Khoản:</label>
+            <input class="form-control dang-nhap-text" type="text" name="TenTK" value="@Model.TenTK" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.TenTK)</span>
+        </div>
+        <div class="form-group">
+            <label>Mật Khẩu Mới:</label>
+            <input class="form-control dang-nhap-text" type="password" name="PASS" value="@Model.PASS" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.PASS)</span>
+        </div>
+        <div class="form-group">
+            <label>Xác Nhận Mật Khẩu:</label>
+            <input class="form-control dang-nhap-text" type="password" name="XacNhanMatKhau" value="@Model.XacNhanMatKhau" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.XacNhanMatKhau)</span>
+        </div>
+        <div class="form-group">
+            <label>Địa chỉ email:</label>
+            <input class="form-control dang-nhap-text" type="text" name="Gmail" value="@Model.Gmail" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.Gmail)</span>
+        </div>
+        <div class="form-group">
+            <label>SĐT:</label>
+            <input class="form-control dang-nhap-text" type="tel" name="SDT" value="@Model.SDT" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.SDT)</span>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-8">
+
+                @if (Model.ANH != null)
+                {
+                    <img src="@Url.Content(Model.ANH)" id="previewImg" width="100px" height="100px" />
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>ANH:</label>
+            <input class="form-control dang-nhap-text" type="text" name="ANH" id="ANH" value="@Model.ANH" />
+            <input class="center" id="file" type="file" name="file" onchange="funcChonAnh()" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.ANH)</span>
+        </div>
+
+        <div class="form-group">
+            <input class="btn btn-ok" type="submit" value="Update" />
+        </div>
+
+    </form>
+
+        @if (ViewBag.Success == 1)
+        {
+            <p class="thanh-cong">Lưu Thông Tin Thành Công!</p>
+        }
+
+    </div>
+
+
+
+    <script>
+        function preview() {
+            previewImg.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+
+        function funcChonAnh() {
+            var duongDanAnh = document.getElementById('ANH');
+            var file = document.getElementById('file');
+            var fileName = file.files[0].name;
+            duongDanAnh.value = '/Content/profileImg/' + fileName;
+        }
+
+    </script>
