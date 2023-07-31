@@ -1,8 +1,8 @@
 use MASTER
 
-create database qlks_CNPM
+create database QLKS_CNPM
 GO
-use qlks_CNPM
+use QLKS_CNPM
 GO
 
 
@@ -46,7 +46,8 @@ CREATE  TABLE PHONG
 	MaLoai varchar(10) references LoaiPhong(MaLoai),
 	DADUYET BIT,
 	DanhGia float,
-	BinhLuat NVARCHAR
+	BinhLuan NVARCHAR,
+	DiaChi NVARCHAR
 );
 
 GO
