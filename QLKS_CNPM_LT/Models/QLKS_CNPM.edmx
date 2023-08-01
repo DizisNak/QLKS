@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QLKS_CNPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QLKS_CNPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BCDT">
           <Key>
             <PropertyRef Name="MABC" />
@@ -76,7 +76,8 @@
           <Property Name="MaLoai" Type="varchar" MaxLength="10" />
           <Property Name="DADUYET" Type="bit" />
           <Property Name="DanhGia" Type="float" />
-          <Property Name="BinhLuat" Type="nvarchar" MaxLength="1" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="1" />
+          <Property Name="BinhLuan" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="TAIKHOAN">
           <Key>
@@ -285,8 +286,7 @@
             <End Role="YEUTHICH" EntitySet="YEUTHICH" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QLKS_CNPMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -372,11 +372,12 @@
           <Property Name="MaLoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="DADUYET" Type="Boolean" />
           <Property Name="DanhGia" Type="Double" />
-          <Property Name="BinhLuat" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="HOADONs" Relationship="Self.FK__HOADON__MA_PHONG__48CFD27E" FromRole="PHONG" ToRole="HOADON" />
           <NavigationProperty Name="LOAIPHONG" Relationship="Self.FK__PHONG__MaLoai__3F466844" FromRole="PHONG" ToRole="LOAIPHONG" />
           <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK__PHONG__ID_TK__3E52440B" FromRole="PHONG" ToRole="TAIKHOAN" />
           <NavigationProperty Name="YEUTHICHes" Relationship="Self.FK__YEUTHICH__MA_PHO__4316F928" FromRole="PHONG" ToRole="YEUTHICH" />
+          <Property Name="DiaChi" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="BinhLuan" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TAIKHOAN">
           <Key>
@@ -664,6 +665,8 @@
           <EntitySetMapping Name="PHONGs">
             <EntityTypeMapping TypeName="QLKS_CNPMModel.PHONG">
               <MappingFragment StoreEntitySet="PHONG">
+                <ScalarProperty Name="BinhLuan" ColumnName="BinhLuan" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="MA_PHONG" ColumnName="MA_PHONG" />
                 <ScalarProperty Name="ID_TK" ColumnName="ID_TK" />
                 <ScalarProperty Name="TENPhong" ColumnName="TENPhong" />
@@ -674,7 +677,6 @@
                 <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
                 <ScalarProperty Name="DADUYET" ColumnName="DADUYET" />
                 <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
-                <ScalarProperty Name="BinhLuat" ColumnName="BinhLuat" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -21,6 +21,45 @@ namespace QLKS_CNPM_LT.Models.Function
         {
             get { return db.PHONGs; }
         }
+        public string Insert(PHONG model)
+        {
+            db.PHONGs.Add(model);
+            db.SaveChanges();
+            return model.MA_PHONG;
+        }
+
+        public string Update(PHONG model)
+        {
+            PHONG dbEntry = db.PHONGs.Find(model.MA_PHONG);
+            if (dbEntry == null)
+            {
+                return null;
+            }
+            dbEntry.MA_PHONG = model.MA_PHONG;
+            dbEntry.TENPhong = model.TENPhong;
+            dbEntry.MaLoai = model.MaLoai;
+            dbEntry.GIA = model.GIA;
+            dbEntry.DiaChi = model.DiaChi;
+            dbEntry.ID_TK = model.ID_TK;
+            dbEntry.TRANGTHAI = model.TRANGTHAI;
+            dbEntry.NoiDung = model.NoiDung;
+
+            db.SaveChanges();
+            return model.MA_PHONG;
+        }
+
+        public string Delete(string MaPhong)
+        {
+            PHONG dbEntry = db.PHONGs.Find(MaPhong);
+            if (dbEntry == null)
+            {
+                return null;
+            }
+            db.PHONGs.Remove(dbEntry);
+            db.SaveChanges();
+            return MaPhong;
+        }
+
 
         public List<PhongView> toanBoPhong()
         {
@@ -40,11 +79,5 @@ namespace QLKS_CNPM_LT.Models.Function
             listPhongView = query.ToList();
             return listPhongView;
         }
-
-        
-
-
-
-
     }
 }

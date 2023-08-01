@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "DSLoaiTaiKhoan";
+    Layout = "~/Views/SharedAdmin/_Layout.cshtml";
+}
+@using QLKS_CNPM_LT.Models
+@model List<LOAITAIKHOAN>
+
+@{
+    var stt = 1;
+}
+
+<script>
+    var element = document.getElementById("collapse4");
+    element.classList.add("in");
+</script>
+
+
+<h2 style="text-align:center">Danh Sách Loại Tài Khoản</h2>
+<div class="">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>ID loại TK</th>
+                <th>Ten loại tài Khoản</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (LOAITAIKHOAN tk in Model)
+                {
+
+                    //string laAdmin = tk.LaAdmin ? "Có" : "Không";
+                    <tr>
+                        <td>@stt</td>
+                        <td>@tk.ID_LOAITK</td>
+                        <td>@tk.TENLOAITK</td>
+                        <td>
+                            @*<a href="/Admin/SuaLoaiTaiKhoan/@tk.ID_LOAITK">Sửa</a>*@&nbsp;|&nbsp;
+                            <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaLoaiTaiKhoan/@tk.ID_LOAITK')">Xóa</a>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (ViewBag.Er == 1)
+{
+    <p class="thanh-cong">Lưu Thông Tin Thành Công!</p>
+}
+else if(ViewBag.Er == 0)
+{
+    <p class="thanh-cong">Lưu Thông Tin 0 Thành Công!</p>
+}
+
+@Html.Partial("~/Views/SharedAdmin/_XacNhanModal.cshtml")

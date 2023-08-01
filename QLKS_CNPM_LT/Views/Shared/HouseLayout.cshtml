@@ -68,6 +68,19 @@
                         </div>
                     </div>
                 }
+                else if ((((TAIKHOAN)Session["TaiKhoan"]).LOAITK.Trim() == "AD"))
+                {
+                    <div class="item">
+                        <div class="dropdown">
+                            <button class="dropbtn">Hello @(((TAIKHOAN)Session["TaiKhoan"]).TenTK)</button>
+                            <div class="dropdown-content_user" style="left:0;">
+                                <a href="@Url.Action("CaNhan","TaiKhoan")"><ion-icon name="log-out-outline"></ion-icon>Thông tin cá nhân</a>
+                                <a href="@Url.Action("DSTaiKhoan","Admin")"><ion-icon name="log-out-outline"></ion-icon>Trang ADMIN</a>
+                                <a href="@Url.Action("DangXuat","TaiKhoan")"><ion-icon name="log-out-outline"></ion-icon>Đăng suất</a>
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 else
                 {
@@ -81,6 +94,7 @@
                         </div>
                     </div>
                 }
+
             </div>
 
 

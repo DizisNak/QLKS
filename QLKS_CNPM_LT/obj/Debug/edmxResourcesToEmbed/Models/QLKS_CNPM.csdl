@@ -82,11 +82,12 @@
     <Property Name="MaLoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="DADUYET" Type="Boolean" />
     <Property Name="DanhGia" Type="Double" />
-    <Property Name="BinhLuat" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="HOADONs" Relationship="Self.FK__HOADON__MA_PHONG__48CFD27E" FromRole="PHONG" ToRole="HOADON" />
     <NavigationProperty Name="LOAIPHONG" Relationship="Self.FK__PHONG__MaLoai__3F466844" FromRole="PHONG" ToRole="LOAIPHONG" />
     <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK__PHONG__ID_TK__3E52440B" FromRole="PHONG" ToRole="TAIKHOAN" />
     <NavigationProperty Name="YEUTHICHes" Relationship="Self.FK__YEUTHICH__MA_PHO__4316F928" FromRole="PHONG" ToRole="YEUTHICH" />
+    <Property Name="DiaChi" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="BinhLuan" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TAIKHOAN">
     <Key>

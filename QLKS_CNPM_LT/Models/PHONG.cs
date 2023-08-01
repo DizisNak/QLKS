@@ -19,6 +19,7 @@ namespace QLKS_CNPM_LT.Models
         {
             this.HOADONs = new HashSet<HOADON>();
             this.YEUTHICHes = new HashSet<YEUTHICH>();
+            ANH = "/Data/roomImg/DefaultRoom.jpg";
         }
     
         public string MA_PHONG { get; set; }
@@ -31,7 +32,8 @@ namespace QLKS_CNPM_LT.Models
         public string MaLoai { get; set; }
         public Nullable<bool> DADUYET { get; set; }
         public Nullable<double> DanhGia { get; set; }
-        public string BinhLuat { get; set; }
+        public string DiaChi { get; set; }
+        public string BinhLuan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADON> HOADONs { get; set; }

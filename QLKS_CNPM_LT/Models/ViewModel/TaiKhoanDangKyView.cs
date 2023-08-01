@@ -25,5 +25,6 @@ namespace QLKS_CNPM_LT.Models.ViewModel
         [Required(ErrorMessage = "Không được để trống mail")]
         public string Gmail { get; set; }
         public string ANH { get; set; }
+        public string LOAITK { get; set; }
     }
 }

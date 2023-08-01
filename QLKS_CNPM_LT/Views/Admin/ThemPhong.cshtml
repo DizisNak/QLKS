@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "ThemTaiKhoan";
+    Layout = "~/Views/SharedAdmin/_Layout.cshtml";
+}
+
+@using QLKS_CNPM_LT.Models
+@model PHONG
+
+@{
+    var db = new QLKS_CNPMEntities();
+    var LOAITK = (from tk in db.TAIKHOANs select tk).ToList();
+    var loaiPhong = (from lp in db.LOAIPHONGs select lp).ToList();
+
+}
+
+<script>
+    var element = document.getElementById("collapse3");
+    element.classList.add("in");
+</script>
+
+<h2 style="text-align:center">Thêm tài khoản</h2>
+
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+        @*<input class="form-control dang-nhap-text" type="text" name="ID_TK" value="@Model.ID_TK" />*@
+
+        <div class="form-group">
+            <input class="form-control dang-nhap-text" type="hidden" name="MA_PHONG" value="@Model.MA_PHONG" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.MA_PHONG)</span>
+        </div>
+        <div class="form-group">
+            <label>Tên phòng:</label>
+            <input class="form-control dang-nhap-text" type="text" name="TENPhong" value="@Model.TENPhong" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.TENPhong)</span>
+        </div>
+        <div class="form-group">
+            <label>Giá:</label>
+            <input class="form-control dang-nhap-text" type="number" name="GIA" value="@Model.GIA" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.GIA)</span>
+        </div>
+        <div class="form-group">
+            <label>Địa chỉ:</label>
+            <input class="form-control dang-nhap-text" type="tel" name="DiaChi" value="@Model.DiaChi" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.DiaChi)</span>
+        </div>
+
+        <div class="form-group">
+            <label>Tên chủ sở hữu TK:</label>
+            <select class="form-control dang-nhap-text" name="ID_TK" id="ID_TK">
+                @foreach (var ltk in LOAITK)
+                {
+                    <option value="@ltk.ID_TK.Trim()">@ltk.Gmail</option>
+                }
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label>Loại phòng:</label>
+            <select class="form-control dang-nhap-text" name="MaLoai" id="MaLoai">
+                @foreach (var lp in loaiPhong)
+                {
+                    <option value="@lp.MaLoai.Trim()">@lp.TenLoai</option>
+                }
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            @if (Model.ANH != null)
+            {
+                <img src="@Url.Content(Model.ANH)" id="previewImg" width="100px" height="100px" />
+            }
+        </div>
+
+        <div class="form-group">
+            <label>ANH:</label>
+            <input class="form-control dang-nhap-text" type="text" name="ANH" id="ANH" value="@Model.ANH" readonly />
+            <input class="center" id="file" type="file" name="file" onchange="funcChonAnh()" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.ANH)</span>
+        </div>
+
+
+
+        <div class="form-group">
+            <input class="btn btn-ok" type="submit" value="Thêm Mới" />
+        </div>
+
+    </form>
+</div>
+
+<script>
+    function funcChonAnh() {
+        previewImg.src = URL.createObjectURL(event.target.files[0]);
+        var duongDanAnh = document.getElementById('ANH');
+        var file = document.getElementById('file');
+        var fileName = file.files[0].name;
+        duongDanAnh.value = '/Data/roomImg/' + fileName;
+    }
+</script>

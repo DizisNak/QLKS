@@ -4,16 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Web;
 using System.Web.Mvc;
 
 namespace QLKS_CNPM_LT.Controllers
 {
+    [Authorize(Roles = "AD")]
     public class AdminController : Controller
     {
         // GET: Admin
+        
         private QLKS_CNPMEntities db = new QLKS_CNPMEntities();
-        private int MaxPhanTuMoiTrang = 8;
+
+
+        /*                                     VIEW                                        */
         public ActionResult DSTaiKhoan()
         {
             var list = db.TAIKHOANs.ToList();
@@ -37,24 +42,50 @@ namespace QLKS_CNPM_LT.Controllers
             return View(list);
         }
 
+        public ActionResult DSPhong()
+        {
+            var list = db.PHONGs.ToList();
+            return View(list);
+        }
+
+        public ActionResult DSLoaiTaiKhoan()
+        {
+            var list = db.LOAITAIKHOANs.ToList();
+            return View(list);
+        }
+
+        public ActionResult DSLoaiPhong()
+        {
+            var list = db.LOAIPHONGs.ToList();
+            return View(list);
+        }
+
+
         public ActionResult ThemTaiKhoan()
         {
             return View(new TAIKHOAN());
         }
 
-        public ActionResult XoaTaiKhoan()
+        public ActionResult ThemPhong()
         {
-            string ID_TK = RouteData.Values["id"].ToString();
-            // Trước khi xóa Tài Khoản phải xóa thông tin đặt phòng
-            var listDatPhong = db.HOADONs.Where(m => m.MAKH == ID_TK).ToList();
-            var HamDP = new HoaDon_Func();
-            foreach (HOADON dp in listDatPhong)
-                HamDP.Delete(dp.MAHD);
-            // Sau đó mới xóa Tài Khoản
-            var HamTK = new TaiKhoan_Func();
-            HamTK.Delete(ID_TK);
-            return RedirectToAction("DSTaiKhoan", "Admin");
+            return View(new PHONG());
         }
+
+        public ActionResult ThemLoaiPhong()
+        {
+            return View(new LOAIPHONG());
+        }
+
+        public ActionResult ThemLoaiTaiKhoan()
+        {
+            return View(new LOAITAIKHOAN());
+        }
+
+
+        /*                                     VIEW                                        */
+
+
+        /*                                     THÊM                                        */
 
         [HttpPost]
         public ActionResult ThemTaiKhoan(TAIKHOAN tk, HttpPostedFileBase file)
@@ -107,11 +138,239 @@ namespace QLKS_CNPM_LT.Controllers
             return View(tk);
         }
 
-        public ActionResult SuaTaiKhoan()
+
+        [HttpPost]
+        public ActionResult ThemPhong(PHONG p, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                var idLP = db.PHONGs.Find(p.MA_PHONG);
+                var tenLP = db.PHONGs.Find(p.TENPhong);
+                if (idLP != null)
+                {
+                    ModelState.AddModelError("MA_PHONG", "ID này đã có");
+                    return View(p);
+                }
+                if (tenLP != null)
+                {
+                    ModelState.AddModelError("TENPhong", "Tên phòng này đã có");
+                    return View(p);
+                }
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Data/roomImg/"), fileName);
+                    file.SaveAs(path);
+                    p.ANH = "~/Data/roomImg/" + fileName;
+                }
+
+                var ID_PHONG = db.PHONGs.ToList();
+                string MAPHONG = ""; // The final formatted string to be generated
+
+                if (ID_PHONG.Count == 0)
+                {
+                    MAPHONG = "P01";
+                }
+                else
+                {
+                    int lastMaDatPhongNumber = int.Parse(ID_PHONG.Last().MA_PHONG.Substring(2));
+                    int nextMaDatPhongNumber = lastMaDatPhongNumber + 1;
+                    MAPHONG = "P" + nextMaDatPhongNumber.ToString("D2");
+                }
+
+                var taoPhong = new PHONG()
+                {
+                    MA_PHONG = MAPHONG,
+                    TENPhong = p.TENPhong,
+                    GIA = p.GIA,
+                    DiaChi = p.DiaChi,
+                    DADUYET = true,
+                    ID_TK = p.ID_TK,
+                    MaLoai = p.MaLoai,
+                    ANH = p.ANH
+                };
+
+
+                var ltkFunc = new Phong_Func();
+                ltkFunc.Insert(taoPhong);
+                return RedirectToAction("DSPhong", "Admin");
+            }
+            p.ANH = "~/Data/roomImg/DefaultRoom.jpg";
+            return View(p);
+        }
+
+
+        [HttpPost]
+        public ActionResult ThemLoaiPhong(LOAIPHONG lp, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                var idLP = db.LOAIPHONGs.Find(lp.MaLoai);
+                var tenLP = db.LOAIPHONGs.Find(lp.MaLoai);
+                if (idLP != null)
+                {
+                    ModelState.AddModelError("MaLoai", "ID này đã có");
+                    return View(lp);
+                }
+                if (tenLP != null)
+                {
+                    ModelState.AddModelError("TenLoai", "Tên loại này đã có");
+                    return View(lp);
+                }
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Data/roomImg/"), fileName);
+                    file.SaveAs(path);
+                    lp.DuongDanAnh = "~/Data/roomImg/" + fileName;
+                }
+
+
+                var taolp = new LOAIPHONG()
+                {
+                    MaLoai = lp.MaLoai.Trim(),
+                    TenLoai = lp.TenLoai.Trim(),
+                    GhiChu = lp.GhiChu.Trim(),
+                    DuongDanAnh = lp.DuongDanAnh
+                };
+
+                
+
+                var ltkFunc = new LoaiPhong_Func();
+                ltkFunc.Insert(taolp);
+                return RedirectToAction("DSLoaiPhong", "Admin");
+            }
+            lp.DuongDanAnh = "~/Data/roomImg/DefaultRoom.jpg";
+            return View(lp);
+        }
+
+        [HttpPost]
+        public ActionResult ThemLoaiTaiKhoan(LOAITAIKHOAN ltk)
+        {
+            if (ModelState.IsValid)
+            {
+                var taiKhoan = db.LOAITAIKHOANs.Find(ltk.ID_LOAITK);
+                if (taiKhoan != null)
+                {
+                    ModelState.AddModelError("ID_LOAITK", "ID này đã có");
+                    return View(ltk);
+                }
+                var taoLtk = new LOAITAIKHOAN()
+                {
+                    ID_LOAITK = ltk.ID_LOAITK.Trim(),
+                    TENLOAITK = ltk.TENLOAITK.Trim()
+                };
+
+                var ltkFunc = new LoaiTaiKhoan_Func();
+                ltkFunc.Insert(taoLtk);
+                return RedirectToAction("DSLoaiTaiKhoan", "Admin");
+
+            }
+            return View(ltk);
+        }
+
+        /*                                     THÊM                                        */
+
+
+
+        /*                                     XOÁ                                        */
+        public ActionResult XoaLoaiTaiKhoan()
+        {
+            try
+            {
+                string ID_LOAITK = RouteData.Values["id"].ToString();
+                var HamTK = new LoaiTaiKhoan_Func();
+                HamTK.Delete(ID_LOAITK);
+                ViewBag.Er = 1;
+                return RedirectToAction("DSLoaiTaiKhoan", "Admin");
+            }
+            catch
+            {
+                ViewBag.Er = 0;
+                return RedirectToAction("DSLoaiTaiKhoan", "Admin");
+            }
+        }
+
+        public ActionResult XoaLoaiPhong()
+        {
+            string MaLoai = RouteData.Values["id"].ToString();
+
+            // Trước khi xóa Loại Phòng phải xóa các Phòng liên quan
+            // Nhưng muốn xóa Phòng phải xóa Đặt Phòng trước
+            var listPhong = db.PHONGs.Where(m => m.MaLoai == MaLoai).ToList();
+            var HamP = new Phong_Func();
+            var HamDP = new HoaDon_Func();
+            foreach (PHONG p in listPhong)
+            {
+                var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == p.MA_PHONG).ToList();
+                foreach (HOADON dp in listDatPhong)
+                    HamDP.Delete(dp.MAHD);
+                HamP.Delete(p.MA_PHONG);
+            }
+            // Sau đó mới xóa Loại Phòng
+            var HamLP = new LoaiPhong_Func();
+            HamLP.Delete(MaLoai);
+            return RedirectToAction("DSLoaiPhong", "Admin");
+        }
+
+        public ActionResult XoaTaiKhoan()
         {
             string ID_TK = RouteData.Values["id"].ToString();
-            var taiKhoan = db.TAIKHOANs.Find(ID_TK);
+            // Trước khi xóa Tài Khoản phải xóa thông tin đặt phòng
+            var listDatPhong = db.HOADONs.Where(m => m.MAKH == ID_TK).ToList();
+            var HamDP = new HoaDon_Func();
+            foreach (HOADON dp in listDatPhong)
+                HamDP.Delete(dp.MAHD);
+            // Sau đó mới xóa Tài Khoản
+            var HamTK = new TaiKhoan_Func();
+            HamTK.Delete(ID_TK);
+            return RedirectToAction("DSTaiKhoan", "Admin");
+        }
+
+        /*                                     XOÁ                                        */
+
+
+        /*                                     SỬA                                        */
+
+        public ActionResult SuaTaiKhoan()
+        {
+            string ID = RouteData.Values["id"].ToString();
+            var taiKhoan = db.TAIKHOANs.Find(ID);
             return View(taiKhoan);
+        }
+
+        public ActionResult SuaLoaiPhong()
+        {
+            string ID = RouteData.Values["id"].ToString();
+            var loaiphong = db.LOAIPHONGs.Find(ID);
+            return View(loaiphong);
+        }
+
+        [HttpPost]
+        public ActionResult SuaLoaiPhong(PHONG tk, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                if (file != null)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
+                    file.SaveAs(path);
+                }
+                var HamTK = new Phong_Func();
+                HamTK.Update(tk);
+                return RedirectToAction("DSTaiKhoan", "Admin");
+            }
+            return View(tk);
+        }
+
+        public ActionResult SuaPhong()
+        {
+            string ID = RouteData.Values["id"].ToString();
+            var phong = db.PHONGs.Find(ID);
+            return View(phong);
         }
 
 
@@ -130,10 +389,12 @@ namespace QLKS_CNPM_LT.Controllers
                 HamTK.Update(tk);
                 return RedirectToAction("DSTaiKhoan", "Admin");
             }
-            return View(tk);
-                
-            
+            return View(tk);                
         }
+
+
+
+        /*                                     SỬA                                        */
 
     }
 }

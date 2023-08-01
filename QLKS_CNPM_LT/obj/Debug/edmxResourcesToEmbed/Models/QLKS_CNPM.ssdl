@@ -71,7 +71,8 @@
     <Property Name="MaLoai" Type="varchar" MaxLength="10" />
     <Property Name="DADUYET" Type="bit" />
     <Property Name="DanhGia" Type="float" />
-    <Property Name="BinhLuat" Type="nvarchar" MaxLength="1" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="1" />
+    <Property Name="BinhLuan" Type="nvarchar" MaxLength="1" />
   </EntityType>
   <EntityType Name="TAIKHOAN">
     <Key>

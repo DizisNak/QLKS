@@ -47,7 +47,7 @@ namespace QLKS_CNPM_LT.Controllers
                 {
                     Session["TaiKhoan"] = taiKhoan;
                     FormsAuthentication.SetAuthCookie(taiKhoan.Gmail, tk.TuDongDangNhap);
-                    return RedirectToAction("Home", "Home");
+                    return RedirectToAction("DSTaiKhoan", "Admin");
                 }
 
                 if(taiKhoan.LOAITK.Trim().Equals("KH"))
@@ -76,7 +76,7 @@ namespace QLKS_CNPM_LT.Controllers
 
 
         [HttpPost]
-        public ActionResult DangKy(TaiKhoanDangKyView tk)
+        public ActionResult DangKy(TaiKhoanDangKyView tk, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -111,6 +111,14 @@ namespace QLKS_CNPM_LT.Controllers
                     MATK = "KH" + nextMaDatPhongNumber.ToString("D2");
                 }
 
+                if (file != null)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
+                    file.SaveAs(path);
+                }
+
+
                 var taoTK = new TAIKHOAN()
                 {
                     ID_TK = MATK,
@@ -118,7 +126,8 @@ namespace QLKS_CNPM_LT.Controllers
                     PASS = tk.PASS,
                     SDT = tk.SDT,
                     Gmail = tk.Gmail,
-                    LOAITK = "KH"
+                    LOAITK = "KH",
+                    ANH = tk.ANH
                 };
                 var TK = new TaiKhoan_Func();
                 TK.Insert(taoTK);
@@ -140,6 +149,7 @@ namespace QLKS_CNPM_LT.Controllers
             ckMatKhau.Expires = DateTime.Now.AddDays(-1);
             Response.Cookies.Add(ckTaiKhoan);
             Response.Cookies.Add(ckMatKhau);
+            FormsAuthentication.SignOut();
             return RedirectToAction("Home", "Home");
         }
 
@@ -151,49 +161,37 @@ namespace QLKS_CNPM_LT.Controllers
                 Session["TrangTruoc"] = Request.RawUrl;
                 return Redirect("DangNhap");
             }
-            var TaiKhoan = (TAIKHOAN)Session["TaiKhoan"];
-            var TaiKhoanCaNhan = new TaiKhoanDangKyView
-            {
-                ID_TK = TaiKhoan.ID_TK,
-                TenTK = TaiKhoan.TenTK,
-                PASS = TaiKhoan.PASS,
-                XacNhanMatKhau = TaiKhoan.PASS,
-                Gmail = TaiKhoan.Gmail,
-                ANH = TaiKhoan.ANH,
-                SDT = TaiKhoan.SDT
-            };
-            return View(TaiKhoanCaNhan);
+            var TaiKhoan = ((TAIKHOAN)Session["TaiKhoan"]).ID_TK;
+            return View(db.TAIKHOANs.Find(TaiKhoan));
         }
 
+        public ActionResult SuaTrangCaNhan()
+        {
+            string ID_TK = RouteData.Values["id"].ToString();
+            var taiKhoan = db.TAIKHOANs.Find(ID_TK);
+            return View(taiKhoan);
+        }
+
+
         [HttpPost]
-        public ActionResult CaNhan(TaiKhoanDangKyView tk, HttpPostedFile file)
+        public ActionResult SuaTrangCaNhan(TAIKHOAN tk, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                if (file != null && file.ContentLength > 0)
+                if (file != null)
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Content/profileImg/"), fileName);
+                    var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
                     file.SaveAs(path);
                 }
-
-                var taiKhoan = new TAIKHOAN()
-                {
-                    ID_TK = tk.ID_TK,
-                    TenTK = tk.TenTK,
-                    PASS = tk.PASS,
-                    SDT = tk.SDT,
-                    Gmail = tk.Gmail,
-                    ANH = tk.ANH
-                };
-
-                Session["TaiKhoan"] = taiKhoan;
+                Session["TaiKhoan"] = tk;
                 var HamTK = new TaiKhoan_Func();
-                HamTK.Update(taiKhoan);
+                HamTK.Update((TAIKHOAN)Session["TaiKhoan"]);
                 ViewBag.Success = 1;
-                return RedirectToAction("CaNhan", "TaiKhoan");
             }
-            return View(tk);
+            ViewBag.Success = 0;
+            return RedirectToAction("CaNhan", "TaiKhoan");
         }
+
     }
 }

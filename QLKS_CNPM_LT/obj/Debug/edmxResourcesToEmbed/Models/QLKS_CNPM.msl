@@ -67,6 +67,8 @@
     <EntitySetMapping Name="PHONGs">
       <EntityTypeMapping TypeName="QLKS_CNPMModel.PHONG">
         <MappingFragment StoreEntitySet="PHONG">
+          <ScalarProperty Name="BinhLuan" ColumnName="BinhLuan" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
           <ScalarProperty Name="MA_PHONG" ColumnName="MA_PHONG" />
           <ScalarProperty Name="ID_TK" ColumnName="ID_TK" />
           <ScalarProperty Name="TENPhong" ColumnName="TENPhong" />
@@ -77,7 +79,6 @@
           <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
           <ScalarProperty Name="DADUYET" ColumnName="DADUYET" />
           <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
-          <ScalarProperty Name="BinhLuat" ColumnName="BinhLuat" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -147,6 +147,8 @@
       <DependentUpon>QLKS_CNPM.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Function\HoaDon_Func.cs" />
+    <Compile Include="Models\Function\LoaiPhong_Func.cs" />
+    <Compile Include="Models\Function\LoaiTaiKhoan_Func.cs" />
     <Compile Include="Models\Function\Phong_Func.cs" />
     <Compile Include="Models\Function\TaiKhoan_Func.cs" />
     <Compile Include="Models\CapQuyenDangNhapView.cs" />
@@ -217,6 +219,7 @@
     <Content Include="Content\MyStyle\Main.css" />
     <Content Include="Content\MyStyle\Register.css" />
     <Content Include="Content\profileImg\profileImg.png" />
+    <Content Include="Data\roomImg\DefaultRoom.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\QLKS_CNPM.Context.tt">
@@ -283,12 +286,20 @@
     <Content Include="Views\SharedAdmin\_Layout.cshtml" />
     <Content Include="Views\Admin\SuaTaiKhoan.cshtml" />
     <Content Include="Views\SharedAdmin\_SideMenu.cshtml" />
+    <Content Include="Views\TaiKhoan\SuaTrangCaNhan.cshtml" />
+    <Content Include="Views\TaiKhoan\UpAnh.cshtml" />
+    <Content Include="Views\Admin\DSLoaiTaiKhoan.cshtml" />
+    <Content Include="Views\Admin\ThemLoaiTaiKhoan.cshtml" />
+    <Content Include="Views\Admin\DSPhong.cshtml" />
+    <Content Include="Views\Admin\DSLoaiPhong.cshtml" />
+    <Content Include="Views\Admin\ThemLoaiPhong.cshtml" />
+    <Content Include="Views\Admin\ThemPhong.cshtml" />
+    <Content Include="Views\Admin\SuaPhong.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\MyImg\" />
     <Folder Include="Data\profileImg\" />
-    <Folder Include="Data\roomImg\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

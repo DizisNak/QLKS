@@ -1,0 +1,113 @@
+﻿
+
+@{
+    ViewBag.Title = "SUAPHONG";
+    Layout = "~/Views/SharedAdmin/_Layout.cshtml";
+}
+@using QLKS_CNPM_LT.Models
+@model PHONG
+
+@{
+    
+
+}
+
+<script>
+    var element = document.getElementById("collapse3");
+    element.classList.add("in");
+</script>
+
+<h2 style="text-align:center">Sửa Phòng</h2>
+
+<div class="container admin-sua-thong-tin">
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Mã Loại:</label>
+            <input class="form-control dang-nhap-text" type="text" name="MA_PHONG" value="@Model.MA_PHONG" readonly />
+        </div>
+
+        <div class="form-group">
+            <label>Tên người dùng:</label>
+            <input class="form-control dang-nhap-text" type="text" name="TENPhong" value="@Model.TENPhong" />
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.TENPhong)</span>
+        </div>
+        <div class="form-group">
+            <label>SĐT:</label>
+            <input class="form-control dang-nhap-text" type="tel" name="LOAIPHONG" value="@Model.LOAIPHONG" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.LOAIPHONG)</span>
+        </div>
+
+
+        <div class="form-group">
+            <label>Địa chỉ email:</label>
+            <input class="form-control dang-nhap-text" type="text" name="DADUYET" value="@Model.DADUYET" />
+            <span style="color:red">@Html.ValidationMessageFor(m => m.DADUYET)</span>
+        </div>
+
+        <div class="form-group">
+            <label>Mật khẩu:</label>
+            <input class="form-control dang-nhap-text" type="text" name="PASS" value="@Model.DiaChi" />
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.DiaChi)</span>
+        </div>
+
+        <div class="form-group">
+            <label>Mật khẩu:</label>
+            <input class="form-control dang-nhap-text" type="text" name="PASS" value="@Model.LOAIPHONG" />
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.DiaChi)</span>
+        </div>
+
+        <div class="form-group">
+            <label>Mật khẩu:</label>
+            <input class="form-control dang-nhap-text" type="text" name="PASS" value="@Model.NoiDung" />
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.DiaChi)</span>
+        </div>
+
+        @*<div class="form-group">
+            <label>Loai TK:</label>
+            <select class="form-control dang-nhap-text" name="LOAITK" id="LOAITK">
+                @foreach (var ltk in LOAITK)
+                {
+                    <option value="@ltk.ID_LOAITK.Trim()">@ltk.TENLOAITK</option>
+                }
+            </select>
+        </div>*@
+
+        <div class="form-group">
+            @if (Model.ANH != null)
+            {
+                <img src="@Url.Content(Model.ANH)" id="previewImg" width="100px" height="100px" />
+            }
+        </div>
+
+        <div class="form-group">
+            <label>ANH:</label>
+
+            <input class="form-control dang-nhap-text" type="text" name="ANH" id="ANH" value="@Model.ANH" readonly />
+            <input class="center" id="file" type="file" name="file" onchange="funcChonAnh()" />
+        </div>
+
+
+
+
+        <div class="form-group">
+            <input class="btn btn-ok" type="submit" value="Cập Nhật" />
+        </div>
+
+
+
+    </form>
+</div>
+
+<script>
+    function preview() {
+
+    }
+
+    function funcChonAnh() {
+        previewImg.src = URL.createObjectURL(event.target.files[0]);
+        var duongDanAnh = document.getElementById('ANH');
+        var file = document.getElementById('file');
+        var fileName = file.files[0].name;
+        duongDanAnh.value = '/Data/profileImg/' + fileName;
+    }
+</script>

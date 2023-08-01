@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "DSPhong";
+    Layout = "~/Views/SharedAdmin/_Layout.cshtml";
+}
+
+@using QLKS_CNPM_LT.Models
+@model List<PHONG>
+@{
+    var stt = 1;
+    var db = new QLKS_CNPMEntities();
+}
+
+
+
+<script>
+    var element = document.getElementById("collapse3");
+    element.classList.add("in");
+</script>
+
+
+<h2 style="text-align:center">Danh Sách Phòng</h2>
+<div class="">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã phòng</th>
+                <th>Tên phòng</th>
+                <th>Giá</th>
+                <th>Chủ sỡ hữu</th>
+                <th>Trạng thái</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (PHONG phong in Model)
+                {
+                    if(phong.DADUYET == true)
+                    {
+                        ViewBag.Txt = "Đã duyệt";
+                    }
+                    else
+                    {
+                        ViewBag.Txt = "Chưa duyệt";
+                    }
+                        <tr>
+                            <td>@stt</td>
+                            <td>@phong.MA_PHONG</td>
+                            <td>@phong.TENPhong</td>
+                            <td>@phong.GIA</td>
+                            <td>
+                                @{
+                                    var tk = (from p in db.TAIKHOANs
+                                              where p.ID_TK == phong.ID_TK
+                                              select p).First();
+                                }
+                                @tk.TenTK | @tk.ID_TK
+                            </td>
+                            <td>@phong.DanhGia</td>
+
+
+                            <td> @ViewBag.Txt</td>
+                            <td>
+                                @if (phong.ANH != null)
+                                {
+                                    <img src="@Url.Content(phong.ANH)" id="previewImg" width="50px" height="50px" />
+                                }
+                            </td>
+                            <td>
+                                <a href="/Admin/SuaPhong/@phong.MA_PHONG">Sửa</a>&nbsp;|&nbsp;
+                                <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaPhong/@phong.MA_PHONG')">Xóa</a>
+                            </td>
+                        </tr>
+                    stt++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.Partial("~/Views/SharedAdmin/_XacNhanModal.cshtml")

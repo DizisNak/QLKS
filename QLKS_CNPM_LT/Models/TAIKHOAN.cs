@@ -11,9 +11,7 @@ namespace QLKS_CNPM_LT.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Web;
-
+    
     public partial class TAIKHOAN
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,7 +21,7 @@ namespace QLKS_CNPM_LT.Models
             this.HOANTIENs = new HashSet<HOANTIEN>();
             this.PHONGs = new HashSet<PHONG>();
             this.YEUTHICHes = new HashSet<YEUTHICH>();
-            ANH = "/Content/profileImg/profileImg.png";
+            ANH = "~/Content/profileImg/profileImg.png";
         }
     
         public string ID_TK { get; set; }
