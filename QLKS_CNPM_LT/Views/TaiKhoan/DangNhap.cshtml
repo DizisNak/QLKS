@@ -12,6 +12,11 @@
         color: red;
     }
 </style>
+
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
 <h1 style="text-align:center;margin-bottom:20px">Đăng nhập</h1>
 <div class="center">
 
@@ -58,3 +63,15 @@
 
 </div>
 
+
+<script>
+    $('form').submit(function (event) {
+        // Display the loading overlay
+        $('#loadingOverlay').show();
+    });
+
+    // Hide loading overlay when form submission is complete
+    $(document).ajaxStop(function () {
+        $('#loadingOverlay').hide();
+    });
+</script>

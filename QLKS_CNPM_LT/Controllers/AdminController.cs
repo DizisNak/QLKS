@@ -31,18 +31,19 @@ namespace QLKS_CNPM_LT.Controllers
             return View(list);
         }
 
+
         public ActionResult DSLoaiTaiKhoan()
         {
             var list = db.LOAITAIKHOANs.ToList();
             return View(list);
         }
 
+
         public ActionResult DSLoaiPhong()
         {
             var list = db.LOAIPHONGs.ToList();
             return View(list);
         }
-
 
         public ActionResult ThemTaiKhoan()
         {
@@ -272,6 +273,110 @@ namespace QLKS_CNPM_LT.Controllers
 
 
         /*                                     XOÁ                                        */
+
+        [HttpPost]
+        public ActionResult DSTaiKhoan(FormCollection form)
+        {
+            // Trước khi xóa Tài Khoản phải xóa thông tin đặt phòng
+            //ids = ID TK
+            string[] ids = form["ID_TK"].Split(new char[] { ',' });
+            var HamDP = new HoaDon_Func();
+            var HamTK = new TaiKhoan_Func();
+            foreach (var id in ids)
+            {
+                var listDatPhong = db.HOADONs.Where(m => m.MAKH == id).ToList();
+
+                foreach (HOADON dp in listDatPhong)
+                    HamDP.Delete(dp.MAHD);
+                // Sau đó mới xóa Tài Khoản
+                HamTK.Delete(id);
+            }
+            return RedirectToAction("DSTaiKhoan", "Admin");
+        }
+
+        [HttpPost]
+        public ActionResult DSLoaiTaiKhoan(FormCollection form)
+        {
+            string[] ids = form["ID_LOAITK"].Split(new char[] { ',' });
+            var HamTK = new TaiKhoan_Func();
+            var HamHD = new HoaDon_Func();
+            var HamPhong = new Phong_Func();
+
+            var HamLTK = new LoaiTaiKhoan_Func();
+            foreach (var id in ids)
+            {
+                var IDTK = db.TAIKHOANs.Where(m => m.LOAITK == id).ToList();
+                foreach (TAIKHOAN tk in IDTK)
+                {
+                    var listHD = db.HOADONs.Where(m => m.MAKH == tk.ID_TK).ToList();
+                    var listPhong = db.PHONGs.Where(p => p.ID_TK == tk.ID_TK).ToList();
+                    foreach (HOADON hd in listHD)
+                    {
+                        HamHD.Delete(hd.MAHD);
+                    }
+
+                    foreach (PHONG p in listPhong)
+                    {
+                        HamPhong.Delete(p.MA_PHONG);
+                    }
+
+                    HamTK.Delete(tk.ID_TK);
+                }
+                HamLTK.Delete(id);
+            }
+            ViewBag.Er = 1;
+            return RedirectToAction("DSLoaiTaiKhoan", "Admin");
+        }
+
+        [HttpPost]
+        public ActionResult DSLoaiPhong(FormCollection form)
+        {
+            if (ModelState.IsValid)
+            {
+                // Trước khi xóa Loại Phòng phải xóa các Phòng liên quan
+                // Nhưng muốn xóa Phòng phải xóa Đặt Phòng trước
+
+                string[] ids = form["MaLoai"].Split(new char[] { ',' });
+                var HamPhong = new Phong_Func();
+                var HamDP = new HoaDon_Func();
+                var HamLP = new LoaiPhong_Func();
+                foreach (string id in ids)
+                {
+                    var ListPhong = db.PHONGs.Where(m => m.MaLoai == id).ToList();
+                    foreach (PHONG p in ListPhong)
+                    {
+                        var ListHD = db.HOADONs.Where(m => m.MA_PHONG == p.MA_PHONG).ToList();
+                        foreach (HOADON dp in ListHD)
+                        {
+                            HamDP.Delete(dp.MAHD);
+                        }
+                        HamPhong.Delete(p.MA_PHONG);
+                    }
+                    HamLP.Delete(id);
+                }
+            }
+            return RedirectToAction("DSLoaiPhong", "Admin");
+        }
+
+        [HttpPost]
+        public ActionResult DSPhong(FormCollection form)
+        {
+            if (ModelState.IsValid)
+            {
+                string[] ids = form["MA_PHONG"].Split(new char[] { ',' });
+                var HamPhong = new Phong_Func();
+                var HamDP = new HoaDon_Func();
+                foreach (string id in ids)
+                {
+                    var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == id).ToList();
+                    foreach (HOADON dp in listDatPhong)
+                        HamDP.Delete(dp.MAHD);
+                    HamPhong.Delete(id);
+                }
+            }
+            return RedirectToAction("DSPhong", "Admin");
+        }
+
         public ActionResult XoaLoaiTaiKhoan()
         {
 
@@ -289,12 +394,12 @@ namespace QLKS_CNPM_LT.Controllers
             {
                 var listHD = db.HOADONs.Where(m => m.MAKH == tk.ID_TK).ToList();
                 var listPhong = db.PHONGs.Where(p => p.ID_TK == tk.ID_TK).ToList();
-                foreach(HOADON hd in listHD)
+                foreach (HOADON hd in listHD)
                 {
                     HamHD.Delete(hd.MAHD);
                 }
 
-                foreach(PHONG p in listPhong)
+                foreach (PHONG p in listPhong)
                 {
                     HamPhong.Delete(p.MA_PHONG);
                 }
@@ -308,55 +413,55 @@ namespace QLKS_CNPM_LT.Controllers
 
         }
 
-        public ActionResult XoaLoaiPhong()
-        {
-            string MaLoai = RouteData.Values["id"].ToString();
+        //public ActionResult XoaLoaiPhong()
+        //{
+        //    string MaLoai = RouteData.Values["id"].ToString();
 
-            // Trước khi xóa Loại Phòng phải xóa các Phòng liên quan
-            // Nhưng muốn xóa Phòng phải xóa Đặt Phòng trước
-            var listPhong = db.PHONGs.Where(m => m.MaLoai == MaLoai).ToList();
-            var HamP = new Phong_Func();
-            var HamDP = new HoaDon_Func();
-            foreach (PHONG p in listPhong)
-            {
-                var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == p.MA_PHONG).ToList();
-                foreach (HOADON dp in listDatPhong)
-                    HamDP.Delete(dp.MAHD);
-                HamP.Delete(p.MA_PHONG);
-            }
-            // Sau đó mới xóa Loại Phòng
-            var HamLP = new LoaiPhong_Func();
-            HamLP.Delete(MaLoai);
-            return RedirectToAction("DSLoaiPhong", "Admin");
-        }
+        //    // Trước khi xóa Loại Phòng phải xóa các Phòng liên quan
+        //    // Nhưng muốn xóa Phòng phải xóa Đặt Phòng trước
+        //    var listPhong = db.PHONGs.Where(m => m.MaLoai == MaLoai).ToList();
+        //    var HamP = new Phong_Func();
+        //    var HamDP = new HoaDon_Func();
+        //    foreach (PHONG p in listPhong)
+        //    {
+        //        var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == p.MA_PHONG).ToList();
+        //        foreach (HOADON dp in listDatPhong)
+        //            HamDP.Delete(dp.MAHD);
+        //        HamP.Delete(p.MA_PHONG);
+        //    }
+        //    // Sau đó mới xóa Loại Phòng
+        //    var HamLP = new LoaiPhong_Func();
+        //    HamLP.Delete(MaLoai);
+        //    return RedirectToAction("DSLoaiPhong", "Admin");
+        //}
 
-        public ActionResult XoaTaiKhoan()
-        {
-            string ID_TK = RouteData.Values["id"].ToString();
-            // Trước khi xóa Tài Khoản phải xóa thông tin đặt phòng
-            var listDatPhong = db.HOADONs.Where(m => m.MAKH == ID_TK).ToList();
-            var HamDP = new HoaDon_Func();
-            foreach (HOADON dp in listDatPhong)
-                HamDP.Delete(dp.MAHD);
-            // Sau đó mới xóa Tài Khoản
-            var HamTK = new TaiKhoan_Func();
-            HamTK.Delete(ID_TK);
-            return RedirectToAction("DSTaiKhoan", "Admin");
-        }
+        //public ActionResult XoaTaiKhoan()
+        //{
+        //    string ID_TK = RouteData.Values["id"].ToString();
+        //    // Trước khi xóa Tài Khoản phải xóa thông tin đặt phòng
+        //    var listDatPhong = db.HOADONs.Where(m => m.MAKH == ID_TK).ToList();
+        //    var HamDP = new HoaDon_Func();
+        //    foreach (HOADON dp in listDatPhong)
+        //        HamDP.Delete(dp.MAHD);
+        //    // Sau đó mới xóa Tài Khoản
+        //    var HamTK = new TaiKhoan_Func();
+        //    HamTK.Delete(ID_TK);
+        //    return RedirectToAction("DSTaiKhoan", "Admin");
+        //}
 
-        public ActionResult XoaPhong()
-        {
-            string MaPhong = RouteData.Values["id"].ToString();
-            // Trước khi xóa Phòng phải xóa thông tin đặt phòng
-            var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == MaPhong).ToList();
-            var HamDP = new HoaDon_Func();
-            foreach (HOADON dp in listDatPhong)
-                HamDP.Delete(dp.MAHD);
-            // Sau đó mới xóa Phòng
-            var HamP = new Phong_Func();
-            HamP.Delete(MaPhong);
-            return RedirectToAction("DSPhong", "Admin");
-        }
+        //public ActionResult XoaPhong()
+        //{
+        //    string MaPhong = RouteData.Values["id"].ToString();
+        //    // Trước khi xóa Phòng phải xóa thông tin đặt phòng
+        //    var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == MaPhong).ToList();
+        //    var HamDP = new HoaDon_Func();
+        //    foreach (HOADON dp in listDatPhong)
+        //        HamDP.Delete(dp.MAHD);
+        //    // Sau đó mới xóa Phòng
+        //    var HamP = new Phong_Func();
+        //    HamP.Delete(MaPhong);
+        //    return RedirectToAction("DSPhong", "Admin");
+        //}
 
         /*                                     XOÁ                                        */
 

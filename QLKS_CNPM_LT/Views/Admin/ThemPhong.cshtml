@@ -19,6 +19,10 @@
     element.classList.add("in");
 </script>
 
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
 <h2 style="text-align:center">Thêm phòng</h2>
 
 <div class="container">
@@ -53,8 +57,8 @@
             <label>Trạng thái:</label>
             <select class="form-control dang-nhap-text" name="TRANGTHAI" id="TRANGTHAI">
 
-                <option value="Trống">Trống</option>
-                <option value="Không trống">Không trống</option>
+                <option value="1">Trống</option>
+                <option value="0">Không trống</option>
             </select>
         </div>
 
@@ -104,6 +108,20 @@
 </div>
 
 <script>
+
+    $('form').submit(function (event) {
+        // Display the loading overlay
+        $('#loadingOverlay').show();
+    });
+
+    // Hide loading overlay when form submission is complete
+    $(document).ajaxStop(function () {
+        $('#loadingOverlay').hide();
+    });
+
+
+
+
     function funcChonAnh() {
         previewImg.src = URL.createObjectURL(event.target.files[0]);
         var duongDanAnh = document.getElementById('ANH');

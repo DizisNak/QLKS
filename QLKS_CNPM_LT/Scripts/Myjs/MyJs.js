@@ -27,3 +27,11 @@ window.addEventListener("scroll", function () {
     }
 })
 
+
+function compareStrings(str1, str2) {
+    return removeDiacritics(str1).toLowerCase().includes(removeDiacritics(str2).toLowerCase());
+}
+
+function removeDiacritics(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}

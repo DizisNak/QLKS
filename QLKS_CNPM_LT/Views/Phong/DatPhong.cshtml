@@ -24,6 +24,10 @@
     <h3 style="color:red" class="canh-bao">Phòng đã có người đặt trong khoảng thời gian đó!</h3>
 }
 
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
 
 <div class="container1">
     <div class="trip-details">
@@ -143,8 +147,6 @@
     document.getElementById('NgayVe').value = nextDayDateString;
     document.getElementById('NgayVe').min = nextDayDateString;
 
-
-
         function calculateTotal() {
         // Get the room price
         var roomPrice = parseFloat(@money);
@@ -154,6 +156,17 @@
         var ngayVeDate = new Date(document.getElementById('NgayVe').value);
 
         // Calculate the difference in days between the selected dates
+        /*
+
+            Number of seconds in a day = 24 * 60 * 60 = 86400 seconds.
+
+            1 second = 1000 milliseconds.
+
+            So after calculating the expression, the result is in milliseconds.
+
+            days * 24 * 60 * 60 * 1000 = days * 86400000 ms
+
+        */
         var differenceInDays = Math.ceil((ngayVeDate - ngayDenDate + 1) / (1000 * 3600 * 24));
 
         // Calculate the total price by multiplying the room price with the difference in days
@@ -172,4 +185,14 @@
 
     document.getElementById('NgayDen').addEventListener('change', calculateTotal);
     document.getElementById('NgayVe').addEventListener('change', calculateTotal);
+
+    $('form').submit(function (event) {
+        // Display the loading overlay
+        $('#loadingOverlay').show();
+    });
+
+    // Hide loading overlay when form submission is complete
+    $(document).ajaxStop(function () {
+        $('#loadingOverlay').hide();
+    });
 </script>

@@ -15,66 +15,106 @@
 </script>
 
 
-<h2 style="text-align:center">Danh Sách Phòng</h2>
+<h2 style="text-align:center">Danh Sách Loại Phòng</h2>
 <div class="">
-    <div id="myinput">
-        <input type="text" name="search" class="live-search-box" placeholder="Bạn cần tìm gì" />
-    </div>
-    <table class="table table-hover table-striped">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Mã loại phòng</th>
-                <th>Tên loại phòng</th>
-                <th>Giá</th>
-                <th>Ảnh</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                foreach (LOAIPHONG phong in Model)
-                {
-                    <tr>
-                        <td>@stt</td>
-                        <td>@phong.MaLoai</td>
-                        <td>@phong.TenLoai</td>
-                        <td>@phong.DuongDanAnh</td>
-                        <td>
-                            @if (phong.DuongDanAnh != null)
-                            {
-                                <img src="@Url.Content(phong.DuongDanAnh)" id="previewImg" width="50px" height="50px" />
-                            }
-                        </td>
-                        <td>
-                            <a href="/Admin/SuaLoaiPhong/@phong.MaLoai">Sửa</a>&nbsp;|&nbsp;
-                            <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaLoaiPhong/@phong.MaLoai')">Xóa</a>
-                        </td>
-                    </tr>
-                    stt++;
+    <form method="post">
+        <div id="myinput">
+            <input type="text" name="search" class="live-search-box" placeholder="Bạn cần tìm gì" />
+        </div>
+        <input type="submit" value="Xoá tất cả" />
+        <table class="table table-hover table-striped">
+
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="checkBoxAll" /></th>
+                    <th>STT</th>
+                    <th>Mã loại phòng</th>
+                    <th>Tên loại phòng</th>
+                    <th>Giá</th>
+                    <th>Ảnh</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (LOAIPHONG phong in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" class="chkCheckBoxId" name="MaLoai" value="@phong.MaLoai" /></td>
+                            <td>@stt</td>
+                            <td>@phong.MaLoai</td>
+                            <td>@phong.TenLoai</td>
+                            <td>@phong.DuongDanAnh</td>
+                            <td>
+                                @if (phong.DuongDanAnh != null)
+                                {
+                                    <img src="@Url.Content(phong.DuongDanAnh)" id="previewImg" width="50px" height="50px" />
+                                }
+                            </td>
+                            <td>
+                                <a href="/Admin/SuaLoaiPhong/@phong.MaLoai">Sửa</a>&nbsp;|&nbsp;
+                                @*<a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaLoaiPhong/@phong.MaLoai')">Xóa</a>*@
+                            </td>
+                        </tr>
+                        stt++;
+                    }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </form>
 </div>
 
 @Html.Partial("~/Views/SharedAdmin/_XacNhanModal.cshtml")
 
 <script>
-    function compareStrings(str1, str2) {
-        return removeDiacritics(str1).toLowerCase().includes(removeDiacritics(str2).toLowerCase());
-    }
 
-    function removeDiacritics(text) {
-        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
+
+    $(document).ready(function () {
+        // Check/uncheck all checkboxes when "Select All" checkbox is clicked
+        $("#checkBoxAll").click(function () {
+            $(".chkCheckBoxId").prop("checked", this.checked);
+        });
+
+        // Check "Select All" checkbox if all checkboxes are selected, and uncheck if at least one is unselected
+        $(".chkCheckBoxId").click(function () {
+            if ($(".chkCheckBoxId:checked").length === $(".chkCheckBoxId").length) {
+                $("#checkBoxAll").prop("checked", true);
+            } else {
+                $("#checkBoxAll").prop("checked", false);
+            }
+        });
+
+        // Confirm before submitting the form to delete all
+        $('form').submit(function (event) {
+            if ($('.chkCheckBoxId:checked').length === 0) {
+                event.preventDefault();
+                swal("Thông báo", "Vui lòng chọn ít nhất một phòng để xoá.", "warning");
+            } else {
+                swal({
+                    title: "Xác nhận",
+                    text: "Bạn có chắc muốn xoá tất cả các phòng đã chọn?",
+                    icon: "warning",
+                    buttons: ["Hủy", "Xoá"],
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        // If the user confirms, submit the form
+                        $('#loadingOverlay').show();
+                        $('form').unbind('submit').submit();
+                    }
+                });
+                $('#loadingOverlay').hide();
+                event.preventDefault();
+            }
+        });
 
     $(document).ready(function () {
         $('.live-search-box').on('keyup', function () {
             var searchTerm = $(this).val().trim().toLowerCase();
 
             $('tbody tr').each(function () {
-                var maLoai = $(this).find('td:nth-child(2)').text().trim().toLowerCase();
-                var tenLoai = $(this).find('td:nth-child(3)').text().trim().toLowerCase();
+                var maLoai = $(this).find('td:nth-child(3)').text().trim().toLowerCase();
+                var tenLoai = $(this).find('td:nth-child(4)').text().trim().toLowerCase();
 
                 var matchMaLoai = compareStrings(maLoai, searchTerm);
                 var matchTenLoai = compareStrings(tenLoai, searchTerm);

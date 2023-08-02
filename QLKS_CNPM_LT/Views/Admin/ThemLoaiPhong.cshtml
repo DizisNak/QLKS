@@ -16,6 +16,10 @@
 
 <h2 style="text-align:center">Thêm Loại phòng</h2>
 
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
 <div class="container">
     <form action="" method="post" enctype="multipart/form-data">
 
@@ -62,6 +66,17 @@
 </div>
 
 <script>
+
+    $('form').submit(function (event) {
+        // Display the loading overlay
+        $('#loadingOverlay').show();
+    });
+
+    // Hide loading overlay when form submission is complete
+    $(document).ajaxStop(function () {
+        $('#loadingOverlay').hide();
+    });
+
     function funcChonAnh() {
         previewImg.src = URL.createObjectURL(event.target.files[0]);
         var duongDanAnh = document.getElementById('DuongDanAnh');

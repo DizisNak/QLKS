@@ -18,6 +18,10 @@
     element.classList.add("in");
 </script>
 
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
 <h2 style="text-align:center">Sửa Phòng</h2>
 
 <div class="container admin-sua-thong-tin">
@@ -111,9 +115,16 @@
 </div>
 
 <script>
-    function preview() {
 
-    }
+    $('form').submit(function (event) {
+        // Display the loading overlay
+        $('#loadingOverlay').show();
+    });
+
+    // Hide loading overlay when form submission is complete
+    $(document).ajaxStop(function () {
+        $('#loadingOverlay').hide();
+    });
 
     function funcChonAnh() {
         previewImg.src = URL.createObjectURL(event.target.files[0]);

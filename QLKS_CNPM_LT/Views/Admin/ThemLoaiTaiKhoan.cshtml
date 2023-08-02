@@ -13,7 +13,11 @@
     element.classList.add("in");
 </script>
 
-<h2 style="text-align:center">Thêm tài khoản</h2>
+<h2 style="text-align:center">Thêm loại tài khoản</h2>
+
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
 
 <div class="container">
     <form action="" method="post" enctype="multipart/form-data">
@@ -37,3 +41,16 @@
 
     </form>
 </div>
+
+<script>
+
+    $('form').submit(function (event) {
+        // Display the loading overlay
+        $('#loadingOverlay').show();
+    });
+
+    // Hide loading overlay when form submission is complete
+    $(document).ajaxStop(function () {
+        $('#loadingOverlay').hide();
+    });
+</script>

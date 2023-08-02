@@ -14,45 +14,60 @@
     element.classList.add("in");
 </script>
 
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
 
 <h2 style="text-align:center">Danh Sách Loại Tài Khoản</h2>
+<div id="myinput">
+    <input type="text" name="search" class="live-search-box" placeholder="Bạn cần tìm gì" />
+</div>
 <div class="">
-    <table class="table table-hover table-striped">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>ID loại TK</th>
-                <th>Ten loại tài Khoản</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                foreach (LOAITAIKHOAN tk in Model)
-                {
+    <form method="post">
+        <input type="submit" value="Xoá tất cả" />
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="checkBoxAll" /></th>
+                    <th>STT</th>
+                    <th>ID loại TK</th>
+                    <th>Ten loại tài Khoản</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (LOAITAIKHOAN tk in Model)
+                    {
+                                <tr>
+                                    <td>
+                                        @if (tk.ID_LOAITK.Trim() == "AD" || tk.ID_LOAITK.Trim() == "KH")
+                                        {
+                                            <input disabled type="checkbox" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" class="chkCheckBoxId" name="ID_LOAITK" value="@tk.ID_LOAITK" />
+                                        }
+                                    </td>
+                                    <td>@stt</td>
+                                    <td>@tk.ID_LOAITK</td>
+                                    <td>@tk.TENLOAITK</td>
 
-                    //string laAdmin = tk.LaAdmin ? "Có" : "Không";
-                    <tr>
-                        <td>@stt</td>
-                        <td>@tk.ID_LOAITK</td>
-                        <td>@tk.TENLOAITK</td>
-                        <td>
-                            <a href="/Admin/SuaLoaiTaiKhoan/@tk.ID_LOAITK">Sửa</a> &nbsp;|&nbsp;
-                            @if (tk.ID_LOAITK.Trim().Equals("AD") || tk.ID_LOAITK.Trim().Equals("KH"))
-                            {
-                                <span style="color:red">MẶC ĐỊNH</span>
-                            }
-                            else
-                            {
-                                <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaLoaiTaiKhoan/@tk.ID_LOAITK')">Xóa</a>
-                            }
-
-                        </td>
-                    </tr>
-                    stt++;
+                                    <td>
+                                        <a href="/Admin/SuaLoaiTaiKhoan/@tk.ID_LOAITK">Sửa</a> &nbsp;|&nbsp;
+                                        @if (tk.ID_LOAITK.Trim().Equals("AD") || tk.ID_LOAITK.Trim().Equals("KH"))
+                                        {
+                                            <span style="color:red">MẶC ĐỊNH</span>
+                                        }
+                                    </td>
+                                </tr>
+                        stt++;
+                    }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </form>
 </div>
 
 @if (ViewBag.Er == 1)
@@ -63,5 +78,70 @@ else if(ViewBag.Er == 0)
 {
     <p class="thanh-cong">Lưu Thông Tin 0 Thành Công!</p>
 }
+
+<script>
+
+
+    $(document).ready(function () {
+        // Check/uncheck all checkboxes when "Select All" checkbox is clicked
+        $("#checkBoxAll").click(function () {
+            $(".chkCheckBoxId").prop("checked", this.checked);
+        });
+
+        // Check "Select All" checkbox if all checkboxes are selected, and uncheck if at least one is unselected
+        $(".chkCheckBoxId").click(function () {
+            if ($(".chkCheckBoxId:checked").length === $(".chkCheckBoxId").length) {
+                $("#checkBoxAll").prop("checked", true);
+            } else {
+                $("#checkBoxAll").prop("checked", false);
+            }
+        });
+
+        // Confirm before submitting the form to delete all
+        $('form').submit(function (event) {
+            if ($('.chkCheckBoxId:checked').length === 0) {
+                event.preventDefault();
+                swal("Thông báo", "Vui lòng chọn ít nhất một phòng để xoá.", "warning");
+            } else {
+                swal({
+                    title: "Xác nhận",
+                    text: "Bạn có chắc muốn xoá tất cả các phòng đã chọn?",
+                    icon: "warning",
+                    buttons: ["Hủy", "Xoá"],
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        // If the user confirms, submit the form
+                        $('#loadingOverlay').show();
+                        $('form').unbind('submit').submit();
+                    }
+                });
+                $('#loadingOverlay').hide();
+                event.preventDefault();
+            }
+        });
+    });
+
+
+        $(document).ready(function () {
+            $('.live-search-box').on('keyup', function () {
+                var searchTerm = $(this).val().trim().toLowerCase();
+
+                $('tbody tr').each(function () {
+                    var maLoai = $(this).find('td:nth-child(3)').text().trim().toLowerCase();
+                    var tenLoai = $(this).find('td:nth-child(4)').text().trim().toLowerCase();
+
+                    var matchMaLoai = compareStrings(maLoai, searchTerm);
+                    var matchTenLoai = compareStrings(tenLoai, searchTerm);
+
+                    if ((matchMaLoai || matchTenLoai) || searchTerm.length < 1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+</script>
 
 @Html.Partial("~/Views/SharedAdmin/_XacNhanModal.cshtml")

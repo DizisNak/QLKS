@@ -1,13 +1,13 @@
 ﻿
 @{
     ViewBag.Title = "SuaLoaiTaiKhoan";
-    Layout = "~/Views/Shared/HouseLayout.cshtml";
+    Layout = "~/Views/SharedAdmin/_Layout.cshtml";
 }
 @using QLKS_CNPM_LT.Models
 @model LOAITAIKHOAN
 
 <script>
-    var element = document.getElementById("collapse1");
+    var element = document.getElementById("collapse4");
     element.classList.add("in");
 </script>
 
@@ -26,3 +26,16 @@
         </div>
     </form>
 </div>
+
+<script>
+
+    $('form').submit(function (event) {
+        // Display the loading overlay
+        $('#loadingOverlay').show();
+    });
+
+    // Hide loading overlay when form submission is complete
+    $(document).ajaxStop(function () {
+        $('#loadingOverlay').hide();
+    });
+</script>
