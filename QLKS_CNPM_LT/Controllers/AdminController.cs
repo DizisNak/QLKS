@@ -14,7 +14,7 @@ namespace QLKS_CNPM_LT.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        
+
         private QLKS_CNPMEntities db = new QLKS_CNPMEntities();
 
 
@@ -245,7 +245,7 @@ namespace QLKS_CNPM_LT.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 var taiKhoan = db.LOAITAIKHOANs.Find(ltk.ID_LOAITK);
                 if (taiKhoan != null)
                 {
@@ -253,7 +253,7 @@ namespace QLKS_CNPM_LT.Controllers
                     return View(ltk);
                 }
 
-               
+
 
                 var taoLtk = new LOAITAIKHOAN()
                 {
@@ -274,19 +274,38 @@ namespace QLKS_CNPM_LT.Controllers
         /*                                     XOÁ                                        */
         public ActionResult XoaLoaiTaiKhoan()
         {
-            try
+
+            // Trước khi xóa Loại Tài khoản phải xoá các tài khoản liên quan
+            // Nhưng tài khoản liên quan đến Hoá đơn
+            // Phải xoá luôn Hoá đơn của tài khoản đó
+
+            string ID_LOAITK = RouteData.Values["id"].ToString();
+
+            var IDTK = db.TAIKHOANs.Where(m => m.LOAITK == ID_LOAITK).ToList();
+            var HamTK = new TaiKhoan_Func();
+            var HamHD = new HoaDon_Func();
+            var HamPhong = new Phong_Func();
+            foreach (TAIKHOAN tk in IDTK)
             {
-                string ID_LOAITK = RouteData.Values["id"].ToString();
-                var HamTK = new LoaiTaiKhoan_Func();
-                HamTK.Delete(ID_LOAITK);
-                ViewBag.Er = 1;
-                return RedirectToAction("DSLoaiTaiKhoan", "Admin");
+                var listHD = db.HOADONs.Where(m => m.MAKH == tk.ID_TK).ToList();
+                var listPhong = db.PHONGs.Where(p => p.ID_TK == tk.ID_TK).ToList();
+                foreach(HOADON hd in listHD)
+                {
+                    HamHD.Delete(hd.MAHD);
+                }
+
+                foreach(PHONG p in listPhong)
+                {
+                    HamPhong.Delete(p.MA_PHONG);
+                }
+
+                HamTK.Delete(tk.ID_TK);
             }
-            catch
-            {
-                ViewBag.Er = 0;
-                return RedirectToAction("DSLoaiTaiKhoan", "Admin");
-            }
+            var HamLTK = new LoaiTaiKhoan_Func();
+            HamLTK.Delete(ID_LOAITK);
+            ViewBag.Er = 1;
+            return RedirectToAction("DSLoaiTaiKhoan", "Admin");
+
         }
 
         public ActionResult XoaLoaiPhong()
@@ -349,6 +368,25 @@ namespace QLKS_CNPM_LT.Controllers
             string ID = RouteData.Values["id"].ToString();
             var taiKhoan = db.TAIKHOANs.Find(ID);
             return View(taiKhoan);
+        }
+
+        public ActionResult SuaLoaiTaiKhoan()
+        {
+            string ID = RouteData.Values["id"].ToString();
+            var taiKhoan = db.LOAITAIKHOANs.Find(ID);
+            return View(taiKhoan);
+        }
+
+        [HttpPost]
+        public ActionResult SuaLoaiTaiKhoan(LOAITAIKHOAN ltk)
+        {
+            if (ModelState.IsValid)
+            {
+                var LTK = new LoaiTaiKhoan_Func();
+                LTK.Update(ltk);
+                return RedirectToAction("DSTaiKhoan", "Admin");
+            }
+            return View(ltk);
         }
 
         [HttpPost]

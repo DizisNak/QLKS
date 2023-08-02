@@ -53,9 +53,9 @@ namespace QLKS_CNPM_LT.Controllers
                 if(taiKhoan.LOAITK.Trim().Equals("KH"))
                 {
                     FormsAuthentication.SetAuthCookie(taiKhoan.Gmail, tk.TuDongDangNhap);
-                    Session["TaiKhoan"] = taiKhoan;
                 }
-               
+                Session["TaiKhoan"] = taiKhoan;
+
                 if (tk.TuDongDangNhap)
                 {
                     HttpCookie ckTaiKhoan = new HttpCookie("Gmail"), ckMatKhau = new HttpCookie("PASS");

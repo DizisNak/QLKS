@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "SuaLoaiTaiKhoan";
+    Layout = "~/Views/Shared/HouseLayout.cshtml";
+}
+@using QLKS_CNPM_LT.Models
+@model LOAITAIKHOAN
+
+<script>
+    var element = document.getElementById("collapse1");
+    element.classList.add("in");
+</script>
+
+<h2 style="text-align:center">Sửa Tài Khoản</h2>
+
+<div class="container admin-sua-thong-tin">
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Mã Loại:</label>
+            <input class="form-control dang-nhap-text" type="text" name="ID_LOAITK" value="@Model.ID_LOAITK" readonly />
+        </div>
+        <div class="form-group">
+            <label>Tên loại phòng:</label>
+            <input class="form-control dang-nhap-text" type="text" name="TENLOAITK" value="@Model.TENLOAITK" />
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.TENLOAITK)</span>
+        </div>
+    </form>
+</div>

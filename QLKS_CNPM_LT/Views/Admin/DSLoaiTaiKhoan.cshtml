@@ -36,8 +36,16 @@
                         <td>@tk.ID_LOAITK</td>
                         <td>@tk.TENLOAITK</td>
                         <td>
-                            @*<a href="/Admin/SuaLoaiTaiKhoan/@tk.ID_LOAITK">Sửa</a>*@&nbsp;|&nbsp;
-                            <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaLoaiTaiKhoan/@tk.ID_LOAITK')">Xóa</a>
+                            <a href="/Admin/SuaLoaiTaiKhoan/@tk.ID_LOAITK">Sửa</a> &nbsp;|&nbsp;
+                            @if (tk.ID_LOAITK.Trim().Equals("AD") || tk.ID_LOAITK.Trim().Equals("KH"))
+                            {
+                                <span style="color:red">MẶC ĐỊNH</span>
+                            }
+                            else
+                            {
+                                <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaLoaiTaiKhoan/@tk.ID_LOAITK')">Xóa</a>
+                            }
+
                         </td>
                     </tr>
                     stt++;
