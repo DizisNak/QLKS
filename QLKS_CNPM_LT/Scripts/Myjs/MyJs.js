@@ -14,18 +14,18 @@ for (let i = 0; i < menulength; i++) {
     }
 }
 
-const navbar = document.getElementById("Header");
-const sticky = navbar.offsetTop;
+//const navbar = document.getElementById("Header");
+//const sticky = navbar.offsetTop;
 
-window.addEventListener("scroll", function () {
-    if(window.scrollY > sticky)
-    {
-        navbar.classList.add("sticky_nav");
-    }
-    else{
-        navbar.classList.remove("sticky_nav");
-    }
-})
+//window.addEventListener("scroll", function () {
+//    if(window.scrollY > sticky)
+//    {
+//        navbar.classList.add("sticky_nav");
+//    }
+//    else{
+//        navbar.classList.remove("sticky_nav");
+//    }
+//})
 
 
 function compareStrings(str1, str2) {

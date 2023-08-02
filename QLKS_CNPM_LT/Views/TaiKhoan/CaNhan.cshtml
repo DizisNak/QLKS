@@ -9,6 +9,9 @@
 
 <link rel="Stylesheet" href="~/Content/MyStyle/CaNhan.css" />
 
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
 
 
 <div class="container">
@@ -24,6 +27,7 @@
             <div class="ANH" style="background-image: url(@Url.Content(Model.ANH))"></div>
             <button type="button" class="btn-edit" onclick="showEditForm('ANH')">Thay đổi Avatar</button>
             <div id="ANH-edit-form" class="edit-form">
+                <input class="form-control dang-nhap-text" type="text" name="ANH" id="ANH" value="@Model.ANH" readonly/>
                 <input type="file" id="file" name="file" accept="image/jpeg, image/png" onchange="funcChonAnh()" />
                 <button type="button" onclick="saveAvatar()">Lưu</button>
                 <button type="button" onclick="cancelEdit('ANH')">Hủy</button>
@@ -38,12 +42,6 @@
             }
         </div>
 
-        <div class="form-group" hidden>
-            <label>ANH:</label>
-
-            <input class="form-control dang-nhap-text" type="text" name="ANH" id="ANH" value="@Model.ANH" readonly />
-            <input class="center" id="file" type="file" name="file" onchange="funcChonAnh()" />
-        </div>
 
 
 
@@ -141,4 +139,14 @@
 
         cancelEdit('ANH');
     }
+
+    $('form').submit(function (event) {
+        // Display the loading overlay
+        $('#loadingOverlay').show();
+    });
+
+    // Hide loading overlay when form submission is complete
+    $(document).ajaxStop(function () {
+        $('#loadingOverlay').hide();
+    });
 </script>
