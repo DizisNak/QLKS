@@ -12,6 +12,75 @@
 	margin-bottom: 45px;
 }
 
+.btn-edit {
+	background-color: #ffffff;
+	color: #000000;
+	border: none;
+	padding: 10px 20px;
+	font-size: 18px;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+	.btn-edit:hover {
+		font-weight: bold;
+		text-decoration: underline;
+	}
+
+.edit-form {
+	display: none;
+	margin-top: 20px;
+}
+
+	.edit-form label {
+		display: inline-block;
+		margin-right: 10px;
+		color: #333;
+	}
+
+	.edit-form input[type="text"],
+	.edit-form input[type="email"],
+	.edit-form input[type="tel"] {
+		font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+		width: 400px;
+		font-size: 16px;
+		padding: 10px;
+		border-radius: 5px;
+		border: 2px solid #6d6d6d;
+	}
+
+	.edit-form button {
+		font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+		background-color: #000000;
+		color: #ffffff;
+		border: none;
+		padding: 10px 20px;
+		font-size: 18px;
+		cursor: pointer;
+		border-radius: 5px;
+		margin-left: 10px;
+	}
+
+		.edit-form button:hover {
+			font-weight: bold;
+			text-decoration: underline;
+		}
+
+.ANH-upload {
+	display: none;
+}
+
+.ANH {
+	width: 200px;
+	height: 200px;
+	background-color: #ccc;
+	border-radius: 50%;
+	margin: 0 auto;
+	background-size: cover;
+	background-position: center;
+}
+
 input {
 	font-size: 18px;
 	padding: 10px 10px 10px 5px;

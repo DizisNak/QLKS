@@ -3,8 +3,6 @@
     Layout = "~/Views/SharedAdmin/_Layout.cshtml";
 }
 
-<h2>DSLoaiPhong</h2>
-
 @using QLKS_CNPM_LT.Models
 @model List<LOAIPHONG>
 @{
@@ -19,6 +17,9 @@
 
 <h2 style="text-align:center">Danh Sách Phòng</h2>
 <div class="">
+    <div id="myinput">
+        <input type="text" name="search" class="live-search-box" placeholder="Bạn cần tìm gì" />
+    </div>
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -57,3 +58,33 @@
 </div>
 
 @Html.Partial("~/Views/SharedAdmin/_XacNhanModal.cshtml")
+
+<script>
+    function compareStrings(str1, str2) {
+        return removeDiacritics(str1).toLowerCase().includes(removeDiacritics(str2).toLowerCase());
+    }
+
+    function removeDiacritics(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    $(document).ready(function () {
+        $('.live-search-box').on('keyup', function () {
+            var searchTerm = $(this).val().trim().toLowerCase();
+
+            $('tbody tr').each(function () {
+                var maLoai = $(this).find('td:nth-child(2)').text().trim().toLowerCase();
+                var tenLoai = $(this).find('td:nth-child(3)').text().trim().toLowerCase();
+
+                var matchMaLoai = compareStrings(maLoai, searchTerm);
+                var matchTenLoai = compareStrings(tenLoai, searchTerm);
+
+                if ((matchMaLoai || matchTenLoai) || searchTerm.length < 1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>

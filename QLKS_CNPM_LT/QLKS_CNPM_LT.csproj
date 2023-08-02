@@ -144,7 +144,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BCDT.cs">
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Function\HoaDon_Func.cs" />
     <Compile Include="Models\Function\LoaiPhong_Func.cs" />
@@ -153,46 +153,47 @@
     <Compile Include="Models\Function\TaiKhoan_Func.cs" />
     <Compile Include="Models\CapQuyenDangNhapView.cs" />
     <Compile Include="Models\GIAMGIA.cs">
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HOADON.cs">
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HOANTIEN.cs">
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LOAIPHONG.cs">
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LOAITAIKHOAN.cs">
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\PHONG.cs">
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QLKS_CNPM.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QLKS_CNPM.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QLKS_CNPM.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QLKS_CNPM.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QLKS_CNPM.edmx</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TAIKHOAN.cs">
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\LichSuView.cs" />
     <Compile Include="Models\ViewModel\PhongView.cs" />
     <Compile Include="Models\ViewModel\TaiKhoanDangKyView.cs" />
     <Compile Include="Models\ViewModel\TaiKhoanDangNhapView.cs" />
     <Compile Include="Models\YEUTHICH.cs">
-      <DependentUpon>QLKS_CNPM.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -214,23 +215,27 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\images\ABEL.png" />
+    <Content Include="Content\MyStyle\CaNhan.css" />
+    <Content Include="Content\MyStyle\DatPhong.css" />
     <Content Include="Content\MyStyle\Detail2.css" />
     <Content Include="Content\MyStyle\Item.css" />
+    <Content Include="Content\MyStyle\LichSu.css" />
     <Content Include="Content\MyStyle\Main.css" />
     <Content Include="Content\MyStyle\Register.css" />
+    <Content Include="Content\MyStyle\TaiKhoan.css" />
     <Content Include="Content\profileImg\profileImg.png" />
     <Content Include="Data\roomImg\DefaultRoom.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\QLKS_CNPM.Context.tt">
+    <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QLKS_CNPM.edmx</DependentUpon>
-      <LastGenOutput>QLKS_CNPM.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\QLKS_CNPM.tt">
+    <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QLKS_CNPM.edmx</DependentUpon>
-      <LastGenOutput>QLKS_CNPM.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -238,12 +243,12 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\QLKS_CNPM.edmx">
+    <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QLKS_CNPM.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\QLKS_CNPM.edmx.diagram">
-      <DependentUpon>QLKS_CNPM.edmx</DependentUpon>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap1.min.js" />
@@ -286,8 +291,6 @@
     <Content Include="Views\SharedAdmin\_Layout.cshtml" />
     <Content Include="Views\Admin\SuaTaiKhoan.cshtml" />
     <Content Include="Views\SharedAdmin\_SideMenu.cshtml" />
-    <Content Include="Views\TaiKhoan\SuaTrangCaNhan.cshtml" />
-    <Content Include="Views\TaiKhoan\UpAnh.cshtml" />
     <Content Include="Views\Admin\DSLoaiTaiKhoan.cshtml" />
     <Content Include="Views\Admin\ThemLoaiTaiKhoan.cshtml" />
     <Content Include="Views\Admin\DSPhong.cshtml" />
@@ -295,6 +298,8 @@
     <Content Include="Views\Admin\ThemLoaiPhong.cshtml" />
     <Content Include="Views\Admin\ThemPhong.cshtml" />
     <Content Include="Views\Admin\SuaPhong.cshtml" />
+    <Content Include="Views\Admin\SuaLoaiPhong.cshtml" />
+    <Content Include="Views\TaiKhoan\LichSu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -43,6 +43,7 @@ namespace QLKS_CNPM_LT.Models.Function
             dbEntry.ID_TK = model.ID_TK;
             dbEntry.TRANGTHAI = model.TRANGTHAI;
             dbEntry.NoiDung = model.NoiDung;
+            dbEntry.DaDuyet = model.DaDuyet;
 
             db.SaveChanges();
             return model.MA_PHONG;
@@ -74,7 +75,7 @@ namespace QLKS_CNPM_LT.Models.Function
                             GIA = r.GIA,
                             MALOAI = r.MaLoai,
                             ANH = r.ANH,
-                            DADUYET = r.DADUYET
+                            DaDuyet = r.DaDuyet
                         };
             listPhongView = query.ToList();
             return listPhongView;

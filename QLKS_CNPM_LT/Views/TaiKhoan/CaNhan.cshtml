@@ -4,67 +4,115 @@
     Layout = "~/Views/Shared/HouseLayout.cshtml";
 }
 
-@using QLKS_CNPM_LT.Models
-@model TAIKHOAN
+@using QLKS_CNPM_LT.Models.ViewModel
+@model TaiKhoanDangKyView
+
+<link rel="Stylesheet" href="~/Content/MyStyle/CaNhan.css" />
 
 
 
-<div class="form-group">
-    <h2>CaNhan</h2>
+<div class="container">
+    <h1>Thông tin cá nhân</h1>
+
+    @if (ViewBag.Success == 1)
+    {
+        <p class="thanh-cong" style="text-align:center">Lưu Thông Tin Thành Công!</p>
+    }
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="ANH"></label>
+            <div class="ANH" style="background-image: url(@Url.Content(Model.ANH))"></div>
+            <button type="button" class="btn-edit" onclick="showEditForm('ANH')">Thay đổi Avatar</button>
+            <div id="ANH-edit-form" class="edit-form">
+                <input type="file" id="file" name="file" accept="image/jpeg, image/png" onchange="funcChonAnh()" />
+                <button type="button" onclick="saveAvatar()">Lưu</button>
+                <button type="button" onclick="cancelEdit('ANH')">Hủy</button>
+            </div>
+        </div>
+
+
+        <div class="form-group" hidden>
+            @if (Model.ANH != null)
+            {
+                <img src="@Url.Content(Model.ANH)" id="previewImg" width="100px" height="100px" />
+            }
+        </div>
+
+        <div class="form-group" hidden>
+            <label>ANH:</label>
+
+            <input class="form-control dang-nhap-text" type="text" name="ANH" id="ANH" value="@Model.ANH" readonly />
+            <input class="center" id="file" type="file" name="file" onchange="funcChonAnh()" />
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="ID_TK">ID tài khoản</label>
+            <input type="text" id="ID_TK" name="ID_TK" value="@Model.ID_TK" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="Gmail">Địa chỉ email</label>
+            <input type="text" id="Gmail" name="Gmail" value="@Model.Gmail" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="LOAITK">Loại tài khoản</label>
+            <input type="text" id="LOAITK" name="LOAITK" value="@Model.LOAITK" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="TenTK">Tên tài khoản</label>
+            <input type="text" id="TenTK" name="TenTK" value="@Model.TenTK">
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.TenTK)</span>
+        </div>
+
+        <div class="form-group">
+            <label for="SDT">Số điện thoại</label>
+            <input type="tel" id="SDT" name="SDT" value="@Model.SDT" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="PASS">Mật khẩu</label>
+            <input type="password" id="PASS" name="PASS" value="@Model.PASS">
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.PASS)</span>
+        </div>
+
+        <div class="form-group">
+            <label for="XacNhanMatKhau">Xác nhận mật khẩu</label>
+            <input type="password" id="XacNhanMatKhau" name="XacNhanMatKhau" value="@Model.XacNhanMatKhau">
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.XacNhanMatKhau)</span>
+        </div>
+
+
+        <div class="form-group">
+            <input class="btn btn-ok" type="submit" value="Cập Nhật" />
+        </div>
+
+
+
+    </form>
+
+
+
 </div>
 
 
-<div class="container admin-sua-thong-tin">
-        <input class="form-control dang-nhap-text" type="hidden" name="LOAITK" value="@Model.ID_TK" />
-        <input class="form-control dang-nhap-text" type="hidden" name="ID_TK" value="@Model.ID_TK" />
-
-        <div class="form-group">
-            <label>Tài Khoản:</label>
-            <input class="form-control dang-nhap-text" type="text" name="TenTK" value="@Model.TenTK" />
-            <span style="color:red">@Html.ValidationMessageFor(m => m.TenTK)</span>
-        </div>
-        <div class="form-group">
-            <label>Mật Khẩu Mới:</label>
-            <input class="form-control dang-nhap-text" type="password" name="PASS" value="@Model.PASS" />
-            <span style="color:red">@Html.ValidationMessageFor(m => m.PASS)</span>
-        </div>
-        <div class="form-group">
-            <label>Xác Nhận Mật Khẩu:</label>
-            <input class="form-control dang-nhap-text" type="password" name="XacNhanMatKhau" value="@Model.XacNhanMatKhau" />
-            <span style="color:red">@Html.ValidationMessageFor(m => m.XacNhanMatKhau)</span>
-        </div>
-        <div class="form-group">
-            <label>Địa chỉ email:</label>
-            <input class="form-control dang-nhap-text" type="text" name="Gmail" value="@Model.Gmail"  />
-            <span style="color:red">@Html.ValidationMessageFor(m => m.Gmail)</span>
-        </div>
-        <div class="form-group">
-            <label>SĐT:</label>
-            <input class="form-control dang-nhap-text" type="tel" name="SDT" value="@Model.SDT"  />
-            <span style="color:red">@Html.ValidationMessageFor(m => m.SDT)</span>
-        </div>
-
-
-        <div class="form-group">
-            <a href="/TaiKhoan/SuaTrangCaNhan/@Model.ID_TK">Sửa</a>
-        </div>
-
-        @*<div class="form-group">
-            <input class="btn btn-ok" type="submit" value="Update" />
-        </div>*@
-
-        @if (ViewBag.Success == 1)
-        {
-            <p class="thanh-cong">Lưu Thông Tin Thành Công!</p>
-        }
-
-    </div>
-
-
-
 <script>
-    function preview() {
+    function showEditForm(field) {
+        document.getElementById(`${field}-edit-form`).style.display = 'block';
+    }
 
+    function cancelEdit(field) {
+        document.getElementById(`${field}-edit-form`).style.display = 'none';
+    }
+
+    function showEditForm(field) {
+        if (field === 'file') {
+            document.getElementById('file').value = null; // reset giá trị file upload
+        }
+        document.getElementById(`${field}-edit-form`).style.display = 'block';
     }
 
     function funcChonAnh() {
@@ -72,6 +120,25 @@
         var duongDanAnh = document.getElementById('ANH');
         var file = document.getElementById('file');
         var fileName = file.files[0].name;
-        duongDanAnh.value = '/Data/profileImg/' + fileName;
+        duongDanAnh.value = '~/Data/profileImg/' + fileName;
+    }
+
+    function saveAvatar() {
+        const fileInput = document.getElementById('file');
+
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const avatarPreview = document.querySelector('.ANH');
+                avatarPreview.style.backgroundImage = `url(${e.target.result})`;
+            }
+
+
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        cancelEdit('ANH');
     }
 </script>

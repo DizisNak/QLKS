@@ -19,6 +19,10 @@
 
 
 <h2 style="text-align:center">Danh Sách Phòng</h2>
+<div id="myinput">
+    <input type="text" name="search" class="live-search-box" placeholder="Bạn cần tìm gì" />
+</div>
+
 <div class="">
     <table class="table table-hover table-striped">
         <thead>
@@ -28,7 +32,10 @@
                 <th>Tên phòng</th>
                 <th>Giá</th>
                 <th>Chủ sỡ hữu</th>
-                <th>Trạng thái</th>
+                <th>Loại phòng</th>
+                <th>Trạng thái phòng</th>
+                <th>Trạng thái duyệt</th>
+                <th>Ảnh</th>
                 <th>Thao Tác</th>
             </tr>
         </thead>
@@ -36,7 +43,7 @@
             @{
                 foreach (PHONG phong in Model)
                 {
-                    if(phong.DADUYET == true)
+                    if (phong.DaDuyet == 1)
                     {
                         ViewBag.Txt = "Đã duyệt";
                     }
@@ -44,34 +51,55 @@
                     {
                         ViewBag.Txt = "Chưa duyệt";
                     }
-                        <tr>
-                            <td>@stt</td>
-                            <td>@phong.MA_PHONG</td>
-                            <td>@phong.TENPhong</td>
-                            <td>@phong.GIA</td>
-                            <td>
-                                @{
-                                    var tk = (from p in db.TAIKHOANs
-                                              where p.ID_TK == phong.ID_TK
-                                              select p).First();
-                                }
-                                @tk.TenTK | @tk.ID_TK
-                            </td>
-                            <td>@phong.DanhGia</td>
+
+                    if (phong.TRANGTHAI.Equals("1"))
+                    {
+                        ViewBag.TrangThaiPhong = "Trống";
+                    }
+                    else
+                    {
+                        ViewBag.TrangThaiPhong = "Hết chỗ";
+                    }
+
+                    <tr>
+                        <td>@stt</td>
+                        <td>@phong.MA_PHONG</td>
+                        <td>@phong.TENPhong</td>
+                        <td>@phong.GIA</td>
+                        <td>
+                            @{
+                                var tk = (from p in db.TAIKHOANs
+                                          where p.ID_TK == phong.ID_TK
+                                          select p).FirstOrDefault();
+                            }
+                            @tk.TenTK | @tk.ID_TK
+                        </td>
+
+                        <td>
+                            @{
+                                var tenloaiphong = (from lp in db.LOAIPHONGs
+                                                    where phong.MaLoai == lp.MaLoai
+                                                    select lp).FirstOrDefault();
+                            }
+                            @tenloaiphong.TenLoai
+                        </td>
+                        <td>
+                            @ViewBag.TrangThaiPhong
+                        </td>
 
 
-                            <td> @ViewBag.Txt</td>
-                            <td>
-                                @if (phong.ANH != null)
-                                {
-                                    <img src="@Url.Content(phong.ANH)" id="previewImg" width="50px" height="50px" />
-                                }
-                            </td>
-                            <td>
-                                <a href="/Admin/SuaPhong/@phong.MA_PHONG">Sửa</a>&nbsp;|&nbsp;
-                                <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaPhong/@phong.MA_PHONG')">Xóa</a>
-                            </td>
-                        </tr>
+                        <td> @ViewBag.Txt</td>
+                        <td>
+                            @if (phong.ANH != null)
+                            {
+                                <img src="@Url.Content(phong.ANH)" id="previewImg" width="50px" height="50px" />
+                            }
+                        </td>
+                        <td>
+                            <a href="/Admin/SuaPhong/@phong.MA_PHONG">Sửa</a>&nbsp;|&nbsp;
+                            <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaPhong/@phong.MA_PHONG')">Xóa</a>
+                        </td>
+                    </tr>
                     stt++;
                 }
             }
@@ -80,3 +108,36 @@
 </div>
 
 @Html.Partial("~/Views/SharedAdmin/_XacNhanModal.cshtml")
+
+<script>
+    function compareStrings(str1, str2) {
+        return removeDiacritics(str1).toLowerCase().includes(removeDiacritics(str2).toLowerCase());
+    }
+
+    function removeDiacritics(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    $(document).ready(function () {
+        $('.live-search-box').on('keyup', function () {
+            var searchTerm = $(this).val().trim().toLowerCase();
+
+            $('tbody tr').each(function () {
+                var roomName = $(this).find('td:nth-child(3)').text().trim().toLowerCase();
+                var roomType = $(this).find('td:nth-child(6)').text().trim().toLowerCase();
+                var roomStatus = $(this).find('td:nth-child(7)').text().trim().toLowerCase();
+
+                if (
+                    compareStrings(roomName, searchTerm) ||
+                    compareStrings(roomType, searchTerm) ||
+                    compareStrings(roomStatus, searchTerm) ||
+                    searchTerm.length < 1
+                ) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>

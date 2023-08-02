@@ -8,21 +8,17 @@
 
 <link rel="stylesheet" href="~/Content/MyStyle/Item.css" />
 <h1>Danh mục sản phẩm</h1>
-@using (Html.BeginForm("Home", "Product"))
-{
-    <div id="myinput">
-        <input type="number" name="min" placeholder="Nhâp số tiền thấp nhất" />
-        <input type="number" name="max" placeholder="Nhập số tiền lớn nhất" />
-        <input type="text" name="search" placeholder="Bạn cần tìm gì" />
-        <input type="submit" value="Tìm" id="btn" />
-    </div>
+
+<div id="myinput">
+    <input type="text" name="search" class="live-search-box" placeholder="Bạn cần tìm gì" />
+</div>
+
+
+@{
+
 }
 
-@{ 
-   
-}
-
-<ul id="list-product">
+<ul id="list-product" class="live-search-list">
 
     @foreach (PhongView pv in Model)
     {
@@ -30,8 +26,8 @@
         <div class="card">
 
             <div class="card_img">
-                @*<img src="@Url.Content(pro.ImagePro)" alt="">*@
-                <img src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/home-improvement/wp-content/uploads/2022/07/download-23.jpg" />
+
+                <img src="@Url.Content(pv.ANH)" />
             </div>
             <div class="card_tille">
                 @pv.TENPhong
@@ -41,15 +37,15 @@
             </div>
 
             <div class="card_action">
-                @if (pv.TRANGTHAI != "Trống")
+                @if (pv.TRANGTHAI != "1")
                 {
-                    <button disabled onclick="location.href='/ShoppingCart/AddtoCart/@pv.MA_PHONG';">Phòng đã hết</button>
-                    <button onclick="location.href='/Phong/CTPhong/@pv.MA_PHONG';">Chi tiết</button>
+                    <button disabled onclick="location.href='/Phong/DatPhong/@pv.MA_PHONG';">Phòng đã hết</button>
+                    <button onclick="location.href='/Phong/ChiTietPhong/@pv.MA_PHONG';">Chi tiết</button>
                 }
                 else
                 {
-                    <button onclick="location.href='/ShoppingCart/AddtoCart/@pv.MA_PHONG';">Đặt phòng</button>
-                    <button onclick="location.href='/Phong/CTPhong/@pv.MA_PHONG';">Chi tiết</button>
+                    <button onclick="location.href='/Phong/DatPhong/@pv.MA_PHONG';">Đặt phòng</button>
+                    <button onclick="location.href='/Phong/ChiTietPhong/@pv.MA_PHONG';">Chi tiết</button>
                 }
 
             </div>
@@ -57,11 +53,39 @@
     }
 
 </ul>
-<div class="list-page">
 
 
-    @*@Html.PagedListPager(Model, page => Url.Action("Home", new
-        { page, category = Request.QueryString["category"] }),
-        new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })*@
 
-</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function compareStrings(str1, str2) {
+        return removeDiacritics(str1).toLowerCase().includes(removeDiacritics(str2).toLowerCase());
+    }
+
+    function removeDiacritics(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    $(document).ready(function () {
+        $('.live-search-box').on('keyup', function () {
+            var searchTerm = $(this).val().trim().toLowerCase();
+            var minPrice = parseFloat(searchTerm); // Assuming you enter the minimum price in the search box
+            var maxPrice = minPrice + 1000000; // Assuming you want to search within a range of 1,000,000 (1 million) VNĐ
+
+            $('.live-search-list .card').each(function () {
+                var roomName = $(this).find('.card_tille').text().trim().toLowerCase();
+                var roomPrice = parseFloat($(this).find('.card_price').text().trim().toLowerCase().replace(/\./g, '').replace(' vnđ', ''));
+
+                var matchName = compareStrings(roomName, searchTerm);
+                var matchPrice = roomPrice >= minPrice && roomPrice <= maxPrice;
+
+                if ((matchName || matchPrice) || searchTerm.length < 1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>

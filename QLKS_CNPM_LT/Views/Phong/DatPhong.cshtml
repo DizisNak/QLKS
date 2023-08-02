@@ -4,76 +4,172 @@
     ViewBag.Title = "Detailproduct";
     Layout = "~/Views/Shared/HouseLayout.cshtml";
 }
-<link href="~/Content/MyStyle/Item.css" rel="stylesheet" />
-<link href="~/Content/MyStyle/Detail2.css" rel="stylesheet" />
+@*<link href="~/Content/MyStyle/Item.css" rel="stylesheet" />
+    <link href="~/Content/MyStyle/Detail2.css" rel="stylesheet" />*@
 
+<link href="~/Content/MyStyle/DatPhong.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/MyStyle/Item.css" />
 @using QLKS_CNPM_LT.Models
-@using QLKS_CNPM_LT.Models.ViewModel 
+@using QLKS_CNPM_LT.Models.ViewModel
 @model PHONG
 
 
 @{
-decimal money = (decimal)Model.GIA;
+    decimal money = (decimal)Model.GIA;
+    decimal Total = 2 * money;
 }
-<div id="box">
-    <div id="item">
-        <div class="left">
-            <div class="img_frame">
-                @if (Model.ANH != null)
-                {
-                    <img src="@Url.Content(Model.ANH)" alt="pic">
-                }
-                else
-                {
-                    <img src="data:image/jpeg;base64,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" />
-                }
 
+@if (ViewBag.Success == 1)
+{
+    <h3 style="color:red" class="canh-bao">Phòng đã có người đặt trong khoảng thời gian đó!</h3>
+}
+
+
+<div class="container1">
+    <div class="trip-details">
+        <form method="post">
+            <h2>Chuyến đi của bạn</h2>
+            <label for="departure-date">Ngày bắt đầu ở</label>
+            <input type="date" id="NgayDen" name="NgayDen">
+
+            <label for="return-date">Ngày trở về</label>
+            <input type="date" id="NgayVe" name="NgayVe">
+
+            <h2>Thanh toán</h2>
+
+
+            <button class="button" type="submit" onclick="calculateTotal()">Hoàn tất đặt phòng</button>
+    </div>
+
+    <div class="price-details">
+        <div style="display: flex; flex-wrap: wrap;">
+            <img src="@Url.Content(Model.ANH)" alt="Hình ảnh phòng" class="room-image">
+
+            <div>
+                <p style="margin-bottom: 0; margin-left: 10px; height:fit-content;width:200px;">@Model.DiaChi </p>
             </div>
-
+        </div>
+        <hr style="border-top: 1px solid #ccc; margin: 15px 0;">
+        <div style="margin-top: 20px;"> <h2>Chi tiết giá</h2></div>
+        <div style="display: flex;">
+            <label for="room-price">Giá/đêm: </label>
+            <span id="room-price">@money.ToString("#,##0").Replace(',', '.') VNĐ</span>
         </div>
 
-        <div class="right">
-            <div class="name">@Model.TENPhong</div>
-            <div class="price">Giá tiền: @money.ToString("#,##0.##0").Replace(',', '.')<sup>VNĐ/Đêm</sup></div>
-            <form method="post">
-                <div class="price">
-                    <label>Bạn ở từ hôm nào?&nbsp;</label>
-                    <input class="form-control" type="date" id="NgayDen" name="NgayDen" />
-                    <label>Bạn ở bao lâu? (Ngày)</label>
-                    <input class="form-control so-ngay" type="number" min="1" max="30" value="1" id="SoNgay" name="SoNgay" />
-                    <script>
-                        var homnay = new Date().toISOString().substring(0, 10);
-                        document.getElementById('NgayDen').value = homnay;
-                        document.getElementById('NgayDen').min = homnay;
-                    </script>
-                </div>
-                <div class="form-group">
-                    <input class="btn btn-success" type="submit" value="Đặt Phòng" />
-                </div>
-            </form>
-
-            @if (ViewBag.Success == -1)
-            {
-                <p class="canh-bao">Nhập sai thông tin! Số ngày phải >= 1!</p>
-            }
-            else if (ViewBag.Success == 1)
-            {
-                <p class="canh-bao">Phòng đã có người đặt trong khoảng thời gian đó!</p>
-                <h3>Gợi Ý Các Phòng Có Thể Đặt Tại Lúc Đó:</h3>
-                foreach (PhongView pv in (List<PhongView>)ViewBag.ListDatDuoc)
-                {
-                    <div class="phong">
-                        <img class="img-rounded img-phong" src=@pv.ANH alt="Image" width="250" height="149" />
-                        <label>Loại Phòng: @pv.MALOAI</label><br />
-                        <label>Tên Phòng: @pv.TENPhong</label><br />
-                        <span class="gia-thue">@pv.GIA.000 đ/ngày</span><br />
-                        <input type="button" class="btn-success" onclick="location.href = '/DatPhong/DatPhong/@pv.MA_PHONG'" value="ĐẶT PHÒNG" />
-                    </div>
-                }
-            }
-
-
+        <div style="display: flex;">
+            <label for="total-price" style="font-weight: bold; font-size: 20px;">Tổng giá:</label>
+            <span id="total-price" style="font-size: 20px;">@Total.ToString("#,##0").Replace(',', '.')  VNĐ</span>
         </div>
+        </form>
     </div>
 </div>
 
+
+@if (ViewBag.Success == 1)
+{
+    <h3 style="color:green">Gợi Ý Các Phòng Có Thể Đặt Tại Lúc Đó:</h3>
+    <ul id="list-product">
+
+        @foreach (PhongView pv in (List<PhongView>)ViewBag.ListDatDuoc)
+        {
+            decimal moneyf = (decimal)pv.GIA;
+            <div class="card">
+
+                <div class="card_img">
+
+                    <img src="@Url.Content(pv.ANH)" />
+                </div>
+                <div class="card_tille">
+                    @pv.TENPhong
+                </div>
+                <div class="card_price">
+                    @moneyf.ToString("#,###").Replace(",", ".") <span style="color:green">VNĐ</span>
+                </div>
+
+                <div class="card_action">
+                    @if (pv.TRANGTHAI != "Trống")
+                    {
+                        <button onclick="location.href='/Phong/DatPhong/@pv.MA_PHONG';">Phòng đã hết</button>
+                        <button onclick="location.href='/Phong/CTPhong/@pv.MA_PHONG';">Chi tiết</button>
+                    }
+                    else
+                    {
+                        <button onclick="location.href='/Phong/DatPhong/@pv.MA_PHONG';">Đặt phòng</button>
+                        <button onclick="location.href='/Phong/CTPhong/@pv.MA_PHONG';">Chi tiết</button>
+                    }
+
+                </div>
+            </div>
+        }
+
+    </ul>
+}
+
+
+
+
+
+
+
+
+
+<script>
+    var homnay = new Date().toISOString().substring(0, 10);
+    document.getElementById('NgayDen').value = homnay;
+    document.getElementById('NgayDen').min = homnay;
+
+    // Add event listener for change event on 'NgayDen' input
+    document.getElementById('NgayDen').addEventListener('change', function () {
+        // Parse the selected date from the 'NgayDen' input
+        var ngayDenDate = new Date(this.value);
+
+        // Calculate the next day date for 'NgayVe' input
+        var nextDayDate = new Date(ngayDenDate.getTime() + 86400000); // 86400000 ms = 1 day
+
+        // Format the next day date in 'yyyy-MM-dd' format
+        var nextDayDateString = nextDayDate.toISOString().split('T')[0];
+
+        // Set the 'NgayVe' input value to the next day date
+        document.getElementById('NgayVe').value = nextDayDateString;
+
+        // Set the minimum value for 'NgayVe' input to be the next day date
+        document.getElementById('NgayVe').min = nextDayDateString;
+    });
+
+    // Initialize the 'NgayVe' input to one day greater than 'NgayDen' input on page load
+    var ngayDenDate = new Date(document.getElementById('NgayDen').value);
+    var nextDayDate = new Date(ngayDenDate.getTime() + 86400000);
+    var nextDayDateString = nextDayDate.toISOString().split('T')[0];
+    document.getElementById('NgayVe').value = nextDayDateString;
+    document.getElementById('NgayVe').min = nextDayDateString;
+
+
+
+        function calculateTotal() {
+        // Get the room price
+        var roomPrice = parseFloat(@money);
+
+        // Get the selected dates from 'NgayDen' and 'NgayVe' inputs
+        var ngayDenDate = new Date(document.getElementById('NgayDen').value);
+        var ngayVeDate = new Date(document.getElementById('NgayVe').value);
+
+        // Calculate the difference in days between the selected dates
+        var differenceInDays = Math.ceil((ngayVeDate - ngayDenDate + 1) / (1000 * 3600 * 24));
+
+        // Calculate the total price by multiplying the room price with the difference in days
+        var totalPrice = roomPrice * differenceInDays;
+
+        // Update the 'total-price' element with the calculated total price
+            var formattedTotalPrice = totalPrice.toLocaleString('en-US', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).replace(/,/g, '.');
+
+            // Update the 'total-price' element with the formatted total price
+            document.getElementById('total-price').textContent = formattedTotalPrice + ' VNĐ';
+
+    }
+
+    document.getElementById('NgayDen').addEventListener('change', calculateTotal);
+    document.getElementById('NgayVe').addEventListener('change', calculateTotal);
+</script>

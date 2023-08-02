@@ -482,14 +482,19 @@ input::-webkit-inner-spin-button {
 }
 
 
-#myinput input {
-    
-    margin-left:5px;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px black solid;
-    box-shadow: 0 0 15px 4px rgba(0,0,0,0.06);
-}
+    #myinput input {
+        width: 100%;
+        border: 1px black solid;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 1em;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        font-family: 'Lato', sans-serif;
+        color: black;
+    }
 
 #mid{
     display:flex;

@@ -68,6 +68,7 @@ namespace QLKS_CNPM_LT.Controllers
 
         public ActionResult ThemPhong()
         {
+            ViewBag.listLoaiPhong = db.LOAIPHONGs.ToList();
             return View(new PHONG());
         }
 
@@ -122,7 +123,7 @@ namespace QLKS_CNPM_LT.Controllers
 
                 var taoTK = new TAIKHOAN()
                 {
-                    ID_TK = MATK,
+                    ID_TK = MATK.Trim(),
                     TenTK = tk.TenTK,
                     PASS = tk.PASS,
                     SDT = tk.SDT,
@@ -137,7 +138,6 @@ namespace QLKS_CNPM_LT.Controllers
             }
             return View(tk);
         }
-
 
         [HttpPost]
         public ActionResult ThemPhong(PHONG p, HttpPostedFileBase file)
@@ -185,10 +185,12 @@ namespace QLKS_CNPM_LT.Controllers
                     TENPhong = p.TENPhong,
                     GIA = p.GIA,
                     DiaChi = p.DiaChi,
-                    DADUYET = true,
-                    ID_TK = p.ID_TK,
                     MaLoai = p.MaLoai,
-                    ANH = p.ANH
+                    ID_TK = p.ID_TK,
+                    ANH = p.ANH,
+                    TRANGTHAI = p.TRANGTHAI,
+                    NoiDung = p.NoiDung,
+                    DaDuyet = 1
                 };
 
 
@@ -196,9 +198,12 @@ namespace QLKS_CNPM_LT.Controllers
                 ltkFunc.Insert(taoPhong);
                 return RedirectToAction("DSPhong", "Admin");
             }
-            p.ANH = "~/Data/roomImg/DefaultRoom.jpg";
+            //p.ANH = "~/Data/roomImg/DefaultRoom.jpg";
+            ViewBag.listLoaiPhong = db.LOAIPHONGs.ToList();
             return View(p);
         }
+
+
 
 
         [HttpPost]
@@ -206,13 +211,7 @@ namespace QLKS_CNPM_LT.Controllers
         {
             if (ModelState.IsValid)
             {
-                var idLP = db.LOAIPHONGs.Find(lp.MaLoai);
-                var tenLP = db.LOAIPHONGs.Find(lp.MaLoai);
-                if (idLP != null)
-                {
-                    ModelState.AddModelError("MaLoai", "ID này đã có");
-                    return View(lp);
-                }
+                var tenLP = db.LOAIPHONGs.Find(lp.TenLoai.Trim());
                 if (tenLP != null)
                 {
                     ModelState.AddModelError("TenLoai", "Tên loại này đã có");
@@ -227,16 +226,28 @@ namespace QLKS_CNPM_LT.Controllers
                     lp.DuongDanAnh = "~/Data/roomImg/" + fileName;
                 }
 
+                var IDLOAIPHONG = db.LOAIPHONGs.ToList();
+                string MALOAI = ""; // The final formatted string to be generated
+
+                if (IDLOAIPHONG.Count == 0)
+                {
+                    MALOAI = "LP01";
+                }
+                else
+                {
+                    int lastMaDatPhongNumber = int.Parse(IDLOAIPHONG.Last().MaLoai.Substring(2));
+                    int nextMaDatPhongNumber = lastMaDatPhongNumber + 1;
+                    MALOAI = "LP" + nextMaDatPhongNumber.ToString("D2");
+                }
+
 
                 var taolp = new LOAIPHONG()
                 {
-                    MaLoai = lp.MaLoai.Trim(),
-                    TenLoai = lp.TenLoai.Trim(),
-                    GhiChu = lp.GhiChu.Trim(),
+                    MaLoai = MALOAI,
+                    TenLoai = lp.TenLoai,
+                    GhiChu = lp.GhiChu,
                     DuongDanAnh = lp.DuongDanAnh
                 };
-
-                
 
                 var ltkFunc = new LoaiPhong_Func();
                 ltkFunc.Insert(taolp);
@@ -251,22 +262,24 @@ namespace QLKS_CNPM_LT.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var taiKhoan = db.LOAITAIKHOANs.Find(ltk.ID_LOAITK);
                 if (taiKhoan != null)
                 {
                     ModelState.AddModelError("ID_LOAITK", "ID này đã có");
                     return View(ltk);
                 }
+
+               
+
                 var taoLtk = new LOAITAIKHOAN()
                 {
-                    ID_LOAITK = ltk.ID_LOAITK.Trim(),
+                    ID_LOAITK = ltk.ID_LOAITK,
                     TENLOAITK = ltk.TENLOAITK.Trim()
                 };
-
                 var ltkFunc = new LoaiTaiKhoan_Func();
                 ltkFunc.Insert(taoLtk);
                 return RedirectToAction("DSLoaiTaiKhoan", "Admin");
-
             }
             return View(ltk);
         }
@@ -329,6 +342,20 @@ namespace QLKS_CNPM_LT.Controllers
             return RedirectToAction("DSTaiKhoan", "Admin");
         }
 
+        public ActionResult XoaPhong()
+        {
+            string MaPhong = RouteData.Values["id"].ToString();
+            // Trước khi xóa Phòng phải xóa thông tin đặt phòng
+            var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == MaPhong).ToList();
+            var HamDP = new HoaDon_Func();
+            foreach (HOADON dp in listDatPhong)
+                HamDP.Delete(dp.MAHD);
+            // Sau đó mới xóa Phòng
+            var HamP = new Phong_Func();
+            HamP.Delete(MaPhong);
+            return RedirectToAction("DSPhong", "Admin");
+        }
+
         /*                                     XOÁ                                        */
 
 
@@ -340,39 +367,6 @@ namespace QLKS_CNPM_LT.Controllers
             var taiKhoan = db.TAIKHOANs.Find(ID);
             return View(taiKhoan);
         }
-
-        public ActionResult SuaLoaiPhong()
-        {
-            string ID = RouteData.Values["id"].ToString();
-            var loaiphong = db.LOAIPHONGs.Find(ID);
-            return View(loaiphong);
-        }
-
-        [HttpPost]
-        public ActionResult SuaLoaiPhong(PHONG tk, HttpPostedFileBase file)
-        {
-            if (ModelState.IsValid)
-            {
-                if (file != null)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
-                    file.SaveAs(path);
-                }
-                var HamTK = new Phong_Func();
-                HamTK.Update(tk);
-                return RedirectToAction("DSTaiKhoan", "Admin");
-            }
-            return View(tk);
-        }
-
-        public ActionResult SuaPhong()
-        {
-            string ID = RouteData.Values["id"].ToString();
-            var phong = db.PHONGs.Find(ID);
-            return View(phong);
-        }
-
 
         [HttpPost]
         public ActionResult SuaTaiKhoan(TAIKHOAN tk, HttpPostedFileBase file)
@@ -389,8 +383,59 @@ namespace QLKS_CNPM_LT.Controllers
                 HamTK.Update(tk);
                 return RedirectToAction("DSTaiKhoan", "Admin");
             }
-            return View(tk);                
+            return View(tk);
         }
+
+        public ActionResult SuaLoaiPhong()
+        {
+            string ID = RouteData.Values["id"].ToString();
+            var loaiphong = db.LOAIPHONGs.Find(ID);
+            return View(loaiphong);
+        }
+
+        [HttpPost]
+        public ActionResult SuaLoaiPhong(LOAIPHONG lp, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                if (file != null)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
+                    file.SaveAs(path);
+                }
+                var HamTK = new LoaiPhong_Func();
+                HamTK.Update(lp);
+                return RedirectToAction("DSLoaiPhong", "Admin");
+            }
+            return View(lp);
+        }
+
+        public ActionResult SuaPhong()
+        {
+            string ID = RouteData.Values["id"].ToString();
+            var phong = db.PHONGs.Find(ID);
+            return View(phong);
+        }
+
+        [HttpPost]
+        public ActionResult SuaPhong(PHONG tk, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                if (file != null)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
+                    file.SaveAs(path);
+                }
+                var UpdatePhong = new Phong_Func();
+                UpdatePhong.Update(tk);
+                return RedirectToAction("DSPhong", "Admin");
+            }
+            return View(tk);
+        }
+
 
 
 

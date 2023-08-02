@@ -37,37 +37,35 @@
     {
         foreach (PHONG lp in Model)
         {
-            if (lp.DADUYET == true)
-            {
-                decimal money = (decimal)lp.GIA;
-                <div class="card">
+            decimal money = (decimal)lp.GIA;
+            <div class="card">
 
-                    <div class="card_img">
-                        <img src="@Url.Content(lp.ANH)" alt="">
-                    </div>
-                    <div class="card_tille">
-                        @lp.TENPhong
-                    </div>
-                    <div class="card_price">
-                        @money.ToString("#,###").Replace(",", ".") <span style="color:green">VNĐ</span>
-                    </div>
-
-                    <div class="card_action">
-                        @if (lp.TRANGTHAI != "Trống")
-                        {
-                            <button onclick="location.href='/Phong/DatPhong/@lp.MA_PHONG';">Đặt phòng</button>
-                            <button onclick="location.href='/Phong/CTPhong/@lp.MA_PHONG';">Chi tiết</button>
-                        }
-                        else
-                        {
-                            <button onclick="location.href='/Phong/DatPhong/@lp.MA_PHONG';">Đặt phòng</button>
-                            <button onclick="location.href='/Phong/CTPhong/@lp.MA_PHONG';">Chi tiết</button>
-                        }
-
-                    </div>
+                <div class="card_img">
+                    <img src="@Url.Content(lp.ANH)" alt="">
                 </div>
-            }
+                <div class="card_tille">
+                    @lp.TENPhong
+                </div>
+                <div class="card_price">
+                    @money.ToString("#,###").Replace(",", ".") <span style="color:green">VNĐ</span>
+                </div>
+
+                <div class="card_action">
+                    @if (lp.TRANGTHAI != "Trống")
+                    {
+                        <button onclick="location.href='/Phong/DatPhong/@lp.MA_PHONG';">Đặt phòng</button>
+                        <button onclick="location.href='/Phong/CTPhong/@lp.MA_PHONG';">Chi tiết</button>
+                    }
+                    else
+                    {
+                        <button onclick="location.href='/Phong/DatPhong/@lp.MA_PHONG';">Đặt phòng</button>
+                        <button onclick="location.href='/Phong/CTPhong/@lp.MA_PHONG';">Chi tiết</button>
+                    }
+
+                </div>
+            </div>
         }
+
 
     }
     else

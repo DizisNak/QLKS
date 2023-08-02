@@ -9,6 +9,7 @@ namespace QLKS_CNPM_LT.Models.ViewModel
     public class TaiKhoanDangNhapView
     {
         [Required(ErrorMessage = "Không được để trống Tài Khoản")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Địa chỉ email không hợp lệ.")]
         public string Gmail { get; set; }
 
         [Required(ErrorMessage = "Không được để trống Mật Khẩu")]

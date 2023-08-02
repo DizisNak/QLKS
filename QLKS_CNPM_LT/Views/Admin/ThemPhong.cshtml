@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 @{
     ViewBag.Title = "ThemTaiKhoan";
     Layout = "~/Views/SharedAdmin/_Layout.cshtml";
@@ -19,16 +19,12 @@
     element.classList.add("in");
 </script>
 
-<h2 style="text-align:center">Thêm tài khoản</h2>
+<h2 style="text-align:center">Thêm phòng</h2>
 
 <div class="container">
     <form action="" method="post" enctype="multipart/form-data">
         @*<input class="form-control dang-nhap-text" type="text" name="ID_TK" value="@Model.ID_TK" />*@
 
-        <div class="form-group">
-            <input class="form-control dang-nhap-text" type="hidden" name="MA_PHONG" value="@Model.MA_PHONG" />
-            <span style="color:red">@Html.ValidationMessageFor(m => m.MA_PHONG)</span>
-        </div>
         <div class="form-group">
             <label>Tên phòng:</label>
             <input class="form-control dang-nhap-text" type="text" name="TENPhong" value="@Model.TENPhong" />
@@ -46,11 +42,28 @@
         </div>
 
         <div class="form-group">
-            <label>Tên chủ sở hữu TK:</label>
+            <label>Nội dung:</label>
+            <textarea class="form-control dang-nhap-text" style="height: 100px" name="GhiChu">@Model.NoiDung</textarea>
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.NoiDung)</span>
+        </div>
+
+
+
+        <div class="form-group">
+            <label>Trạng thái:</label>
+            <select class="form-control dang-nhap-text" name="TRANGTHAI" id="TRANGTHAI">
+
+                <option value="Trống">Trống</option>
+                <option value="Không trống">Không trống</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Chủ sỡ hữu:</label>
             <select class="form-control dang-nhap-text" name="ID_TK" id="ID_TK">
                 @foreach (var ltk in LOAITK)
                 {
-                    <option value="@ltk.ID_TK.Trim()">@ltk.Gmail</option>
+                    <option value="@ltk.ID_TK">@ltk.Gmail</option>
                 }
             </select>
         </div>
@@ -61,7 +74,7 @@
             <select class="form-control dang-nhap-text" name="MaLoai" id="MaLoai">
                 @foreach (var lp in loaiPhong)
                 {
-                    <option value="@lp.MaLoai.Trim()">@lp.TenLoai</option>
+                    <option value="@lp.MaLoai">@lp.TenLoai</option>
                 }
             </select>
         </div>

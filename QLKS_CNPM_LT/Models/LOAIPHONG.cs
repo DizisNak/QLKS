@@ -19,17 +19,15 @@ namespace QLKS_CNPM_LT.Models
         public LOAIPHONG()
         {
             this.PHONGs = new HashSet<PHONG>();
-            DuongDanAnh = "/Data/roomImg/DefaultRoom.jpg";
+            DuongDanAnh = "~/Data/roomImg/DefaultRoom.jpg";
         }
-
-
-        [Required(ErrorMessage = "Không được để trống Mã Loại")]
+    
         public string MaLoai { get; set; }
-        [Required(ErrorMessage = "Không được để trống Tên Loại")]
+
+        [Required(ErrorMessage = "Không được để trống Tài Khoản")]
         public string TenLoai { get; set; }
         public string GhiChu { get; set; }
-
-        [Required(ErrorMessage = "Chưa Chọn Ảnh")]
+        [Required(ErrorMessage = "Không được để trống Ảnh")]
         public string DuongDanAnh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

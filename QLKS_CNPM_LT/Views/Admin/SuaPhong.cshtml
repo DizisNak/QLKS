@@ -8,8 +8,9 @@
 @model PHONG
 
 @{
-    
-
+    var db = new QLKS_CNPMEntities();
+    var loaiPhong = (from lp in db.LOAIPHONGs select lp).ToList();
+    var taikhoan = (from idtk in db.TAIKHOANs select idtk).ToList();
 }
 
 <script>
@@ -22,55 +23,66 @@
 <div class="container admin-sua-thong-tin">
     <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label>Mã Loại:</label>
+            <label>MÃ LOẠI PHÒNG:</label>
             <input class="form-control dang-nhap-text" type="text" name="MA_PHONG" value="@Model.MA_PHONG" readonly />
         </div>
 
         <div class="form-group">
-            <label>Tên người dùng:</label>
+            <label>TÊN PHÒNG:</label>
             <input class="form-control dang-nhap-text" type="text" name="TENPhong" value="@Model.TENPhong" />
             <span class="canh-bao">@Html.ValidationMessageFor(m => m.TENPhong)</span>
         </div>
-        <div class="form-group">
-            <label>SĐT:</label>
-            <input class="form-control dang-nhap-text" type="tel" name="LOAIPHONG" value="@Model.LOAIPHONG" />
-            <span style="color:red">@Html.ValidationMessageFor(m => m.LOAIPHONG)</span>
-        </div>
-
 
         <div class="form-group">
-            <label>Địa chỉ email:</label>
-            <input class="form-control dang-nhap-text" type="text" name="DADUYET" value="@Model.DADUYET" />
-            <span style="color:red">@Html.ValidationMessageFor(m => m.DADUYET)</span>
-        </div>
-
-        <div class="form-group">
-            <label>Mật khẩu:</label>
-            <input class="form-control dang-nhap-text" type="text" name="PASS" value="@Model.DiaChi" />
-            <span class="canh-bao">@Html.ValidationMessageFor(m => m.DiaChi)</span>
-        </div>
-
-        <div class="form-group">
-            <label>Mật khẩu:</label>
-            <input class="form-control dang-nhap-text" type="text" name="PASS" value="@Model.LOAIPHONG" />
-            <span class="canh-bao">@Html.ValidationMessageFor(m => m.DiaChi)</span>
-        </div>
-
-        <div class="form-group">
-            <label>Mật khẩu:</label>
-            <input class="form-control dang-nhap-text" type="text" name="PASS" value="@Model.NoiDung" />
-            <span class="canh-bao">@Html.ValidationMessageFor(m => m.DiaChi)</span>
-        </div>
-
-        @*<div class="form-group">
-            <label>Loai TK:</label>
-            <select class="form-control dang-nhap-text" name="LOAITK" id="LOAITK">
-                @foreach (var ltk in LOAITK)
+            <label>Loại phòng:</label>
+            <select class="form-control dang-nhap-text" name="MaLoai" id="MaLoai">
+                @foreach (var lp in loaiPhong)
                 {
-                    <option value="@ltk.ID_LOAITK.Trim()">@ltk.TENLOAITK</option>
+                    <option value="@lp.MaLoai">@lp.TenLoai</option>
                 }
             </select>
-        </div>*@
+        </div>
+
+        <div class="form-group">
+            <label>Loại phòng:</label>
+            <select class="form-control dang-nhap-text" name="ID_TK" id="ID_TK">
+                @foreach (var lp in taikhoan)
+                {
+                    <option value="@lp.ID_TK">@lp.TenTK</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>ĐIA CHỈ:</label>
+            <input class="form-control dang-nhap-text" type="text" name="DiaChi" value="@Model.DiaChi" />
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.DiaChi)</span>
+        </div>
+
+        <div class="form-group">
+            <label>GIÁ:</label>
+            <input class="form-control dang-nhap-text" type="number" name="GIA" value="@Model.GIA" />
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.GIA)</span>
+        </div>
+
+
+        <div class="form-group">
+            <label>Ghi Chú:</label>
+            <textarea class="form-control dang-nhap-text" style="height: 100px" name="NoiDung">@Model.NoiDung</textarea>
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.NoiDung)</span>
+        </div>
+
+        <div class="form-group">
+            <label>TRẠNG THÁI:</label>
+            <select class="form-control dang-nhap-text" name="TRANGTHAI" id="TRANGTHAI">
+
+                <option value="1">Trống</option>
+                <option value="0">Không trống</option>
+
+            </select>
+            <span class="canh-bao">@Html.ValidationMessageFor(m => m.TRANGTHAI)</span>
+        </div>
+
 
         <div class="form-group">
             @if (Model.ANH != null)

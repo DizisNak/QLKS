@@ -60,25 +60,25 @@ namespace QLKS_CNPM_LT.Controllers
             return View(phong);
         }
 
+
         [HttpPost]
-        public ActionResult DatPhong(string NgayDen, string SoNgay)
+        public ActionResult DatPhong(string NgayDen, string NgayVe)
         {
             string MA_PHONG = (string)RouteData.Values["id"];
             var phong = db.PHONGs.Where(m => m.MA_PHONG == MA_PHONG).First();
-            if (SoNgay == "")
-            {
-                ViewBag.Success = -1;
-                var loaiPhong = db.LOAIPHONGs.Where(m => m.MaLoai == phong.MaLoai).First();
-                ViewBag.DuongDanAnh = loaiPhong.DuongDanAnh;
-                ViewBag.TenLoai = loaiPhong.TenLoai;
-                return View(phong);
-            }
-            int SoNgayThue = Convert.ToInt16(SoNgay);
+
             DateTime dateNgayDat, dateNgayDen, dateNgayTra;
 
             dateNgayDat = DateTime.Today;
             dateNgayDen = Convert.ToDateTime(NgayDen);
-            dateNgayTra = dateNgayDen.AddDays(SoNgayThue);
+            dateNgayTra = Convert.ToDateTime(NgayVe);
+
+            // Calculate the difference between the two dates
+            TimeSpan difference = dateNgayTra - dateNgayDen;
+
+            // Get the number of days as an integer value
+            int SoNgayThue = difference.Days + 1;
+
 
             var kiemTraPhongBiDatChua = db.HOADONs.
                 Where(m => m.MA_PHONG == MA_PHONG && !(m.NgayDen >= dateNgayTra || m.NgayTra <= dateNgayDen)).ToList(); //NgayDen 20 >= 8 NgayTra || NgayTra 21 <= 30
@@ -99,14 +99,10 @@ namespace QLKS_CNPM_LT.Controllers
                 var loaiPhong = db.LOAIPHONGs.Where(m => m.MaLoai == phong.MaLoai).First();
                 ViewBag.DuongDanAnh = loaiPhong.DuongDanAnh;
                 ViewBag.TenLoai = loaiPhong.TenLoai;
-
                 ViewBag.ListDatDuoc = listPhongDatDuoc.ToList();
                 return View(phong);
             }
             var listDatPhong = db.HOADONs.ToList();
-
-            //if (listDatPhong.Count == 0) MaDatPhong = 1;
-            //else MaDatPhong = listDatPhong.Last().MAHD + 1;
 
             string MAHD = ""; // The final formatted string to be generated
 
@@ -122,18 +118,6 @@ namespace QLKS_CNPM_LT.Controllers
             }
 
             double ThanhTien = 0;
-            string DichVuSuDung = "";
-
-            //foreach (DichVu dv in listDV)
-            //{
-            //    if (Request.Form[dv.MaDichVu] == "on")
-            //    {
-            //        if (ThanhTien > 0) DichVuSuDung += ", ";
-            //        DichVuSuDung += dv.TenDichVu;
-            //        ThanhTien += (int)dv.GiaDichVu;
-            //    }
-            //}
-            //if (ThanhTien == 0) DichVuSuDung = "Không Sử Dụng";
 
             ThanhTien += phong.GIA.Value;
             ThanhTien *= SoNgayThue;
@@ -154,11 +138,9 @@ namespace QLKS_CNPM_LT.Controllers
             ViewBag.TenPhong = phong.TENPhong;
             ViewBag.GIA = phong.GIA;
             ViewBag.LOAIPHONG = phong.LOAIPHONG.TenLoai;
-            ViewBag.GiaThue = phong.ANH;
             ViewBag.NgayDat = dateNgayDat.ToString("dd/MM/yyyy");
             ViewBag.NgayDen = dateNgayDen.ToString("dd/MM/yyyy");
             ViewBag.NgayTra = dateNgayTra.ToString("dd/MM/yyyy");
-            ViewBag.DichVu = DichVuSuDung;
             ViewBag.ThanhTien = ThanhTien;
             return View("DatPhongThanhCong");
         }

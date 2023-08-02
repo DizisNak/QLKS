@@ -20,10 +20,9 @@ namespace QLKS_CNPM_LT.Models
         {
             this.TAIKHOANs = new HashSet<TAIKHOAN>();
         }
-
-        [Required(ErrorMessage = "Không được để trống Mã Loại Tài Khoản")]
+        [Required(ErrorMessage = "Không được để trống Kiểu loại tài khoản")]
         public string ID_LOAITK { get; set; }
-        [Required(ErrorMessage = "Không được để trống Tên Loại Tài Khoản")]
+        [Required(ErrorMessage = "Không được để trống Tên loại")]
         public string TENLOAITK { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

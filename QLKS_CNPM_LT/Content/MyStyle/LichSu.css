@@ -1,0 +1,135 @@
+﻿
+
+.bang-dang-ky-thanh-cong {
+    width: 84%;
+    margin: 0 auto 10px;
+}
+
+    .bang-dang-ky-thanh-cong tr {
+        border-bottom: 1px solid #CCCCCC;
+        height: 40px;
+    }
+
+.bang-dat-phong-thanh-cong th {
+    text-align: center;
+}
+
+.bang-dang-ky-thanh-cong tr:last-child {
+    border-bottom: none;
+}
+
+.dat-phong-thanh-cong {
+    width: 40%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.admin-gia-thue {
+    margin: 0 auto;
+    width: 150px;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.ngay-den {
+    display: inline;
+    width: 160px;
+}
+
+.so-ngay {
+    display: inline;
+    width: 60px;
+}
+
+.canh-bao {
+    color: red;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.thanh-cong {
+    color: green;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.huy-dat-thanh-cong {
+    width: 40%;
+    text-align: center;
+    margin: auto;
+    color: green;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.header_slide {
+    margin-top: 10px;
+}
+
+.header_bottom_left {
+    float: left;
+    width: 25%;
+}
+
+.danh-muc {
+    text-align: left;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 80%;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #CCCCCC;
+    border-width: 1px;
+    background-color: #E0F0FF;
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+    .danh-muc h3 {
+        font-weight: bold;
+        text-align: center;
+        font-size: 16px;
+        color: #FFF;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 10px;
+        background: #B81D22;
+    }
+
+    .danh-muc li a {
+        text-decoration: none;
+        font-weight: bold;
+        display: block;
+        font-size: 15px;
+        padding: 8px 2px;
+        color: #4C4C4C;
+        border-bottom: 1px solid #EEE;
+    }
+
+    .danh-muc li:last-child a {
+        border: none;
+    }
+
+    .danh-muc li a:hover {
+        color: #0074D9;
+    }
+
+.danh-muc-lst {
+    list-style: circle;
+}
+
+.khung-lich-su {
+    width: 40%;
+    text-align: center;
+    margin: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #CCCCCC;
+    border-width: 1px;
+    background-color: #E0F0FF;
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+}
+

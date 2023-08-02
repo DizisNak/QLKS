@@ -43,10 +43,7 @@
 
                 </div>
                 <div class="item">
-                    <a class="none" href="/Admin/DSTaiKhoan">LIÊN HỆ</a>
-                </div>
-                <div class="item">
-                    <a class="none" href="/OrderDetail/Top5">TOP SẢN PHẨM BÁN CHẠY</a>
+                    <a class="none" href="#footer">LIÊN HỆ</a>
                 </div>
             </div>
 
@@ -67,7 +64,8 @@
                         </div>
                     </div>
                 }
-                else if ((((TAIKHOAN)Session["TaiKhoan"]).LOAITK.Trim() == "AD")){
+                else if ((((TAIKHOAN)Session["TaiKhoan"]).LOAITK.Trim() == "AD"))
+                {
                     <div class="item">
                         <div class="dropdown">
                             <button class="dropbtn">Hello @(((TAIKHOAN)Session["TaiKhoan"]).TenTK)</button>
@@ -80,13 +78,14 @@
                     </div>
                 }
 
-                    else
+                else
                 {
                     <div class="item">
                         <div class="dropdown">
                             <button class="dropbtn">Hello @(((TAIKHOAN)Session["TaiKhoan"]).TenTK)</button>
                             <div class="dropdown-content_user" style="left:0;">
                                 <a href="@Url.Action("CaNhan","TaiKhoan")"><ion-icon name="log-out-outline"></ion-icon>Thông tin cá nhân</a>
+                                <a href="@Url.Action("LichSu","TaiKhoan")"><ion-icon name="log-out-outline"></ion-icon>Lịch sử đặt phòng</a>
                                 <a href="@Url.Action("DangXuat","TaiKhoan")"><ion-icon name="log-out-outline"></ion-icon>Đăng suất</a>
                             </div>
                         </div>
@@ -145,7 +144,9 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="~/Scripts/MyJs/MyJs.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

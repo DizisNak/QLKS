@@ -76,7 +76,7 @@ namespace QLKS_CNPM_LT.Controllers
 
 
         [HttpPost]
-        public ActionResult DangKy(TaiKhoanDangKyView tk, HttpPostedFileBase file)
+        public ActionResult DangKy(TaiKhoanDangKyView tk)
         {
             if (ModelState.IsValid)
             {
@@ -95,8 +95,6 @@ namespace QLKS_CNPM_LT.Controllers
                     return View(tk);
                 }
 
-
-
                 var ID_TK = db.TAIKHOANs.ToList();
                 string MATK = ""; // The final formatted string to be generated
 
@@ -111,12 +109,7 @@ namespace QLKS_CNPM_LT.Controllers
                     MATK = "KH" + nextMaDatPhongNumber.ToString("D2");
                 }
 
-                if (file != null)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
-                    file.SaveAs(path);
-                }
+
 
 
                 var taoTK = new TAIKHOAN()
@@ -127,7 +120,6 @@ namespace QLKS_CNPM_LT.Controllers
                     SDT = tk.SDT,
                     Gmail = tk.Gmail,
                     LOAITK = "KH",
-                    ANH = tk.ANH
                 };
                 var TK = new TaiKhoan_Func();
                 TK.Insert(taoTK);
@@ -156,25 +148,68 @@ namespace QLKS_CNPM_LT.Controllers
 
         public ActionResult CaNhan()
         {
-            if(Session["TaiKhoan"] == null)
+            if (Session["TaiKhoan"] == null)
             {
                 Session["TrangTruoc"] = Request.RawUrl;
                 return Redirect("DangNhap");
             }
-            var TaiKhoan = ((TAIKHOAN)Session["TaiKhoan"]).ID_TK;
-            return View(db.TAIKHOANs.Find(TaiKhoan));
+            var TaiKhoan = (TAIKHOAN)Session["TaiKhoan"];
+            var TaiKhoanCaNhan = new TaiKhoanDangKyView
+            {
+                ID_TK = TaiKhoan.ID_TK,
+                TenTK = TaiKhoan.TenTK,
+                PASS = TaiKhoan.PASS,
+                XacNhanMatKhau = TaiKhoan.PASS,
+                Gmail = TaiKhoan.Gmail,
+                SDT = TaiKhoan.SDT,
+                ANH = TaiKhoan.ANH,
+                LOAITK = TaiKhoan.LOAITK
+            };
+            ViewBag.Img = TaiKhoan.ANH;
+            return View(TaiKhoanCaNhan);
         }
 
-        public ActionResult SuaTrangCaNhan()
+        public ActionResult LichSu()
         {
-            string ID_TK = RouteData.Values["id"].ToString();
-            var taiKhoan = db.TAIKHOANs.Find(ID_TK);
-            return View(taiKhoan);
+            if (Session["TaiKhoan"] == null) return Redirect("DangNhap");
+            TAIKHOAN taiKhoan = (TAIKHOAN)Session["TaiKhoan"];
+            DateTime dateHomNay = DateTime.Now.AddDays(-1);
+            var listLichSu = db.HOADONs.Where(dp => dp.MAKH == taiKhoan.ID_TK).Join(db.PHONGs, dp => dp.MA_PHONG, p => p.MA_PHONG, (dp, p) => new
+            {
+                MaDatPhong = dp.MAHD,
+                TenPhong = p.TENPhong,
+                NgayDat = dp.NgayDat,
+                NgayDen = dp.NgayDen,
+                NgayTra = dp.NgayTra,
+                ThanhTien = dp.TONGTIEN
+            }).AsEnumerable().Select(m =>
+                new LichSuView()
+                {
+                    MaDatPhong = m.MaDatPhong,
+                    TenPhong = m.TenPhong,
+                    NgayDat = m.NgayDat.Value.ToString("dd/MM/yyyy"),
+                    NgayDen = m.NgayDen.Value.ToString("dd/MM/yyyy"),
+                    NgayTra = m.NgayTra.Value.ToString("dd/MM/yyyy"),
+                    ThanhTien = m.ThanhTien,
+                    CoTheHuy = m.NgayDen > dateHomNay ? true : false
+                }).ToList();
+            return View(listLichSu);
         }
+
+        public ActionResult XoaDatPhong()
+        {
+            string MaHuy = (string)RouteData.Values["id"];
+            var HamDP = new HoaDon_Func();
+            HamDP.Delete(MaHuy);
+            TempData["HuyDat"] = 1;
+            return RedirectToAction("LichSu", "TaiKhoan");
+        }
+
+
 
 
         [HttpPost]
-        public ActionResult SuaTrangCaNhan(TAIKHOAN tk, HttpPostedFileBase file)
+        public ActionResult CaNhan(TaiKhoanDangKyView tk, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -184,13 +219,23 @@ namespace QLKS_CNPM_LT.Controllers
                     var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
                     file.SaveAs(path);
                 }
-                Session["TaiKhoan"] = tk;
+                var taiKhoan = new TAIKHOAN()
+                {
+                    ID_TK = tk.ID_TK,
+                    TenTK = tk.TenTK,
+                    PASS = tk.PASS,
+                    Gmail = tk.Gmail,
+                    SDT = tk.SDT,
+                    ANH = tk.ANH,
+                    LOAITK = tk.LOAITK
+                };
+                Session["TaiKhoan"] = taiKhoan;
                 var HamTK = new TaiKhoan_Func();
-                HamTK.Update((TAIKHOAN)Session["TaiKhoan"]);
+                HamTK.Update(taiKhoan);
                 ViewBag.Success = 1;
+                ViewBag.Img = tk.ANH;
             }
-            ViewBag.Success = 0;
-            return RedirectToAction("CaNhan", "TaiKhoan");
+            return View(tk);
         }
 
     }
