@@ -22,23 +22,6 @@ namespace QLKS_CNPM_LT.Controllers
         public ActionResult DSTaiKhoan()
         {
             var list = db.TAIKHOANs.ToList();
-            //int TongPhanTu = list.Count;
-            //int SoTrang = (TongPhanTu - 1) / MaxPhanTuMoiTrang + 1;
-            //int Trang = 1;
-            //try
-            //{
-            //    string id = RouteData.Values["id"].ToString();
-            //    Trang = Convert.ToInt16(id);
-            //    if (Trang > SoTrang) Trang = SoTrang;
-            //}
-            //catch (Exception e) { }
-            //int PhanTuDau = (Trang - 1) * MaxPhanTuMoiTrang;
-            //int SoPhanTu = MaxPhanTuMoiTrang;
-            //if (Trang == SoTrang) SoPhanTu = TongPhanTu - (SoTrang - 1) * MaxPhanTuMoiTrang;
-            //var listMoiTrang = list.GetRange(PhanTuDau, SoPhanTu);
-            //ViewBag.STT = PhanTuDau;
-            //ViewBag.Trang = Trang;
-            //ViewBag.SoTrang = SoTrang;
             return View(list);
         }
 
@@ -435,8 +418,6 @@ namespace QLKS_CNPM_LT.Controllers
             }
             return View(tk);
         }
-
-
 
 
         /*                                     SỬA                                        */
