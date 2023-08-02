@@ -41,13 +41,12 @@ CREATE  TABLE PHONG
 	TENPhong NVARCHAR(100),
 	TRANGTHAI NVARCHAR(100),
 	GIA float,
-	NoiDung NVARCHAR,
+	NoiDung NVARCHAR (255),
 	ANH NVARCHAR(255),
 	MaLoai varchar(10) references LoaiPhong(MaLoai),
-	DADUYET BIT,
+	DaDuyet tinyint,
 	DanhGia float,
-	BinhLuan NVARCHAR,
-	DiaChi NVARCHAR
+	DiaChi NVARCHAR (255)
 );
 
 GO
@@ -77,7 +76,7 @@ CREATE  TABLE HOADON
 	NgayDat date,
 	NgayDen date,
 	NgayTra date,
-	TrangThai NVARCHAR 
+	TrangThai NVARCHAR (50)
 );
 
 
