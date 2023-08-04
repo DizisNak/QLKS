@@ -93,9 +93,9 @@ namespace QLKS_CNPM_LT.Controllers
                 }
                 else
                 {
-                    int lastMaDatPhongNumber = int.Parse(ID_TK.Last().ID_TK.Substring(2));
-                    int nextMaDatPhongNumber = lastMaDatPhongNumber + 1;
-                    MATK = "KH" + nextMaDatPhongNumber.ToString("D2");
+                    int lastIDTK = int.Parse(ID_TK.Last().ID_TK.Substring(2));
+                    int nextIDTK = lastIDTK + 1;
+                    MATK = "KH" + nextIDTK.ToString("D2");
                 }
 
                 if (file != null && file.ContentLength > 0)
