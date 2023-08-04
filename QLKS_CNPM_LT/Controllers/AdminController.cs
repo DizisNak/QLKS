@@ -385,6 +385,10 @@ namespace QLKS_CNPM_LT.Controllers
             // Phải xoá luôn Hoá đơn của tài khoản đó
 
             string ID_LOAITK = RouteData.Values["id"].ToString();
+            if(ID_LOAITK.Trim() == "AD" || ID_LOAITK.Trim() ==  "KH")
+            {
+                return RedirectToAction("DSLoaiTaiKhoan", "Admin");
+            }
 
             var IDTK = db.TAIKHOANs.Where(m => m.LOAITK == ID_LOAITK).ToList();
             var HamTK = new TaiKhoan_Func();
@@ -470,7 +474,12 @@ namespace QLKS_CNPM_LT.Controllers
 
         public ActionResult SuaTaiKhoan()
         {
+            String Using = ((TAIKHOAN)Session["TaiKhoan"]).ID_TK.ToString();
             string ID = RouteData.Values["id"].ToString();
+            if(Using == ID)
+            {
+                return RedirectToAction("DSTaiKhoan", "Admin");
+            }
             var taiKhoan = db.TAIKHOANs.Find(ID);
             return View(taiKhoan);
         }

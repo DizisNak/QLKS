@@ -12,25 +12,6 @@
 
 
 
-@*@if (ViewBag.Success == 1)
-    {
-        <h3>@ViewBag.TenLoai</h3>
-        <div class="container">
-            <br />
-            @foreach (PHONG p in Model)
-            {
-                <div class="phong">
-                    <img class="img-rounded img-phong" src=@ViewBag.DuongDanAnh alt="Image" width="250" height="149" />
-                    <label>Tên Phòng: @p.TENPhong</label><br />
-                    <label>Diện Tích: @p.TRANGTHAI m&sup2;</label><br />
-                    <span class="gia-thue">@p.GIA.000 đ/ngày</span><br />
-                    <input type="button" class="btn-dat-phong" onclick="location.href = '/DatPhong/DatPhong/@p.MA_PHONG'" value="ĐẶT PHÒNG" />
-                </div>
-            }
-        </div>
-    }*@
-
-
 
 <ul id="list-product">
     @if (ViewBag.Success == 1)
@@ -51,15 +32,15 @@
                 </div>
 
                 <div class="card_action">
-                    @if (lp.TRANGTHAI != "1")
+                    @if (lp.TRANGTHAI == "1")
                     {
                         <button onclick="location.href='/Phong/DatPhong/@lp.MA_PHONG';">Đặt phòng</button>
-                        <button onclick="location.href='/Phong/CTPhong/@lp.MA_PHONG';">Chi tiết</button>
+                        <button onclick="location.href='/Phong/CTietPhong/@lp.MA_PHONG';">Chi tiết</button>
                     }
                     else
                     {
                         <button disabled onclick="location.href='/Phong/DatPhong/@lp.MA_PHONG';">Hết phòng</button>
-                        <button onclick="location.href='/Phong/CTPhong/@lp.MA_PHONG';">Chi tiết</button>
+                        <button onclick="location.href='/Phong/CTietPhong/@lp.MA_PHONG';">Chi tiết</button>
                     }
 
                 </div>

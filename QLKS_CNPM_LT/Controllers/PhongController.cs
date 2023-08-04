@@ -22,6 +22,16 @@ namespace QLKS_CNPM_LT.Controllers
             return View(func_phong.toanBoPhong());
         }
 
+        public ActionResult CTietPhong()
+        {
+            string id = (string)RouteData.Values["id"];
+            if (id == null)
+                return View(new PHONG());
+            ViewBag.Success = 1;
+            PHONG p = db.PHONGs.Where(m => m.MA_PHONG == id).First();
+            return View(p);
+        }
+
 
         public ActionResult CTlOAIPhong()
         {
@@ -34,9 +44,6 @@ namespace QLKS_CNPM_LT.Controllers
                 return View(new List<PHONG>());
             }
             ViewBag.Success = 1;
-            ViewBag.TenLoai = lp.TenLoai;
-            ViewBag.DuongDanAnh = lp.DuongDanAnh;
-            ViewBag.GhiChu = lp.GhiChu;
             var listPhong = db.PHONGs.Where(m => m.MaLoai == id).ToList();
             return View(listPhong);
         }
@@ -56,7 +63,7 @@ namespace QLKS_CNPM_LT.Controllers
 
             string MA_PHONG = (string)RouteData.Values["id"];
             var phong = db.PHONGs.Where(m => m.MA_PHONG == MA_PHONG).First();
-            var loaiPhong = db.LOAIPHONGs.Where(m => m.MaLoai == phong.MaLoai).First();
+            //var loaiPhong = db.LOAIPHONGs.Where(m => m.MaLoai == phong.MaLoai).First();
             return View(phong);
         }
 

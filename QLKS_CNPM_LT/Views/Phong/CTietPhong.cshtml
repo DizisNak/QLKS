@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "CTietPhong";
+    Layout = "~/Views/Shared/HouseLayout.cshtml";
+}
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* CSS cho các phần tử trong trang */
+    h1 {
+        font-size: 28px;
+        color: #000000;
+        margin-bottom: 10px;
+    }
+
+    .rating {
+        color: rgb(0, 0, 0);
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .star {
+        color: gold;
+        font-size: 20px;
+    }
+
+    img {
+        width: 100%;
+        max-height: 450px;
+        object-fit: cover;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        border-radius: 10px;
+    }
+
+    p {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    button {
+        background-color: #e02424;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        border-radius: 5px;
+    }
+
+        button:hover {
+            background-color: #490201;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            border-radius: 5px;
+        }
+</style>
+
+@using QLKS_CNPM_LT.Models
+@model PHONG
+    @{ 
+        decimal money = (decimal)Model.GIA;
+    }
+
+@if (ViewBag.Success == 1)
+{
+    <div class="container">
+        <h1>Tên phòng</h1>
+        <div class="rating" style="font-weight: bolder;">
+            Đánh giá:
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9734;</span>
+        </div>
+        <img src="@Url.Content(Model.ANH)" alt="Hình ảnh phòng">
+        <p style="font-weight: bolder;font-size: 20px;">Giới thiệu chi tiết</p>
+        <p>@Model.NoiDung</p>
+        <p style="font-weight: bolder;font-size: 20px;">Giá phòng</p>
+        <p  style="color:green">@money.ToString("#,###").Replace(",", ".") VNĐ</p>
+        <button onclick="location.href='/Phong/DatPhong/@Model.MA_PHONG';">Đặt phòng</button>
+    </div>
+}

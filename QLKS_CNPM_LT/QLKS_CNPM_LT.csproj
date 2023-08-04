@@ -301,6 +301,7 @@
     <Content Include="Views\Admin\SuaLoaiPhong.cshtml" />
     <Content Include="Views\TaiKhoan\LichSu.cshtml" />
     <Content Include="Views\Admin\SuaLoaiTaiKhoan.cshtml" />
+    <Content Include="Views\Phong\CTietPhong.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

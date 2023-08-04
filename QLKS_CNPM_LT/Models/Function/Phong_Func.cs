@@ -28,6 +28,18 @@ namespace QLKS_CNPM_LT.Models.Function
             return model.MA_PHONG;
         }
 
+        public string UpdateTrangThai(PHONG model)
+        {
+            PHONG dbEntry = db.PHONGs.Find(model.MA_PHONG);
+            if (dbEntry == null)
+            {
+                return null;
+            }
+            dbEntry.DaDuyet = model.DaDuyet;
+            db.SaveChanges();
+            return model.MA_PHONG;
+        }
+
         public string Update(PHONG model)
         {
             PHONG dbEntry = db.PHONGs.Find(model.MA_PHONG);

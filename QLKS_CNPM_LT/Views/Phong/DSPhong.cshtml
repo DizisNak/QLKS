@@ -26,7 +26,6 @@
         <div class="card">
 
             <div class="card_img">
-
                 <img src="@Url.Content(pv.ANH)" />
             </div>
             <div class="card_tille">
@@ -37,15 +36,15 @@
             </div>
 
             <div class="card_action">
-                @if (pv.TRANGTHAI != "1")
+                @if (pv.TRANGTHAI == "1")
                 {
                     <button onclick="location.href='/Phong/DatPhong/@pv.MA_PHONG';">Đặt phòng</button>
-                    <button onclick="location.href='/Phong/ChiTietPhong/@pv.MA_PHONG';">Chi tiết</button>
+                    <button onclick="location.href='/Phong/CTietPhong/@pv.MA_PHONG';">Chi tiết</button>
                 }
                 else
                 {
                     <button disabled onclick="location.href='/Phong/DatPhong/@pv.MA_PHONG';">Phòng đã hết</button>
-                    <button onclick="location.href='/Phong/ChiTietPhong/@pv.MA_PHONG';">Chi tiết</button>
+                    <button onclick="location.href='/Phong/CTietPhong/@pv.MA_PHONG';">Chi tiết</button>
                 }
 
             </div>
