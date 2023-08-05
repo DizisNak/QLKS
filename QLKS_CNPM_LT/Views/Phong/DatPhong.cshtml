@@ -118,7 +118,17 @@
 
 
 <script>
-    var homnay = new Date().toISOString().substring(0, 10);
+    // Get the current date in UTC
+    var currentDateUTC = new Date();
+
+    // Adjust the current date and time based on the UTC offset for Vietnam (+07:00)
+    // 60 * 60 * 1000 = 3,600,000 milliseconds == 1 hour
+    // * 7 -> 7hours == UTC VIETNAM (+7)
+    var currentDateVietnam = new Date(currentDateUTC.getTime() + 7 * 60 * 60 * 1000);
+
+    // Format the date in 'yyyy-MM-dd' format
+    var homnay = currentDateVietnam.toISOString().substring(0, 10);
+
     document.getElementById('NgayDen').value = homnay;
     document.getElementById('NgayDen').min = homnay;
 
