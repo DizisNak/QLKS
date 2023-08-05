@@ -58,7 +58,7 @@
             <select class="form-control dang-nhap-text" name="LOAITK" id="LOAITK">
                 @foreach (var ltk in LOAITK)
                 {
-                    <option value="@ltk.ID_LOAITK.Trim()">@ltk.TENLOAITK</option>
+                    <option value="@ltk.ID_LOAITK.Trim()" @(Model.LOAITK == ltk.ID_LOAITK ? "selected" : "")>@ltk.TENLOAITK</option>
                 }
             </select>
         </div>

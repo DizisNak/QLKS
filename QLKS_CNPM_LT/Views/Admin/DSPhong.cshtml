@@ -18,6 +18,7 @@
 </script>
 
 
+
 <h2 style="text-align:center">Danh Sách Phòng</h2>
 <div id="myinput">
     <input type="text" name="search" class="live-search-box" placeholder="Bạn cần tìm gì" />
@@ -29,92 +30,94 @@
 
 <div class="">
     <form method="post">
-        <input type="submit" value="Xoá tất cả"/>
-        <table class="table table-hover table-striped">
-            <thead>
-                <tr>
-                    <th><input type="checkbox" id="checkBoxAll" /></th>
-                    <th>STT</th>
-                    <th>Mã phòng</th>
-                    <th>Tên phòng</th>
-                    <th>Giá</th>
-                    <th>Chủ sỡ hữu</th>
-                    <th>Loại phòng</th>
-                    <th>Trạng thái phòng</th>
-                    <th>Trạng thái duyệt</th>
-                    <th>Ảnh</th>
-                    <th>Thao Tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    foreach (PHONG phong in Model)
+    <input type="submit" value="Xoá tất cả" />
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="checkBoxAll" /></th>
+                <th>STT</th>
+                <th>Mã phòng</th>
+                <th>Tên phòng</th>
+                <th>Giá</th>
+                <th>Chủ sỡ hữu</th>
+                <th>Loại phòng</th>
+                <th>Trạng thái phòng</th>
+                <th>Trạng thái duyệt</th>
+                <th>Ảnh</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (PHONG phong in Model)
+                {
+                    if (phong.DaDuyet == 1)
                     {
-                        if (phong.DaDuyet == 1)
-                        {
-                            ViewBag.Txt = "Đã duyệt";
-                        }
-                        else
-                        {
-                            ViewBag.Txt = "Chưa duyệt";
-                        }
-
-                        if (phong.TRANGTHAI.Equals("1"))
-                        {
-                            ViewBag.TrangThaiPhong = "Trống";
-                        }
-                        else
-                        {
-                            ViewBag.TrangThaiPhong = "Hết chỗ";
-                        }
-
-                        <tr>
-                            <td><input type="checkbox" class="chkCheckBoxId" name="MA_PHONG" value="@phong.MA_PHONG" /></td>
-                            <td>@stt</td>
-                            <td>@phong.MA_PHONG</td>
-                            <td>@phong.TENPhong</td>
-                            <td>@phong.GIA</td>
-                            <td>
-                                @{
-                                    var tk = (from p in db.TAIKHOANs
-                                              where p.ID_TK == phong.ID_TK
-                                              select p).FirstOrDefault();
-                                }
-                                @tk.TenTK | @tk.ID_TK
-                            </td>
-
-                            <td>
-                                @{
-                                    var tenloaiphong = (from lp in db.LOAIPHONGs
-                                                        where phong.MaLoai == lp.MaLoai
-                                                        select lp).FirstOrDefault();
-                                }
-                                @tenloaiphong.TenLoai
-                            </td>
-                            <td>
-                                @ViewBag.TrangThaiPhong
-                            </td>
-
-
-                            <td> @ViewBag.Txt</td>
-                            <td>
-                                @if (phong.ANH != null)
-                                {
-                                    <img src="@Url.Content(phong.ANH)" id="previewImg" width="50px" height="50px" />
-                                }
-                            </td>
-                            <td>
-                                <a href="/Admin/SuaPhong/@phong.MA_PHONG">Sửa</a>
-                               @* <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaPhong/@phong.MA_PHONG')">Xóa</a>*@
-                            </td>
-                        </tr>
-                        stt++;
+                        ViewBag.Duyet = "Đã duyệt";
                     }
+                    else
+                    {
+                        ViewBag.Duyet = "Chưa duyệt";
+                    }
+
+                    if (phong.TRANGTHAI.Equals("1"))
+                    {
+                        ViewBag.TrangThaiPhong = "Trống";
+                    }
+                    else
+                    {
+                        ViewBag.TrangThaiPhong = "Hết chỗ";
+                    }
+
+                    <tr>
+                        <td><input type="checkbox" class="chkCheckBoxId" name="MA_PHONG" value="@phong.MA_PHONG" /></td>
+                        <td>@stt</td>
+                        <td>@phong.MA_PHONG</td>
+                        <td>@phong.TENPhong</td>
+                        <td>@phong.GIA</td>
+                        <td>
+                            @{
+                                var tk = (from p in db.TAIKHOANs
+                                          where p.ID_TK == phong.ID_TK
+                                          select p).FirstOrDefault();
+                            }
+                            @tk.TenTK | @tk.ID_TK
+                        </td>
+
+                        <td>
+                            @{
+                                var tenloaiphong = (from lp in db.LOAIPHONGs
+                                                    where phong.MaLoai == lp.MaLoai
+                                                    select lp).FirstOrDefault();
+                            }
+                            @tenloaiphong.TenLoai
+                        </td>
+                        <td>
+                            @ViewBag.TrangThaiPhong
+                        </td>
+
+
+                        <td>
+                            <a href="#" class="btn_duyet" data-id="@phong.MA_PHONG">@ViewBag.Duyet</a>
+                        </td>
+                        <td>
+                            @if (phong.ANH != null)
+                            {
+                                <img src="@Url.Content(phong.ANH)" id="previewImg" width="50px" height="50px" />
+                            }
+                        </td>
+                        <td>
+                            <a href="/Admin/SuaPhong/@phong.MA_PHONG">Sửa</a>
+                            @* <a href="#" data-toggle="modal" data-target="#myModal" onclick="myFunction('/Admin/XoaPhong/@phong.MA_PHONG')">Xóa</a>*@
+                        </td>
+                    </tr>
+                    stt++;
                 }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
     </form>
-    
+
 </div>
 
 @Html.Partial("~/Views/SharedAdmin/_XacNhanModal.cshtml")
@@ -161,6 +164,39 @@
         });
     });
 
+
+    var maPhong = {
+        init: function () {
+            maPhong.registerEvents();
+        },
+        registerEvents: function () {
+            $('.btn_duyet').off('click').on('click', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var mp = btn.data('id');
+                $('#loadingOverlay').show();
+                $.ajax({
+                    url: "/Admin//Duyet",
+                    data: { maPhong: mp },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (res) {
+                        console.log(res);
+                        if (res.duyet == 1) {
+                            btn.text('Đã duyệt');
+                        }
+                        else {
+                            btn.text('Chưa duyệt');
+                        }
+                        $('#loadingOverlay').hide();
+                    }
+                });
+            });
+        }
+    }
+
+
+    maPhong.init();
 
 
 

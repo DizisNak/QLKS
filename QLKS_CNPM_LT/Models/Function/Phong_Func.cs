@@ -73,6 +73,21 @@ namespace QLKS_CNPM_LT.Models.Function
             return MaPhong;
         }
 
+        public byte? DuyetPhong(string MaPhong)
+        {
+            PHONG dbEntry = db.PHONGs.Find(MaPhong);
+            if(dbEntry.DaDuyet == 1)
+            {
+                dbEntry.DaDuyet = 0;
+            }
+            else
+            {
+                dbEntry.DaDuyet = 1;
+            }
+            db.SaveChanges();
+            return dbEntry.DaDuyet;
+        }
+
 
         public List<PhongView> toanBoPhong()
         {

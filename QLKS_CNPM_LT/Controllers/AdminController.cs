@@ -358,24 +358,24 @@ namespace QLKS_CNPM_LT.Controllers
             return RedirectToAction("DSLoaiPhong", "Admin");
         }
 
-        [HttpPost]
-        public ActionResult DSPhong(FormCollection form)
-        {
-            if (ModelState.IsValid)
-            {
-                string[] ids = form["MA_PHONG"].Split(new char[] { ',' });
-                var HamPhong = new Phong_Func();
-                var HamDP = new HoaDon_Func();
-                foreach (string id in ids)
-                {
-                    var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == id).ToList();
-                    foreach (HOADON dp in listDatPhong)
-                        HamDP.Delete(dp.MAHD);
-                    HamPhong.Delete(id);
-                }
-            }
-            return RedirectToAction("DSPhong", "Admin");
-        }
+        //[HttpPost]
+        //public ActionResult DSPhong(FormCollection form)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        string[] ids = form["MA_PHONG"].Split(new char[] { ',' });
+        //        var HamPhong = new Phong_Func();
+        //        var HamDP = new HoaDon_Func();
+        //        foreach (string id in ids)
+        //        {
+        //            var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == id).ToList();
+        //            foreach (HOADON dp in listDatPhong)
+        //                HamDP.Delete(dp.MAHD);
+        //            HamPhong.Delete(id);
+        //        }
+        //    }
+        //    return RedirectToAction("DSPhong", "Admin");
+        //}
 
         public ActionResult XoaLoaiTaiKhoan()
         {
@@ -471,6 +471,12 @@ namespace QLKS_CNPM_LT.Controllers
 
 
         /*                                     SỬA                                        */
+        public ActionResult SuaLoaiTaiKhoan()
+        {
+            string ID = RouteData.Values["id"].ToString();
+            var taiKhoan = db.LOAITAIKHOANs.Find(ID);
+            return View(taiKhoan);
+        }
 
         public ActionResult SuaTaiKhoan()
         {
@@ -484,12 +490,7 @@ namespace QLKS_CNPM_LT.Controllers
             return View(taiKhoan);
         }
 
-        public ActionResult SuaLoaiTaiKhoan()
-        {
-            string ID = RouteData.Values["id"].ToString();
-            var taiKhoan = db.LOAITAIKHOANs.Find(ID);
-            return View(taiKhoan);
-        }
+
 
         [HttpPost]
         public ActionResult SuaLoaiTaiKhoan(LOAITAIKHOAN ltk)
@@ -569,6 +570,16 @@ namespace QLKS_CNPM_LT.Controllers
                 return RedirectToAction("DSPhong", "Admin");
             }
             return View(tk);
+        }
+
+        [HttpPost]
+        public JsonResult Duyet(string maPhong)
+        {
+            var rs = new Phong_Func().DuyetPhong(maPhong);
+            return Json(new
+            {
+                duyet = rs
+            });
         }
 
 
