@@ -86,8 +86,8 @@ namespace QLKS_CNPM_LT.Controllers
             // Get the number of days as an integer value
             int SoNgayThue = difference.Days + 1;
 
-
-            var kiemTraPhongBiDatChua = db.HOADONs.
+                            
+            var kiemTraPhongBiDatChua = db.HOADONs. // 23/06 - 24/06  ------------------- 24/06 - 25/06
                 Where(m => m.MA_PHONG == MA_PHONG && !(m.NgayDen >= dateNgayTra || m.NgayTra <= dateNgayDen)).ToList(); //NgayDen 20 >= 8 NgayTra || NgayTra 21 <= 30
             if (kiemTraPhongBiDatChua.Count > 0)
             {

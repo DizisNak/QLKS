@@ -12,7 +12,7 @@ namespace QLKS_CNPM_LT.Models.ViewModel
         public string NgayDat { get; set; }
         public string NgayDen { get; set; }
         public string NgayTra { get; set; }
-        public string DichVu { get; set; }
+        public string DiaChi { get; set; }
         public double? ThanhTien { get; set; }
         public bool CoTheHuy { get; set; }
     }

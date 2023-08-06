@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "DSLichSuPhong";
+    Layout = "~/Views/SharedAdmin/_Layout.cshtml";
+}
+
+<h2>DSLichSuPhong</h2>
+@using QLKS_CNPM_LT.Models
+@model List<HOADON>
+@{
+    var stt = 1;
+    var db = new QLKS_CNPMEntities();
+
+}
+
+<script>
+    var element = document.getElementById("collapse5");
+    element.classList.add("in");
+</script>
+
+
+
+<h2 style="text-align:center">Danh Sách Phòng</h2>
+<div id="myinput">
+    <input type="text" name="search" class="live-search-box" placeholder="Bạn cần tìm gì" />
+</div>
+
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<div class="">
+    <form method="post">
+        <input type="submit" value="Xoá tất cả" />
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="checkBoxAll" /></th>
+                    <th>STT</th>
+                    <th>Mã hoá đơn</th>
+                    <th>Tên người đặt</th>
+                    <th>Ngày đặt</th>
+                    <th>Ngày đến</th>
+                    <th>Ngày trả</th>
+                    <th>Thành tiền</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (HOADON phong in Model)
+                    {
+
+                        decimal money = (decimal)phong.TONGTIEN;
+                        <tr>
+                            <td><input type="checkbox" class="chkCheckBoxId" name="MAHD" value="@phong.MAHD" /></td>
+                            <td>@stt</td>
+                            <td>@phong.MAHD</td>
+                            <td>@phong.TAIKHOAN.TenTK</td>
+                            <td>@phong.NgayDat.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@phong.NgayDen.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@phong.NgayTra.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@money.ToString("#,###").Replace(",", ".") VNĐ</td>
+                        </tr>
+                        stt++;
+                    }
+                }
+            </tbody>
+        </table>
+    </form>
+
+</div>

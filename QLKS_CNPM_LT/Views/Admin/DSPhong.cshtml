@@ -51,6 +51,7 @@
             @{
                 foreach (PHONG phong in Model)
                 {
+                    decimal money =(decimal) phong.GIA;
                     if (phong.DaDuyet == 1)
                     {
                         ViewBag.Duyet = "Đã duyệt";
@@ -74,7 +75,7 @@
                         <td>@stt</td>
                         <td>@phong.MA_PHONG</td>
                         <td>@phong.TENPhong</td>
-                        <td>@phong.GIA</td>
+                        <td>@money.ToString("#,###").Replace(",", ".") VNĐ</td>
                         <td>
                             @{
                                 var tk = (from p in db.TAIKHOANs

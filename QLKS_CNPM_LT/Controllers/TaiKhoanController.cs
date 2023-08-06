@@ -181,10 +181,12 @@ namespace QLKS_CNPM_LT.Controllers
                 NgayDat = dp.NgayDat,
                 NgayDen = dp.NgayDen,
                 NgayTra = dp.NgayTra,
-                ThanhTien = dp.TONGTIEN
+                ThanhTien = dp.TONGTIEN,
+                DiaChi = p.DiaChi
             }).AsEnumerable().Select(m =>
                 new LichSuView()
                 {
+                    DiaChi = m.DiaChi,
                     MaDatPhong = m.MaDatPhong,
                     TenPhong = m.TenPhong,
                     NgayDat = m.NgayDat.Value.ToString("dd/MM/yyyy"),

@@ -45,6 +45,12 @@ namespace QLKS_CNPM_LT.Controllers
             return View(list);
         }
 
+        public ActionResult DSLichSuPhong()
+        {
+            var list = db.HOADONs.ToList();
+            return View(list);
+        }
+
         public ActionResult ThemTaiKhoan()
         {
             return View(new TAIKHOAN());
@@ -358,24 +364,24 @@ namespace QLKS_CNPM_LT.Controllers
             return RedirectToAction("DSLoaiPhong", "Admin");
         }
 
-        //[HttpPost]
-        //public ActionResult DSPhong(FormCollection form)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        string[] ids = form["MA_PHONG"].Split(new char[] { ',' });
-        //        var HamPhong = new Phong_Func();
-        //        var HamDP = new HoaDon_Func();
-        //        foreach (string id in ids)
-        //        {
-        //            var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == id).ToList();
-        //            foreach (HOADON dp in listDatPhong)
-        //                HamDP.Delete(dp.MAHD);
-        //            HamPhong.Delete(id);
-        //        }
-        //    }
-        //    return RedirectToAction("DSPhong", "Admin");
-        //}
+        [HttpPost]
+        public ActionResult DSPhong(FormCollection form)
+        {
+            if (ModelState.IsValid)
+            {
+                string[] ids = form["MA_PHONG"].Split(new char[] { ',' });
+                var HamPhong = new Phong_Func();
+                var HamDP = new HoaDon_Func();
+                foreach (string id in ids)
+                {
+                    var listDatPhong = db.HOADONs.Where(m => m.MA_PHONG == id).ToList();
+                    foreach (HOADON dp in listDatPhong)
+                        HamDP.Delete(dp.MAHD);
+                    HamPhong.Delete(id);
+                }
+            }
+            return RedirectToAction("DSPhong", "Admin");
+        }
 
         public ActionResult XoaLoaiTaiKhoan()
         {
