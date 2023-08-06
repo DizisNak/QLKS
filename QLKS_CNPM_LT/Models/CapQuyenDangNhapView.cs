@@ -21,7 +21,7 @@ namespace QLKS_CNPM_LT.Models.ViewModel
                     .Where(u => u.Gmail == username)
                     .Select(u => u.LOAITK.Trim())
                     .ToArray();
-                Debug.WriteLine($"User roles: {string.Join(",", userRoles)}");
+                //Debug.WriteLine($"User roles: {string.Join(",", userRoles)}");
                 return userRoles;
             }
         }

@@ -164,7 +164,7 @@ namespace QLKS_CNPM_LT.Controllers
                 }
                 else
                 {
-                    int lastMaDatPhongNumber = int.Parse(ID_PHONG.Last().MA_PHONG.Substring(2));
+                    int lastMaDatPhongNumber = int.Parse(ID_PHONG.Last().MA_PHONG.Substring(1));
                     int nextMaDatPhongNumber = lastMaDatPhongNumber + 1;
                     MAPHONG = "P" + nextMaDatPhongNumber.ToString("D2");
                 }
