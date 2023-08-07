@@ -88,11 +88,11 @@
         $('form').submit(function (event) {
             if ($('.chkCheckBoxId:checked').length === 0) {
                 event.preventDefault();
-                swal("Thông báo", "Vui lòng chọn ít nhất một phòng để xoá.", "warning");
+                swal("Thông báo", "Vui lòng chọn ít nhất một loại phòng để xoá.", "warning");
             } else {
                 swal({
                     title: "Xác nhận",
-                    text: "Bạn có chắc muốn xoá tất cả các phòng đã chọn?",
+                    text: "Bạn có chắc muốn xoá tất cả các loại phòng đã chọn?",
                     icon: "warning",
                     buttons: ["Hủy", "Xoá"],
                     dangerMode: true,
@@ -107,6 +107,7 @@
                 event.preventDefault();
             }
         });
+    });
 
     $(document).ready(function () {
         $('.live-search-box').on('keyup', function () {

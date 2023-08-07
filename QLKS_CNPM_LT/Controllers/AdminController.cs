@@ -543,7 +543,7 @@ namespace QLKS_CNPM_LT.Controllers
                 if (file != null)
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
+                    var path = Path.Combine(Server.MapPath("/Data/roomImg/"), fileName);
                     file.SaveAs(path);
                 }
                 var HamTK = new LoaiPhong_Func();
@@ -568,7 +568,7 @@ namespace QLKS_CNPM_LT.Controllers
                 if (file != null)
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("/Data/profileImg/"), fileName);
+                    var path = Path.Combine(Server.MapPath("/Data/roomImg/"), fileName);
                     file.SaveAs(path);
                 }
                 var UpdatePhong = new Phong_Func();

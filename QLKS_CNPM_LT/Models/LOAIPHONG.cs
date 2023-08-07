@@ -24,8 +24,9 @@ namespace QLKS_CNPM_LT.Models
     
         public string MaLoai { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống Tài Khoản")]
+        [Required(ErrorMessage = "Không được để trống tên loại")]
         public string TenLoai { get; set; }
+        [Required(ErrorMessage = "Không được để trống ghi chú")]
         public string GhiChu { get; set; }
         [Required(ErrorMessage = "Không được để trống Ảnh")]
         public string DuongDanAnh { get; set; }
