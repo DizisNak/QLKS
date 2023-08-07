@@ -31,7 +31,9 @@
 
 <div class="">
     <form method="post">
-        <input type="submit" value="Xoá tất cả" />
+        <div id="myinput">
+            <input type="text" name="search" class="live-search-box" placeholder="Bạn cần tìm gì" />
+        </div>
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
@@ -39,6 +41,7 @@
                     <th>STT</th>
                     <th>Mã hoá đơn</th>
                     <th>Tên người đặt</th>
+                    <th>Mail người đặt</th>
                     <th>Ngày đặt</th>
                     <th>Ngày đến</th>
                     <th>Ngày trả</th>
@@ -56,6 +59,7 @@
                             <td>@stt</td>
                             <td>@phong.MAHD</td>
                             <td>@phong.TAIKHOAN.TenTK</td>
+                            <td>@phong.TAIKHOAN.Gmail</td>
                             <td>@phong.NgayDat.Value.ToString("dd/MM/yyyy")</td>
                             <td>@phong.NgayDen.Value.ToString("dd/MM/yyyy")</td>
                             <td>@phong.NgayTra.Value.ToString("dd/MM/yyyy")</td>
@@ -69,3 +73,28 @@
     </form>
 
 </div>
+
+<script>
+
+
+
+    $(document).ready(function () {
+        $('.live-search-box').on('keyup', function () {
+            var searchTerm = $(this).val().trim().toLowerCase();
+
+            $('tbody tr').each(function () {
+                var tenTK = $(this).find('td:nth-child(4)').text().trim().toLowerCase();
+                var gmail = $(this).find('td:nth-child(5)').text().trim().toLowerCase();
+                if (
+                    compareStrings(gmail, searchTerm) ||
+                    compareStrings(tenTK, searchTerm) ||
+                    searchTerm.length < 1
+                ) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>
