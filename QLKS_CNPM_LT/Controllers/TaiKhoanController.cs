@@ -42,20 +42,7 @@ namespace QLKS_CNPM_LT.Controllers
                     return View(tk);
                 }
                 TAIKHOAN taiKhoan = list.FirstOrDefault();
-
-                if (taiKhoan.LOAITK.Trim().Equals("AD"))
-                {
-                    Session["TaiKhoan"] = taiKhoan;
-                    FormsAuthentication.SetAuthCookie(taiKhoan.Gmail, tk.TuDongDangNhap);
-                    return RedirectToAction("DSTaiKhoan", "Admin");
-                }
-
-                if(taiKhoan.LOAITK.Trim().Equals("KH"))
-                {
-                    FormsAuthentication.SetAuthCookie(taiKhoan.Gmail, tk.TuDongDangNhap);
-                }
                 Session["TaiKhoan"] = taiKhoan;
-
                 if (tk.TuDongDangNhap)
                 {
                     HttpCookie ckTaiKhoan = new HttpCookie("Gmail"), ckMatKhau = new HttpCookie("PASS");
@@ -65,6 +52,18 @@ namespace QLKS_CNPM_LT.Controllers
                     Response.Cookies.Add(ckTaiKhoan);
                     Response.Cookies.Add(ckMatKhau);
                 }
+
+                if (taiKhoan.LOAITK.Trim().Equals("AD"))
+                {
+                    FormsAuthentication.SetAuthCookie(taiKhoan.Gmail, tk.TuDongDangNhap);
+                    return RedirectToAction("DSTaiKhoan", "Admin");
+                }
+
+                if(taiKhoan.LOAITK.Trim().Equals("KH"))
+                {
+                    FormsAuthentication.SetAuthCookie(taiKhoan.Gmail, tk.TuDongDangNhap);
+                }
+
                 if (Session["TrangTruoc"] != null)
                 {
                     return Redirect(Session["TrangTruoc"].ToString());
@@ -108,9 +107,6 @@ namespace QLKS_CNPM_LT.Controllers
                     int nextMaDatPhongNumber = lastMaDatPhongNumber + 1;
                     MATK = "KH" + nextMaDatPhongNumber.ToString("D2");
                 }
-
-
-
 
                 var taoTK = new TAIKHOAN()
                 {

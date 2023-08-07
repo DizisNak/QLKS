@@ -14,10 +14,11 @@ namespace QLKS_CNPM_LT.Models.ViewModel
             ANH = "~/Content/profileImg/profileImg.png";
         }
         public string ID_TK { get; set; }
-        [Required(ErrorMessage = "Không được để trống Tài Khoản")]
+        [Required(ErrorMessage = "Không được để trống Tài Khoản"), MinLength(6, ErrorMessage = "Tối thiểu 6 kí tự"), MaxLength(50, ErrorMessage = "Tối đa 50 ký tự")]
         public string TenTK { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống Mật Khẩu")]
+        [Required(ErrorMessage = "Không được để trống Mật khẩu")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$", ErrorMessage = "Mật khẩu phải 8 kí tự, 1 chữ in hoa hoặc 1 ký tự đặc biệt.")]
         public string PASS { get; set; }
 
         [Compare("PASS", ErrorMessage = "Mật Khẩu Không Khớp")]

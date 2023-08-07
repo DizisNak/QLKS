@@ -37,8 +37,6 @@ namespace QLKS_CNPM_LT.Models
         [Required(ErrorMessage = "Không được để trống Tên Ảnh")]
         public string ANH { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống Mật khẩu")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$", ErrorMessage = "Mật khẩu không hợp lệ.")]
         public string PASS { get; set; }
 
         [Required(ErrorMessage = "Không được để trống Số Điện Thoại")]
